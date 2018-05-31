@@ -32,103 +32,264 @@
             <!-- Smart Wizard -->
             <p>* ระบบสามารถบันทึกได้ เมื่อการกรอกข้อมูลครบทุกขั้นตอน</p>
             <div id="wizard" class="form_wizard wizard_horizontal">
-            <ul class="wizard_steps" style="margin-top: 35px; margin-bottom: 35px;">
-                <li>
-                <a href="#step-1" class="selected">
-                    <span class="step_no">1</span>
-                    <span class="step_descr">
-                        Step 1<br />
-                        <small>Main Business</small>
-                    </span>
-                </a>
-                </li>
-                <li>
-                <a href="#step-2" >
-                    <span class="step_no" style="background: #ccc">2</span>
-                    <span class="step_descr">
-                        Step 2<br />
-                        <small>ประวัติผู้บริหาร</small>
-                    </span>
-                </a>
-                </li>
-                <li>
-                    <a href="#step-2">
-                    <span class="step_no" style="background: #ccc">2</span>
-                    <span class="step_descr">
-                        Step 3<br />
-                        <small>เป้าหมาย</small>
-                    </span>
+                <ul class="wizard_steps" style="margin-top: 35px; margin-bottom: 35px;">
+                    <li>
+                    <a href="#step-1" class="selected">
+                        <span class="step_no">1</span>
+                        <span class="step_descr">
+                            Step 1<br />
+                            <small>Main Business</small>
+                        </span>
                     </a>
-                </li>
-                <li>
-                <a href="#step-3">
-                    <span class="step_no" style="background: #ccc">3</span>
-                    <span class="step_descr">
-                        Step 4<br />
-                        <small>ข้อมูลธุรกิจ</small>
-                    </span>
-                </a>
-                </li>
-                <li>
-                <a href="#step-4">
-                    <span class="step_no" style="background: #ccc">4</span>
-                    <span class="step_descr">
-                        Step 5<br />
-                        <small>ข้อมูลทางการเงิน</small>
-                    </span>
-                </a>
-                </li>
-            </ul>
-            <div id="step-1">
-                <form class="form-horizontal form-label-left">
-
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="customer-id">รหัสลูกค้า <span class="required">*</span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input type="text" id="customer-id" required="required" class="form-control col-md-7 col-xs-12">
-                    </div>
+                    </li>
+                    <li>
+                    <a href="#step-2" ng-class="">
+                        <span class="step_no" style="background: #ccc">2</span>
+                        <span class="step_descr">
+                            Step 2<br />
+                            <small>ประวัติผู้บริหาร</small>
+                        </span>
+                    </a>
+                    </li>
+                    <li>
+                        <a href="#step-2">
+                        <span class="step_no" style="background: #ccc">2</span>
+                        <span class="step_descr">
+                            Step 3<br />
+                            <small>เป้าหมาย</small>
+                        </span>
+                        </a>
+                    </li>
+                    <li>
+                    <a href="#step-3">
+                        <span class="step_no" style="background: #ccc">3</span>
+                        <span class="step_descr">
+                            Step 4<br />
+                            <small>ข้อมูลธุรกิจ</small>
+                        </span>
+                    </a>
+                    </li>
+                    <li>
+                    <a href="#step-4">
+                        <span class="step_no" style="background: #ccc">4</span>
+                        <span class="step_descr">
+                            Step 5<br />
+                            <small>ข้อมูลทางการเงิน</small>
+                        </span>
+                    </a>
+                    </li>
+                </ul>
+                <div ng-if="step == 1" id="step-1">
+                    <form class="form-horizontal form-label-left">
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="customer-id">รหัสลูกค้า <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="customer-id" required="required" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="customer-name">ชื่อธุรกิจ <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="customer-name" name="customer-name" required="required" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="address" class="control-label col-md-3 col-sm-3 col-xs-12">ที่อยู่</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <textarea id="address" class="form-control col-md-7 col-xs-12" type="text" name="address" rows="5" ></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 15px;">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">ประเภทธุรกิจ</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div id="customer-type" class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                <input type="radio" name="customer-type" value="0"> &nbsp; Male &nbsp;
+                                </label>
+                                <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                <input type="radio" name="customer-type" value="1"> Female
+                                </label>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">เบอร์โทรศัพท์ <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input id="phone" class="form-control col-md-7 col-xs-12" required="required" type="text">
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="customer-name">ชื่อธุรกิจ <span class="required">*</span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input type="text" id="customer-name" name="customer-name" required="required" class="form-control col-md-7 col-xs-12">
-                    </div>
+                <div ng-if="step == 2" id="step-2">
+                    <form class="form-horizontal form-label-left">
+                        <div class="form-group" style="margin: 20px">
+                            <h2 class="control-label col-md-3 col-sm-3 col-xs-12">ข้อมูลผู้บริหารหลัก
+                            </h2>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">ชื่อ
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">อายุ
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 15px;">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">เพศ</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div  class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                <input type="radio" value="male"> ชาย
+                                </label>
+                                <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                <input type="radio" value="female"> หญิง
+                                </label>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">การศึกษา
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">สถานภาพ
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">อาชีพ
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">ประสบการณ์
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <!-- ข้อมูลบุตร -->
+                        <div style="margin: 20px">
+                        </div>
+                        <div class="form-group" style="margin: 20px">
+                            <h2 class="control-label col-md-3 col-sm-3 col-xs-12">ข้อมูลบุตร
+                            </h2>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">ชื่อ
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">อายุ
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 15px;">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">เพศ</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div  class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                <input type="radio" value="male"> ชาย
+                                </label>
+                                <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                <input type="radio" value="female"> หญิง
+                                </label>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">การศึกษา
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">อาชีพ
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">ประสบการณ์ทำงาน
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <!-- ข้อมูลคู่สมรส -->
+                        <div style="margin: 20px">
+                        </div>
+                        <div class="form-group" style="margin: 20px">
+                            <h2 class="control-label col-md-3 col-sm-3 col-xs-12">ข้อมูลคู่สมรส
+                            </h2>
+                        </div>
+                        <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">ชื่อ
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">อายุ
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">การศึกษา
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">อาชีพ
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">ประสบการณ์ทำงาน
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label for="address" class="control-label col-md-3 col-sm-3 col-xs-12">ที่อยู่</label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                    <textarea id="address" class="form-control col-md-7 col-xs-12" type="text" name="address" rows="5" ></textarea>
-                    </div>
-                </div>
-                <div class="form-group" style="margin-bottom: 15px;">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">ประเภทธุรกิจ</label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div id="customer-type" class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                        <input type="radio" name="customer-type" value="0"> &nbsp; Male &nbsp;
-                        </label>
-                        <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                        <input type="radio" name="customer-type" value="1"> Female
-                        </label>
-                    </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">เบอร์โทรศัพท์ <span class="required">*</span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input id="phone" class="form-control col-md-7 col-xs-12" required="required" type="text">
-                    </div>
-                </div>
+            </div>
+            <div class="actionBar">
                 
-                </form>
-
+                <a href="#" class="buttonFinish buttonDisabled btn btn-default">Finish</a>
+                <a ng-click="click_next()" class="buttonNext btn btn-success">Next</a>
+                <a ng-click="click_previous()" class="buttonPrevious btn btn-primary">Previous</a>
             </div>
-            
-            </div>
-            <div class="actionBar"><a href="#" class="buttonFinish buttonDisabled btn btn-default">Finish</a><a href="#" class="buttonNext btn btn-success">Next</a><a href="#" class="buttonPrevious buttonDisabled btn btn-primary">Previous</a></div>
             <!-- End SmartWizard Content -->
         </div>
         </div>
