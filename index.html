@@ -18,6 +18,12 @@
 
     <!-- Custom Theme Style -->
     <link href="/static/build/css/custom.min.css" rel="stylesheet">
+
+    <style>
+      html, body, .ng-scope {
+        height: 100%;
+      }
+    </style>
   </head>
 
   <body ng-app="app" class="nav-md">
@@ -182,7 +188,10 @@
           </div>
         </div>
         <!-- /top navigation -->
-        <div class="right_col" role="main" ng-view></div>
+        
+        <div class="right_col" role="main" ng-view>
+          
+        </div>
 
         <!-- footer content -->
         <footer>
