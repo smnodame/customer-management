@@ -1,0 +1,20 @@
+{
+  "name": "static",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "boonprakit <boonprakit@proteus-tech.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-route": "^1.7.0"
+  }
+}
