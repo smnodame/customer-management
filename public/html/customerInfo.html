@@ -38,43 +38,19 @@
                             </ul>
                             <div id="myTabContent" class="tab-content">
                                 <div ng-show="tab_index == 1">
-                                    <div class="col-xs-12" style="margin-left: 20px; margin-right: 20px">
-                                        <p style="margin-bottom: 18px; margin-top: 8px">อัพเดทเมื่อวันที่ 2/22/2014</p>
-                                        <div class="table-responsive" style="margin-right: 20px">
-                                            <table class="table">
-                                            <tbody>
-                                                <tr>
-                                                    <th style="width:20%">รหัสลูกค้า</th>
-                                                    <td>sm00052</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>ชื่อธุรกิจ</th>
-                                                    <td>บริษัทไทยบีฟจำกัด</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>ที่อยู่</th>
-                                                    <td>45 หมู่ 8 ตำบล ชมภู อำเภอ สารภี จังหวัด เชียงใหม่</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>ประเภทธุรกิจ</th>
-                                                    <td>บุคคลธรรมกา</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>เบอร์โทรศัพท์</th>
-                                                    <td>0828469953</td>
-                                                </tr>
-                                            </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+                                    <div ng-include="'/static/html/info/step1.html'"></div>
                                 </div>
                                 <div ng-show="tab_index == 2">
-                                    <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
-                                    booth letterpress, commodo enim craft beer mlkshk aliquip</p>
+                                    <div ng-include="'/static/html/info/step2.html'"></div>
                                 </div>
                                 <div ng-show="tab_index == 3">
-                                    <p>xxFood truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
-                                    booth letterpress, commodo enim craft beer mlkshk </p>
+                                    <div ng-include="'/static/html/info/step3.html'"></div>
+                                </div>
+                                <div ng-show="tab_index == 3">
+                                    <div ng-include="'/static/html/info/step4.html'"></div>
+                                </div>
+                                <div ng-show="tab_index == 3">
+                                    <div ng-include="'/static/html/info/step5.html'"></div>
                                 </div>
                             </div>
                         </div>
