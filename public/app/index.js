@@ -9,11 +9,22 @@ app.config(function($routeProvider) {
         templateUrl : "static/html/customers.html",
         controller: 'customersCtrl'
     })
+    .when("/customer/:id", {
+        templateUrl : "static/html/customerInfo.html",
+        controller: 'customerInfoCtrl'
+    })
     .otherwise({redirectTo : '/'})
 })
 
 app.run(function($rootScope) { 
 });
+
+app.controller('customerInfoCtrl', [
+    '$scope', '$location', '$route', '$rootScope', '$routeParams',
+    function($scope, $location, $route, $rootScope, $routeParams) {
+        console.log('=========')
+    }
+])
 
 app.controller('customersCtrl', [
     '$scope', '$location', '$route', '$rootScope', '$routeParams',
