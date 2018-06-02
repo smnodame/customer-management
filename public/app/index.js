@@ -5,7 +5,7 @@ app.config(function($routeProvider) {
         templateUrl : "static/html/home.html",
         controller: 'homeCtrl'
     })
-    .when("/customers", {
+    .when("/customer", {
         templateUrl : "static/html/customers.html",
         controller: 'customersCtrl'
     })
