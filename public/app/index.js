@@ -22,7 +22,12 @@ app.run(function($rootScope) {
 app.controller('customerInfoCtrl', [
     '$scope', '$location', '$route', '$rootScope', '$routeParams',
     function($scope, $location, $route, $rootScope, $routeParams) {
-        console.log('=========')
+        $scope.tab_index = 1
+        $scope.change_tab = (tab_index) => {
+            console.log('==========')
+            console.log(tab_index)
+            $scope.tab_index = tab_index
+        }
     }
 ])
 
