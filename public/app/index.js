@@ -25,7 +25,12 @@ app.controller('customerInfoCtrl', [
         $scope.tab_index = 1
         $scope.change_tab = (tab_index) => {
             $scope.tab_index = tab_index
+            $(document).ready(function() {
+                $('#datatable-responsive').DataTable()
+            })
         }
+
+        
     }
 ])
 
