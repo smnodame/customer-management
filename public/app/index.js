@@ -19,7 +19,8 @@ app.controller('homeCtrl', [
         $scope.click_next = () => {
             if($scope.step < 5) {
                 $scope.step = $scope.step + 1
-                
+                window.scrollTo(0, 0)
+
                 if($scope.step > $scope.done) {
                     $scope.done = $scope.step
                 }
@@ -28,13 +29,15 @@ app.controller('homeCtrl', [
 
         $scope.click_previous = () => {
             if($scope.step > 1) {
-                $scope.step = $scope.step - 1                
+                $scope.step = $scope.step - 1   
+                window.scrollTo(0, 0)             
             }
         }
 
         $scope.go_to_step = (step) => {
             if(step <= $scope.done) {
-                $scope.step = step                
+                $scope.step = step
+                window.scrollTo(0, 0)                
             }
         }
     }
