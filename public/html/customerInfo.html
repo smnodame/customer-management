@@ -1,57 +1,61 @@
 <!-- page content -->
 <div class="">
-        <div class="page-title">
+    <div class="page-title">
         <div class="title_left">
             <h3>ข้อมูลลูกค้า</h3>
         </div>
-    
+
         <div class="title_right">
             <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
             </div>
         </div>
-        </div>
-        <div class="clearfix" style="margin-bottom: 25px;"></div>
-    
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>บริษัทไทยบีฟจำกัด<small></small></h2>
-    
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        
-                        
-                        <div class="" role="tabpanel" data-example-id="togglable-tabs">
-                            <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                                <li role="presentation" class="active"><a id="home-tab" ng-click="change_tab(1)" role="tab" data-toggle="tab" aria-expanded="true">Main Bussiness</a>
-                                </li>
-                                <li role="presentation" class=""><a role="tab" id="profile-tab" ng-click="change_tab(2)" data-toggle="tab" aria-expanded="false">ประวัติผู้บริหาร</a>
-                                </li>
-                                <li role="presentation" class=""><a role="tab" id="profile-tab2" ng-click="change_tab(3)" data-toggle="tab" aria-expanded="false">เป้าหมาย</a>
-                                </li>
-                                <li role="presentation" class=""><a role="tab" id="profile-tab2" ng-click="change_tab(4)" data-toggle="tab" aria-expanded="false">ข้อมูลธุรกิจ</a>
-                                </li>
-                                <li role="presentation" class=""><a role="tab" id="profile-tab2" ng-click="change_tab(5)" data-toggle="tab" aria-expanded="false">ข้อมูลทางการเงิน</a>
-                                </li>
-                            </ul>
-                            <div id="myTabContent" class="tab-content">
-                                <div ng-show="tab_index == 1">
-                                    <div ng-include="'/static/html/info/step1.html'"></div>
-                                </div>
-                                <div ng-show="tab_index == 2">
-                                    <div ng-include="'/static/html/info/step2.html'"></div>
-                                </div>
-                                <div ng-show="tab_index == 3">
-                                    <div ng-include="'/static/html/info/step3.html'"></div>
-                                </div>
-                                <div ng-show="tab_index == 4">
-                                    <div ng-include="'/static/html/info/step4.html'"></div>
-                                </div>
-                                <div ng-show="tab_index == 5">
-                                    <div ng-include="'/static/html/info/step5.html'"></div>
-                                </div>
+    </div>
+    <div class="clearfix" style="margin-bottom: 25px;"></div>
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>บริษัทไทยบีฟจำกัด<small></small></h2>
+
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+
+                    <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                        <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                            <li role="presentation" class="active"><a id="home-tab" ng-click="change_tab(1)" role="tab" data-toggle="tab" aria-expanded="true">Main Bussiness</a>
+                            </li>
+                            <li role="presentation" class=""><a role="tab" ng-click="change_tab(2)" data-toggle="tab" aria-expanded="false">ประวัติผู้บริหาร</a>
+                            </li>
+                            <li role="presentation" class=""><a role="tab" ng-click="change_tab(3)" data-toggle="tab" aria-expanded="false">เป้าหมาย</a>
+                            </li>
+                            <li role="presentation" class=""><a role="tab" ng-click="change_tab(4)" data-toggle="tab" aria-expanded="false">ข้อมูลธุรกิจ</a>
+                            </li>
+                            <li role="presentation" class=""><a role="tab" ng-click="change_tab(5)" data-toggle="tab" aria-expanded="false">ข้อมูลทางการเงิน</a>
+                            </li>
+                            <li role="presentation" class="" style="float: right; margin-right: 20px;"><a role="tab" ng-click="change_tab(6)" data-toggle="tab" aria-expanded="false">รายชื่อหน่วยงานขาย</a>
+                            </li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                            <div ng-show="tab_index == 1">
+                                <div ng-include="'/static/html/info/step1.html'"></div>
+                            </div>
+                            <div ng-show="tab_index == 2">
+                                <div ng-include="'/static/html/info/step2.html'"></div>
+                            </div>
+                            <div ng-show="tab_index == 3">
+                                <div ng-include="'/static/html/info/step3.html'"></div>
+                            </div>
+                            <div ng-show="tab_index == 4">
+                                <div ng-include="'/static/html/info/step4.html'"></div>
+                            </div>
+                            <div ng-show="tab_index == 5">
+                                <div ng-include="'/static/html/info/step5.html'"></div>
+                            </div>
+                            <div ng-show="tab_index == 6">
+                                <div ng-include="'/static/html/info/step6.html'"></div>
                             </div>
                         </div>
                     </div>
@@ -59,4 +63,5 @@
             </div>
         </div>
     </div>
-      <!-- /page content -->
+</div>
+<!-- /page content -->
