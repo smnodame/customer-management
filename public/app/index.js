@@ -5,6 +5,10 @@ app.config(function($routeProvider) {
         templateUrl : "static/html/home.html",
         controller: 'homeCtrl'
     })
+    .when("/customers", {
+        templateUrl : "static/html/customers.html",
+        controller: 'customersCtrl'
+    })
     .otherwise({redirectTo : '/'})
 })
 
