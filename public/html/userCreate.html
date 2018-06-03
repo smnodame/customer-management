@@ -246,12 +246,12 @@
           <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>รายละเอียด <small></small></h2>
+                  <h2>กลุ่มลูกค้า <small></small></h2>
                  
                   <div class="clearfix"></div>
                 </div>
-                <div class="x_content">
-                    <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="x_content" style="display: flex">
+                    <div style="flex: 1; padding: 15px">
                         <div class="panel panel-default">
                           <div class="panel-heading">Available Group</div>
                           <div class="panel-body" style="height: 300px; overflow-y: scroll; padding: 0">
@@ -288,9 +288,15 @@
                                 </ul>
                           </div>
                         </div>
-                        
+                        <div style="text-align: center">
+                            <button class="btn" style="background-color:transparent" ><i class="fa fa-check-circle" style="font-size: 25px"></i> <span>เลือกทั้งหมด</span></button>
+                        </div>
                     </div>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div style="flex-direction: column; display: flex; justify-content: center;">
+                        <button class="btn" style="background-color:transparent" ><i class="fa fa-chevron-circle-right" style="font-size: 25px"></i> </button>
+                        <button class="btn" style="background-color:transparent" ><i class="fa fa-chevron-circle-left" style="font-size: 25px"></i> </button>
+                    </div>
+                    <div style="flex: 1; padding: 15px">
                         <div class="panel panel-default">
                             <div class="panel-heading">Chosen Group</div>
                             <div class="panel-body" style="height: 300px; overflow-y: scroll; padding: 0">
@@ -326,6 +332,9 @@
                                     <li class="list-group-item">Vestibulum at eros</li>
                                   </ul>
                             </div>
+                          </div>
+                          <div style="text-align: center">
+                              <button class="btn" style="background-color:transparent" ><i class="fa fa-times-circle" style="font-size: 25px"></i> <span>ลบทั้งหมด</span></button>
                           </div>
                     </div>
                 </div>
