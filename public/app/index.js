@@ -26,7 +26,9 @@ app.run(function($rootScope) {
 app.controller('userCtrl', [
     '$scope', '$location', '$route', '$rootScope', '$routeParams',
     function($scope, $location, $route, $rootScope, $routeParams) {
-        $('#datatable-responsive').DataTable()
+        $('#datatable-responsive').DataTable({
+            iDisplayLength: 100
+        })
     }
 ])
 
