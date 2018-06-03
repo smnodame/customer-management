@@ -13,11 +13,22 @@ app.config(function($routeProvider) {
         templateUrl : "static/html/customerInfo.html",
         controller: 'customerInfoCtrl'
     })
+    .when("/user", {
+        templateUrl : 'static/html/user.html',
+        controller: 'userCtrl'
+    })
     .otherwise({redirectTo : '/'})
 })
 
 app.run(function($rootScope) { 
-});
+})
+
+app.controller('userCtrl', [
+    '$scope', '$location', '$route', '$rootScope', '$routeParams',
+    function($scope, $location, $route, $rootScope, $routeParams) {
+
+    }
+])
 
 app.controller('customerInfoCtrl', [
     '$scope', '$location', '$route', '$rootScope', '$routeParams',
@@ -29,8 +40,6 @@ app.controller('customerInfoCtrl', [
                 $('#datatable-responsive').DataTable()
             })
         }
-
-        
     }
 ])
 
