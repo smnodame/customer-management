@@ -17,9 +17,9 @@ app.config(function($routeProvider) {
         templateUrl : 'static/html/user.html',
         controller: 'userCtrl'
     })
-    .when("/user/:id", {
-        templateUrl : 'static/html/userInfo.html',
-        controller: 'userInfoCtrl'
+    .when("/user/create", {
+        templateUrl : 'static/html/userCreate.html',
+        controller: 'userCreateCtrl'
     })
     .otherwise({redirectTo : '/'})
 })
@@ -28,7 +28,7 @@ app.run(function($rootScope) {
 })
 
 
-app.controller('userInfoCtrl', [
+app.controller('userCreateCtrl', [
     '$scope', '$location', '$route', '$rootScope', '$routeParams',
     function($scope, $location, $route, $rootScope, $routeParams) {
         
