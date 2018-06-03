@@ -17,11 +17,23 @@ app.config(function($routeProvider) {
         templateUrl : 'static/html/user.html',
         controller: 'userCtrl'
     })
+    .when("/user/:id", {
+        templateUrl : 'static/html/userInfo.html',
+        controller: 'userInfoCtrl'
+    })
     .otherwise({redirectTo : '/'})
 })
 
 app.run(function($rootScope) { 
 })
+
+
+app.controller('userInfoCtrl', [
+    '$scope', '$location', '$route', '$rootScope', '$routeParams',
+    function($scope, $location, $route, $rootScope, $routeParams) {
+        
+    }
+])
 
 app.controller('userCtrl', [
     '$scope', '$location', '$route', '$rootScope', '$routeParams',
