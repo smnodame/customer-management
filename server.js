@@ -14,7 +14,7 @@ app.use('/static', express.static(path.join(__dirname, 'public')))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-var connection = mysql.createConnection({
+const connection = mysql.createConnection({
   host     : '127.0.0.1',
   port     : '3306',
   user     : 'root',
@@ -22,21 +22,23 @@ var connection = mysql.createConnection({
   database : 'customer_management_db'
 })
 
-connection.connect()
+const apiRoutes = express.Router()
 
-connection.query('SELECT 1 + 1 AS solution', function (err, rows, fields) {
-  if (err) throw err
-
-  console.log('The solution is: ', rows[0].solution)
+apiRoutes.get('/customers', function(req, res) {
+  connection.query('SELECT * FROM `goal`, business_detail, executive_profile, financial_information, main_business where main_business.business_id = financial_information.financial_information_id and main_business.business_id = executive_profile.executive_profile_id and main_business.business_id = business_detail.business_detail_id and main_business.business_id = business_detail.business_detail_id', function (err, rows, fields) {
+    if (err) throw err
+    res.json(rows)
+  })
 })
 
-connection.end()
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html')
 })
 
 const PORT = process.env.PORT || 5000
+
+app.use('/api', apiRoutes)
 
 app.listen(PORT, () => {
   console.log('Start server at port ' + PORT)
