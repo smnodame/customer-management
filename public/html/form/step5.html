@@ -11,112 +11,112 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">ประวัติการชำระหนี้ (ปกติ, ชำระล่าช้า)
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" class="form-control col-md-7 col-xs-12">
+                    <input type="text" class="form-control col-md-7 col-xs-12" ng-model="detail.financial_information_payment_history">
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">เครดิตเทอมที่ได้รับจาก CPF
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input type="text" class="form-control col-md-7 col-xs-12">
+                    <input type="text" class="form-control col-md-7 col-xs-12" ng-model="detail.financial_information_credit_from_cpf">
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">เครดิตเทอมที่ได้รับจากคู่เเข่งขัน
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ></textarea>
+                    <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ng-model="detail.financial_information_credit_from_competitor"></textarea>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">เงินทุนส่วนตัว (%)
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input type="number" class="form-control col-md-7 col-xs-12" min="0" max="100">
+                    <input type="number" class="form-control col-md-7 col-xs-12" min="0" max="100" ng-model="detail.financial_information_private_capital_rate">
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">เงินทุนเเหล่งอื่น (%)
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input type="number" class="form-control col-md-7 col-xs-12" min="0" max="100">
+                    <input type="number" class="form-control col-md-7 col-xs-12" min="0" max="100" ng-model="detail.financial_information_other_capital_rate">
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">สินทรัพย์ (ที่ดิน + สิ่งปลูกสร้าง)
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ></textarea>
+                    <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ng-model="detail.financial_information_asset_land"></textarea>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">รถยนต์
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ></textarea>
+                    <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ng-model="detail.financial_information_asset_car"></textarea>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">อื่นๆ
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ></textarea>
+                    <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ng-model="detail.financial_information_asset_other"></textarea>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">หนี้สิน
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ></textarea>
+                    <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ng-model="detail.financial_information_debt"></textarea>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">รายได้หลัก
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input type="number" class="form-control col-md-7 col-xs-12">
+                    <input type="number" class="form-control col-md-7 col-xs-12" ng-model="detail.financial_information_main_revenue">
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">รายได้อื่นๆ
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input type="number" class="form-control col-md-7 col-xs-12">
+                    <input type="number" class="form-control col-md-7 col-xs-12" ng-model="detail.financial_information_other_income">
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">ยอดการซื้ออาหารสัตว์ CPF
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input type="text" class="form-control col-md-7 col-xs-12">
+                    <input type="text" class="form-control col-md-7 col-xs-12" ng-model="detail.financial_information_cpf_feed_purchase">
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">ยอดการซื้ออาหารสัตว์คู่แข่งขัน
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ></textarea>
+                    <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ng-model="detail.financial_information_other_feed_purchase"></textarea>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">แหล่งซื้อพันธุ์สัตว์
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ></textarea>
+                    <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ng-model="detail.financial_information_breeding_grounds" ></textarea>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">ราคาพันธ์ุสัตว์ที่ซื้อ
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ></textarea>
+                    <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ng-model="detail.financial_information_price_of_animals"></textarea>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">ปริมาณพันธุ์สัตว์ที่ซื้อ
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ></textarea>
+                    <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ng-model="detail.financial_information_quantity_of_animals_purchase"></textarea>
                 </div>
             </div>
         </form>

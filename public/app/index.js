@@ -116,7 +116,8 @@ app.controller('homeCtrl', [
             business_detail_competitor: '',
             business_detail_market_condition_and_solutions: '',
             business_detail_mortality_rate: '',
-
+            business_detail_file: '',
+            
             executive_profile_id: '',
             executive_profile_name: '',
             executive_profile_age: '',
@@ -160,6 +161,7 @@ app.controller('homeCtrl', [
 
             business_id: '',
             business_name: '',
+            business_grade: '',
             business_address: '',
             business_type: 'นิติบุลคล',
             business_telephone: ''
