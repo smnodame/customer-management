@@ -80,6 +80,9 @@ app.controller('homeCtrl', [
                     $scope.done = $scope.step
                 }
             }
+
+            console.log('========')
+            console.log($scope.detail)
         }
 
         $scope.click_previous = () => {
@@ -126,15 +129,15 @@ app.controller('homeCtrl', [
             child_profile_name: '',
             child_profile_age: '',
             child_profile_sex: '',
-            child_profile_career: 'fsa',
-            child_profile_experience: 'fad',
-            child_profile_education: 'fasd',
+            child_profile_career: '',
+            child_profile_experience: '',
+            child_profile_education: '',
 
-            spouse_profile_name: 'fasd',
-            spouse_profile_age: 'fasd',
-            spouse_profile_education: 'fasd',
-            spouse_profile_career: 'fsad',
-            spouse_profile_experience: 'fa',
+            spouse_profile_name: '',
+            spouse_profile_age: '',
+            spouse_profile_education: '',
+            spouse_profile_career: '',
+            spouse_profile_experience: '',
 
             
             financial_information_id: '',
@@ -158,7 +161,7 @@ app.controller('homeCtrl', [
             business_id: '',
             business_name: '',
             business_address: '',
-            business_type: '',
+            business_type: 'นิติบุลคล',
             business_telephone: ''
         }
     }

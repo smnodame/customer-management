@@ -11,77 +11,77 @@
             <label class="control-label col-md-3 col-sm-3 col-xs-12">ปริมาณสัตว์เลี้ยง (ตัว)
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="number" class="form-control col-md-7 col-xs-12">
+                <input type="number" class="form-control col-md-7 col-xs-12" ng-model="detail.business_detail_pet_quantity">
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">อัตราการแลกเนื้อ, อัตราการให้ไข่ (%)
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="number" class="form-control col-md-7 col-xs-12" min="0" max="100">
+                <input type="number" class="form-control col-md-7 col-xs-12" min="0" max="100" ng-model="detail.business_detail_meat_exchange_rate">
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">อัตราการป่วย (%)
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="number" class="form-control col-md-7 col-xs-12" min="0" max="100">
+                <input type="number" class="form-control col-md-7 col-xs-12" min="0" max="100" ng-model="detail.business_detail_sixness_rate">
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">อัตราการตาย (%)
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="number" class="form-control col-md-7 col-xs-12" min="0" max="100">
+                <input type="number" class="form-control col-md-7 col-xs-12" min="0" max="100" ng-model="detail.business_detail_mortality_rate">
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">อัตราการใช้ผลิตภัณฑ์ CPF (%)
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="number" class="form-control col-md-7 col-xs-12" min="0" max="100">
+                <input type="number" class="form-control col-md-7 col-xs-12" min="0" max="100" ng-model="detail.business_detail_cpf_product_usage_rate">
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">อัตราการใช้ผลิตภัณฑ์อื่นๆ (%)
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="number" class="form-control col-md-7 col-xs-12" min="0" max="100">
+                <input type="number" class="form-control col-md-7 col-xs-12" min="0" max="100" ng-model="detail.business_detail_other_product_usage_rate">
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">ช่องทางจำหน่ายที่อื่น
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ></textarea>
+                <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ng-model="detail.business_detail_sales_chanels_for_other"></textarea>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">ช่องทางจำหน่ายให้กับ CPF
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ></textarea>
+                <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ng-model="detail.business_detail_sales_chanels_for_cpf"></textarea>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">จำนวนคนงาน
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="number" class="form-control col-md-7 col-xs-12">
+                <input type="number" class="form-control col-md-7 col-xs-12" ng-model="detail.business_detail_number_of_workers">
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">คู่แข่งขัน
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ></textarea>
+                <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ng-model="detail.business_detail_competitor"></textarea>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">สภาวะตลาดและการแก้ไข
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ></textarea>
+                <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ng-model="detail.business_detail_market_condition_and_solutions"></textarea>
             </div>
         </div>
         <div class="form-group">
