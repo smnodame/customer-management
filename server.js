@@ -139,6 +139,13 @@ api_routes.get('/customers', function(req, res) {
     })
 })
 
+api_routes.get('/customers/:id', function(req, res) {
+    connection.query(query_service.customer.select(` AND business_id = '${req.params.id}'`), function (err, rows, fields) {
+        if (err) throw err
+        res.json(rows)
+    })
+})
+
 api_routes.post('/customers', function(req, res) {
     const data = req.body
 

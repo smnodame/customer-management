@@ -45,8 +45,8 @@ app.controller('userCtrl', [
 ])
 
 app.controller('customerInfoCtrl', [
-    '$scope', '$location', '$route', '$rootScope', '$routeParams',
-    function($scope, $location, $route, $rootScope, $routeParams) {
+    '$scope', '$location', '$route', '$rootScope', '$routeParams', '$http',
+    function($scope, $location, $route, $rootScope, $routeParams, $http) {
         $scope.tab_index = 1
         $scope.change_tab = (tab_index) => {
             $scope.tab_index = tab_index
@@ -54,6 +54,10 @@ app.controller('customerInfoCtrl', [
                 $('#datatable-responsive').DataTable()
             })
         }
+
+        $http.get(`/api/customers/${$routeParams.id}`).then((res) => {
+            $scope.detail = res.data[0]
+        })
     }
 ])
 

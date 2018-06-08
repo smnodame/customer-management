@@ -5,67 +5,67 @@
         <tbody>
             <tr>
                 <th style="width:20%">ประวัติการชำระหนี้ (ปกติ, ชำระล่าช้า)</th>
-                <td>30 %</td>
+                <td>{{ detail.financial_information_payment_history || '-' }}</td>
             </tr>
             <tr>
                 <th>เครดิตเทอมที่ได้รับจาก CPF</th>
-                <td>80 %</td>
+                <td>{{ detail.financial_information_credit_from_cpf || '-' }}</td>
             </tr>
             <tr>
                 <th>เครดิตเทอมที่ได้รับจากคู่เเข่งขัน</th>
-                <td>20 %</td>
+                <td>{{ detail.financial_information_credit_from_competitor || '-' }}</td>
             </tr>
             <tr>
                 <th>เงินทุนส่วนตัว (%)</th>
-                <td>10 %</td>
+                <td>{{ detail.financial_information_private_capital_rate || '-' }}</td>
             </tr>
             <tr>
                 <th>เงินทุนเเหล่งอื่น (%)</th>
-                <td>80 %</td>
+                <td>{{ detail.financial_information_other_capital_rate || '-' }}</td>
             </tr>
             <tr>
                 <th>สินทรัพย์ (ที่ดิน + สิ่งปลูกสร้าง)</th>
-                <td>20 %</td>
+                <td>{{ detail.financial_information_asset_land || '-' }}</td>
             </tr>
             <tr>
                 <th>รถยนต์</th>
-                <td></td>
+                <td>{{ detail.financial_information_asset_car || '-' }}</td>
             </tr>
             <tr>
                 <th>อื่นๆ</th>
-                <td>ห้างสรรพสินค้า</td>
+                <td>{{ detail.financial_information_asset_other || '-' }}</td>
             </tr>
             <tr>
                 <th>หนี้สิน</th>
-                <td>50 คน</td>
+                <td>{{ detail.financial_information_debt || '-' }}</td>
             </tr>
             <tr>
                 <th>รายได้หลัก</th>
-                <td>บริัษัทยินดี</td>
+                <td>{{ detail.financial_information_main_revenue || '-' }}</td>
             </tr>
             <tr>
                 <th>รายได้อื่นๆ</th>
-                <td>-</td>
+                <td>{{ detail.financial_information_other_income || '-' }}</td>
             </tr>
             <tr>
                 <th>ยอดการซื้ออาหารสัตว์ CPF</th>
-                <td></td>
+                <td>{{ detail.financial_information_cpf_feed_purchase || '-' }}</td>
             </tr>
             <tr>
                 <th>ยอดการซื้ออาหารสัตว์คู่แข่งขัน</th>
-                <td></td>
+                <td>{{ detail.financial_information_other_feed_purchase || '-' }}</td>
             </tr>
             <tr>
                 <th>แหล่งซื้อพันธุ์สัตว์</th>
-                <td></td>
+                <td>{{ detail.financial_information_breeding_grounds || '-' }}</td>
             </tr>
             <tr>
                 <th>ราคาพันธ์ุสัตว์ที่ซื้อ</th>
-                <td></td>
+                <td>{{ detail.financial_information_price_of_animals || '-' }}</td>
             </tr>
             <tr>
                 <th>ปริมาณพันธุ์สัตว์ที่ซื้อ</th>
-                <td></td>
+                <td>{{ detail.financial_information_quantity_of_animals_purchase || '-' }}</td>
             </tr>
         </tbody>
         </table>

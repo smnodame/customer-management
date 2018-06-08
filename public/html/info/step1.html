@@ -5,23 +5,27 @@
         <tbody>
             <tr>
                 <th style="width:20%">รหัสลูกค้า</th>
-                <td>sm00052</td>
+                <td>{{ detail.business_id || '-' }}</td>
             </tr>
             <tr>
                 <th>ชื่อธุรกิจ</th>
-                <td>บริษัทไทยบีฟจำกัด</td>
+                <td>{{ detail.business_name || '-' }}</td>
             </tr>
             <tr>
                 <th>ที่อยู่</th>
-                <td>45 หมู่ 8 ตำบล ชมภู อำเภอ สารภี จังหวัด เชียงใหม่</td>
+                <td>{{ detail.business_address || '-' }}</td>
             </tr>
             <tr>
                 <th>ประเภทธุรกิจ</th>
-                <td>บุคคลธรรมกา</td>
+                <td>{{ detail.business_type || '-' }}</td>
+            </tr>
+            <tr>
+                <th>grade</th>
+                <td>{{ detail.business_grade || '-' }}</td>
             </tr>
             <tr>
                 <th>เบอร์โทรศัพท์</th>
-                <td>0828469953</td>
+                <td>{{ detail.business_telephone || '-' }}</td>
             </tr>
         </tbody>
         </table>

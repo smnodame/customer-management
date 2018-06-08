@@ -5,31 +5,31 @@
                 <tbody>
                     <tr>
                         <th style="width:20%">ชื่อ</th>
-                        <td>sm00052</td>
+                        <td>{{ detail.executive_profile_name || '-' }}</td>
                     </tr>
                     <tr>
                         <th>อายุ</th>
-                        <td>บริษัทไทยบีฟจำกัด</td>
+                        <td>{{ detail.executive_profile_age || '-' }}</td>
                     </tr>
                     <tr>
                         <th>เพศ</th>
-                        <td>45 หมู่ 8 ตำบล ชมภู อำเภอ สารภี จังหวัด เชียงใหม่</td>
+                        <td>{{ detail.executive_profile_sex || '-' }}</td>
                     </tr>
                     <tr>
                         <th>การศึกษา</th>
-                        <td>บุคคลธรรมกา</td>
+                        <td>{{ detail.executive_profile_education || '-' }}</td>
                     </tr>
                     <tr>
                         <th>สถานภาพ</th>
-                        <td>0828469953</td>
+                        <td>{{ detail.executive_profile_status || '-' }}</td>
                     </tr>
                     <tr>
                         <th>อาชีพ</th>
-                        <td>0828469953</td>
+                        <td>{{ detail.executive_profile_career || '-' }}</td>
                     </tr>
                     <tr>
                         <th>ประสบการณ์</th>
-                        <td>0828469953</td>
+                        <td>{{ detail.executive_profile_experience || '-' }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -42,27 +42,27 @@
         <tbody>
             <tr>
                 <th style="width:20%">ชื่อ</th>
-                <td>sm00052</td>
+                <td>{{ detail.child_profile_name || '-' }}</td>
             </tr>
             <tr>
                 <th>อายุ</th>
-                <td>บริษัทไทยบีฟจำกัด</td>
+                <td>{{ detail.child_profile_age || '-' }}</td>
             </tr>
             <tr>
                 <th>เพศ</th>
-                <td>45 หมู่ 8 ตำบล ชมภู อำเภอ สารภี จังหวัด เชียงใหม่</td>
+                <td>{{ detail.child_profile_sex || '-' }}</td>
             </tr>
             <tr>
                 <th>การศึกษา</th>
-                <td>บุคคลธรรมกา</td>
+                <td>{{ detail.child_profile_career || '-' }}</td>
             </tr>
             <tr>
                 <th>อาชีพ</th>
-                <td>0828469953</td>
+                <td>{{ detail.child_profile_experience || '-' }}</td>
             </tr>
             <tr>
                 <th>ประสบการณ์</th>
-                <td>0828469953</td>
+                <td>{{ detail.child_profile_education || '-' }}</td>
             </tr>
         </tbody>
         </table>
@@ -75,23 +75,23 @@
             <tbody>
                 <tr>
                     <th style="width:20%">ชื่อ</th>
-                    <td>sm00052</td>
+                    <td>{{ detail.spouse_profile_name || '-' }}</td>
                 </tr>
                 <tr>
                     <th>อายุ</th>
-                    <td>บริษัทไทยบีฟจำกัด</td>
+                    <td>{{ detail.spouse_profile_age || '-' }}</td>
                 </tr>
                 <tr>
                     <th>การศึกษา</th>
-                    <td>บุคคลธรรมกา</td>
+                    <td>{{ detail.spouse_profile_education || '-' }}</td>
                 </tr>
                 <tr>
                     <th>อาชีพ</th>
-                    <td>0828469953</td>
+                    <td>{{ detail.spouse_profile_career || '-' }}</td>
                 </tr>
                 <tr>
                     <th>ประสบการณ์</th>
-                    <td>0828469953</td>
+                    <td>{{ detail.spouse_profile_experience || '-' }}</td>
                 </tr>
             </tbody>
         </table>

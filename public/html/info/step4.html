@@ -5,47 +5,47 @@
         <tbody>
             <tr>
                 <th style="width:20%">ปริมาณสัตว์เลี้ยง (ตัว)</th>
-                <td>30 %</td>
+                <td>{{ detail.business_detail_pet_quantity || '-' }}</td>
             </tr>
             <tr>
                 <th>อัตราการแลกเนื้อ, อัตราการให้ไข่ (%)</th>
-                <td>80 %</td>
+                <td>{{ detail.business_detail_meat_exchange_rate || '-' }}</td>
             </tr>
             <tr>
                 <th>อัตราการป่วย (%)</th>
-                <td>20 %</td>
+                <td>{{ detail.business_detail_sixness_rate || '-' }}</td>
             </tr>
             <tr>
                 <th>อัตราการตาย (%)</th>
-                <td>10 %</td>
+                <td>{{ detail.business_detail_mortality_rate || '-' }}</td>
             </tr>
             <tr>
                 <th>อัตราการใช้ผลิตภัณฑ์ CPF (%)</th>
-                <td>80 %</td>
+                <td>{{ detail.business_detail_cpf_product_usage_rate || '-' }}</td>
             </tr>
             <tr>
                 <th>อัตราการใช้ผลิตภัณฑ์อื่นๆ (%)</th>
-                <td>20 %</td>
+                <td>{{ detail.business_detail_other_product_usage_rate || '-' }}</td>
             </tr>
             <tr>
                 <th>ช่องทางจำหน่ายที่อื่น</th>
-                <td></td>
+                <td>{{ detail.business_detail_sales_chanels_for_other || '-' }}</td>
             </tr>
             <tr>
                 <th>ช่องทางจำหน่ายให้กับ CPF</th>
-                <td>ห้างสรรพสินค้า</td>
+                <td>{{ detail.business_detail_sales_chanels_for_cpf || '-' }}</td>
             </tr>
             <tr>
                 <th>จำนวนคนงาน</th>
-                <td>50 คน</td>
+                <td>{{ detail.business_detail_number_of_workers || '-' }}</td>
             </tr>
             <tr>
                 <th>คู่แข่งขัน</th>
-                <td>บริัษัทยินดี</td>
+                <td>{{ detail.business_detail_competitor || '-' }}</td>
             </tr>
             <tr>
                 <th>สภาวะตลาดและการแก้ไข</th>
-                <td>-</td>
+                <td>{{ detail.business_detail_market_condition_and_solutions || '-' }}</td>
             </tr>
             <tr>
                 <th>ดาวน์โหลดไฟล์  (Lay out)</th>
