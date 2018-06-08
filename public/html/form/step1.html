@@ -23,12 +23,12 @@
         <div class="form-group" style="margin-bottom: 15px;">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">ประเภทธุรกิจ</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <div id="customer-type" class="btn-group" data-toggle="buttons">
-                    <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                        <input type="radio" ng-model="detail.business_type" name="customer-type" value="นิติบุลคคล"> &nbsp; นิติบุลคคล &nbsp;
+                <div id="customer-type" class="btn-group">
+                    <label class="btn btn-default" data-toggle-class="btn-primary" style="padding-left: 0px" ng-class="{ 'btn-primary': detail.business_type == 'นิติบุคคล'}"data-toggle-passive-class="btn-default">
+                        <input type="radio" data-ng-model="detail.business_type" style="visibility: hidden" name="customer-type" value="นิติบุคคล"> &nbsp; นิติบุคคล &nbsp;
                     </label>
-                    <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                        <input type="radio" ng-model="detail.business_type" name="customer-type" value="บุคคลธรรมดา"> บุคคลธรรมดา
+                    <label class="btn btn-default" data-toggle-class="btn-primary" style="padding-left: 0px" ng-class="{ 'btn-primary': detail.business_type == 'บุคคลธรรมดา'}" data-toggle-passive-class="btn-default">
+                        <input type="radio" data-ng-model="detail.business_type" style="visibility: hidden" name="customer-type" value="บุคคลธรรมดา"> บุคคลธรรมดา
                     </label>
                 </div>
             </div>
@@ -36,15 +36,15 @@
         <div class="form-group" style="margin-bottom: 15px;">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Grade</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <div id="grade-type" class="btn-group" data-toggle="buttons">
-                    <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                        <input type="radio" ng-model="detail.business_type" name="grade-type" value="bronze"> &nbsp; Bronze &nbsp;
+                <div id="grade-type" class="btn-group">
+                    <label class="btn btn-default" ng-class="{ 'btn-primary': detail.business_grade == 'bronze'}" style="padding-left: 0px" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                        <input type="radio" data-ng-model="detail.business_grade" style="visibility: hidden" name="grade-type" value="bronze"> &nbsp; Bronze &nbsp;
                     </label>
-                    <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                        <input type="radio" ng-model="detail.business_type" name="grade-type" value="silver"> Silver
+                    <label class="btn btn-default" ng-class="{ 'btn-primary': detail.business_grade == 'silver'}" style="padding-left: 0px" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                        <input type="radio" data-ng-model="detail.business_grade" style="visibility: hidden" name="grade-type" value="silver"> Silver
                     </label>
-                    <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                        <input type="radio" ng-model="detail.business_type" name="grade-type" value="gold"> Gold
+                    <label class="btn btn-default" ng-class="{ 'btn-primary': detail.business_grade == 'gold'}" style="padding-left: 0px" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                        <input type="radio" data-ng-model="detail.business_grade" style="visibility: hidden" name="grade-type" value="gold"> Gold
                     </label>
                 </div>
             </div>

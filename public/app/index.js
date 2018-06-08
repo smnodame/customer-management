@@ -99,6 +99,10 @@ app.controller('homeCtrl', [
             }
         }
 
+        $scope.on_create = () => {
+            $scope.detail.goal_id = $scope.detail.business_detail_id = $scope.detail.executive_profile_id = $scope.detail.financial_information_id = $scope.detail.business_id
+        }
+
         $scope.detail = {
             goal_id: '',
             goal_detail: '',
@@ -161,9 +165,9 @@ app.controller('homeCtrl', [
 
             business_id: '',
             business_name: '',
-            business_grade: '',
+            business_grade: 'bronze',
             business_address: '',
-            business_type: 'นิติบุลคล',
+            business_type: 'นิติบุคคล',
             business_telephone: ''
         }
     }
