@@ -71,23 +71,31 @@ app.controller('homeCtrl', [
     function($scope, $location, $route, $rootScope, $routeParams, $http) {
         $scope.step = 1
         $scope.done = 1
+
+        const next_step = () => {
+            $scope.step = $scope.step + 1
+            window.scrollTo(0, 0)
+
+            if($scope.step > $scope.done) {
+                $scope.done = $scope.step
+            }
+        }
+
         $scope.click_next = () => {
             if($scope.step == 1) {
                 if($scope.check_form_valid()) {
-                    $scope.error = ''
+                    $http.get('/api/check-customer-id?business_id=' + $scope.detail.business_id, $scope.detail).then((res) => {
+                        $scope.error = res.data.is_used? 'รหัสลูกค้าถูกใช้เเล้ว': ''
+                        if(!$scope.error) next_step()
+                    })
                 } else {
                     $scope.error = 'กรุณากรอกข้อมูลให้ครบทุกช่อง'
                     return
                 }
+            } else if ($scope.step < 5) {
+                next_step()
             }
-            if($scope.step < 5) {
-                $scope.step = $scope.step + 1
-                window.scrollTo(0, 0)
 
-                if($scope.step > $scope.done) {
-                    $scope.done = $scope.step
-                }
-            }
             console.log('========')
             console.log($scope.detail)
         }
