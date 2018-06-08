@@ -27,7 +27,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">ค้นหาจากข้อความ</label>
                                     <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control" ng-model="query">
                                     </div>
                                 </div>
                             </div>
@@ -35,10 +35,10 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-4 col-sm-4 col-xs-12">ประเภทธุรกิจ</label>
                                     <div class="col-md-8 col-sm-8 col-xs-12">
-                                        <select class="form-control">
-                                            <option>เลือก</option>
-                                            <option>นิติบุลคคล</option>
-                                            <option>บุคคลธรรมดา</option>
+                                        <select class="form-control" ng-model="business_type">
+                                            <option value="">เลือก</option>
+                                            <option value="นิติบุคคล">นิติบุคคล</option>
+                                            <option value="บุคคลธรรมดา">บุคคลธรรมดา</option>
                                         </select>
                                     </div>
                                 </div>
@@ -47,25 +47,24 @@
                                 <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Grade</label>
                                     <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <select class="form-control">
-                                            <option>เลือก</option>
-                                            <option>Gold</option>
-                                            <option>Silver</option>
-                                            <option>Bronze</option>
+                                        <select class="form-control" ng-model="business_grade">
+                                            <option value="">เลือก</option>
+                                            <option value="gold">Gold</option>
+                                            <option value="silver">Silver</option>
+                                            <option value="bronze">Bronze</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
-                            
                         </div>
                         <div class="row" style="margin-top: 20px">
                             <div class="col-md-4 col-sm-4 col-xs-12">
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">จำนวนสัตว์ที่เลี้ยง</label>
                                     <div class="col-md-9 col-sm-9 col-xs-12" style="display: flex">
-                                        <input type="text" class="form-control" placeholder="ขั้นต่ำ">
+                                        <input type="text" class="form-control" placeholder="ขั้นต่ำ" ng-model="amount_of_pets_min">
                                         <span style="margin: 10px;"> - </span>
-                                        <input type="text" class="form-control" placeholder="สูงสุด">
+                                        <input type="text" class="form-control" placeholder="สูงสุด" ng-model="amount_of_pets_max">
                                     </div>
                                 </div>
                             </div>
@@ -75,7 +74,7 @@
                     <div class="row no-print">
                         <div class="col-xs-12">
                             <button class="btn btn-primary pull-right" ng-click="on_search()"><i class="fa fa-search"></i> ค้นหา</button>
-                            <button class="btn btn-warning pull-right"  style="margin-right: 5px;"><i class="fa fa-close"></i> รีเซ็ต</button>
+                            <button class="btn btn-warning pull-right" ng-click="init_query()" style="margin-right: 5px;"><i class="fa fa-close"></i> รีเซ็ต</button>
                         </div>
                     </div>
                 </div>

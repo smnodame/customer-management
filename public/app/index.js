@@ -62,22 +62,41 @@ app.controller('customersCtrl', [
     function($scope, $location, $route, $rootScope, $routeParams, $http) {
         const tables = $('#datatable-responsive').DataTable()
 
-        $http.get('/api/customers').then((res) => {
-            res.data.forEach((customer) => {
-                tables.row.add( [
-                    customer.business_id,
-                    customer.business_name,
-                    customer.business_grade,
-                    customer.business_type,
-                    customer.business_telephone,
-                    customer.executive_profile_name,
-                    customer.business_detail_pet_quantity
-                ]).draw( true )
+        
+
+        const get_customers = () => {
+            tables.clear()
+            .draw()
+
+            return $http.get(`/api/customers?query=${$scope.query}&business_type=${$scope.business_type}&business_grade=${$scope.business_grade}&amount_of_pets_min=${$scope.amount_of_pets_min}&amount_of_pets_max=${$scope.amount_of_pets_max}`).then((res) => {
+                res.data.forEach((customer) => {
+                    tables.row.add( [
+                        customer.business_id,
+                        customer.business_name,
+                        customer.business_grade,
+                        customer.business_type,
+                        customer.business_telephone,
+                        customer.executive_profile_name,
+                        customer.business_detail_pet_quantity
+                    ]).draw( true )
+                })
             })
-        })
+        }  
+
+        $scope.init_query = () => {
+            $scope.query = ''
+            $scope.business_type = ''
+            $scope.business_grade = ''
+            $scope.amount_of_pets_min = ''
+            $scope.amount_of_pets_max = ''
+
+            get_customers()
+        }
+
+        $scope.init_query()
 
         $scope.on_search = () => {
-            
+            get_customers()
         }
     }
 ])
