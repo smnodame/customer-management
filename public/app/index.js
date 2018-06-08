@@ -58,11 +58,27 @@ app.controller('customerInfoCtrl', [
 ])
 
 app.controller('customersCtrl', [
-    '$scope', '$location', '$route', '$rootScope', '$routeParams',
-    function($scope, $location, $route, $rootScope, $routeParams) {
-        $(document).ready(function() {
-            $('#datatable-responsive').DataTable()
+    '$scope', '$location', '$route', '$rootScope', '$routeParams', '$http',
+    function($scope, $location, $route, $rootScope, $routeParams, $http) {
+        const tables = $('#datatable-responsive').DataTable()
+
+        $http.get('/api/customers').then((res) => {
+            res.data.forEach((customer) => {
+                tables.row.add( [
+                    customer.business_id,
+                    customer.business_name,
+                    customer.business_grade,
+                    customer.business_type,
+                    customer.business_telephone,
+                    customer.executive_profile_name,
+                    customer.business_detail_pet_quantity
+                ]).draw( true )
+            })
         })
+
+        $scope.on_search = () => {
+            
+        }
     }
 ])
 

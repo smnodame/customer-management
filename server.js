@@ -33,7 +33,7 @@ const query_service = {
     },
     customer: {
         select: function() {
-            return "SELECT * FROM `goal`, business_detail, executive_profile, financial_information, main_business where main_business.business_id = financial_information.financial_information_id and main_business.business_id = executive_profile.executive_profile_id and main_business.business_id = business_detail.business_detail_id and main_business.business_id = business_detail.business_detail_id"
+            return "SELECT * FROM financial_information, main_business, `goal`, business_detail, executive_profile where main_business.business_id = financial_information.financial_information_id and `goal`.`goal_id` = main_business.business_id and business_detail.business_detail_id = main_business.business_id and executive_profile.executive_profile_id = main_business.business_id"
         },
         insert: function() {
             return "INSERT INTO main_business SET ?; INSERT INTO executive_profile SET ?; INSERT INTO `goal` SET ?; INSERT INTO business_detail SET ?; INSERT INTO financial_information SET ?;"
