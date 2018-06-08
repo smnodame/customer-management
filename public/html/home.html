@@ -89,7 +89,7 @@
             <div class="actionBar" style="display: flex">
                 <div style="flex: 1" ></div>
                 <p style="color: red; margin-right: 15px">{{ error }}</p>
-                <a ng-click="on_create()" class="buttonFinish buttonDisabled btn btn-default">Finish</a>
+                <a ng-click="on_create()" class="buttonFinish btn btn-default" ng-class="{ 'buttonDisabled': !can_save() }">Finish</a>
                 <a ng-click="click_previous()" class="buttonPrevious btn btn-primary">Previous</a>                
                 <a ng-click="click_next()" class="buttonNext btn btn-success">Next</a>
             </div>

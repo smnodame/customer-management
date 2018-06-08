@@ -73,7 +73,7 @@ app.controller('homeCtrl', [
         $scope.done = 1
         $scope.click_next = () => {
             if($scope.step == 1) {
-                if($scope.detail.business_id && $scope.detail.business_name && $scope.detail.business_address && $scope.detail.business_telephone) {
+                if($scope.check_form_valid()) {
                     $scope.error = ''
                 } else {
                     $scope.error = 'กรุณากรอกข้อมูลให้ครบทุกช่อง'
@@ -90,6 +90,14 @@ app.controller('homeCtrl', [
             }
             console.log('========')
             console.log($scope.detail)
+        }
+
+        $scope.check_form_valid = () => {
+            return $scope.detail.business_id && $scope.detail.business_name && $scope.detail.business_address && $scope.detail.business_telephone
+        }
+
+        $scope.can_save = () => {
+            return $scope.check_form_valid() && $scope.done == 5
         }
 
         $scope.click_previous = () => {
