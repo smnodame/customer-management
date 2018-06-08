@@ -122,11 +122,39 @@ app.controller('homeCtrl', [
             $scope.detail.goal_id = $scope.detail.business_detail_id = $scope.detail.executive_profile_id = $scope.detail.financial_information_id = $scope.detail.business_id
             
             if($scope.detail.business_detail_file) {
-                $scope.detail.business_detail_file = `goal-${$scope.detail.goal_id}.${get_type_file($scope.detail.business_detail_file.name)}`
+                const file = $scope.detail.business_detail_file
+                const file_name = `goal-${$scope.detail.goal_id}.${get_type_file($scope.detail.business_detail_file.name)}`
+                $scope.detail.business_detail_file = file_name
+
+                const formData = new FormData()
+                formData.append('file', file)
+                formData.append('file_name', file_name)
+                
+                fetch('/api/file', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .catch(error => console.error('Error:', error))
+                .then(response => console.log('Success:', response))
             }
 
             if($scope.detail.goal_file_name) {
-                $scope.detail.goal_file_name = `goal-${$scope.detail.goal_id}.${get_type_file($scope.detail.goal_file_name.name)}`
+                const file = $scope.detail.goal_file_name
+                const file_name = `goal-${$scope.detail.goal_id}.${get_type_file($scope.detail.goal_file_name.name)}`
+                $scope.detail.goal_file_name = file_name
+
+                const formData = new FormData()
+                formData.append('file', file)
+                formData.append('file_name', file_name)
+                
+                fetch('/api/file', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .catch(error => console.error('Error:', error))
+                .then(response => console.log('Success:', response))
             }
 
             $http.post('/api/customers', $scope.detail).then(() => {
