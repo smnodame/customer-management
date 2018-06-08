@@ -15,13 +15,13 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="address" class="control-label col-md-3 col-sm-3 col-xs-12">ที่อยู่</label>
+            <label for="address" class="control-label col-md-3 col-sm-3 col-xs-12">ที่อยู่ <span class="required">*</span></label>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <textarea style="overflow-x: hidden; margin-bottom: 10px" id="address" class="form-control col-md-7 col-xs-12" ng-model="detail.business_address" type="text" name="address" rows="5" ></textarea>
             </div>
         </div>
         <div class="form-group" style="margin-bottom: 15px;">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">ประเภทธุรกิจ</label>
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">ประเภทธุรกิจ <span class="required">*</span> </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <div id="customer-type" class="btn-group">
                     <label class="btn btn-default" data-toggle-class="btn-primary" style="padding-left: 0px" ng-class="{ 'btn-primary': detail.business_type == 'นิติบุคคล'}"data-toggle-passive-class="btn-default">
@@ -34,7 +34,7 @@
             </div>
         </div>
         <div class="form-group" style="margin-bottom: 15px;">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">Grade</label>
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Grade <span class="required">*</span></label>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <div id="grade-type" class="btn-group">
                     <label class="btn btn-default" ng-class="{ 'btn-primary': detail.business_grade == 'bronze'}" style="padding-left: 0px" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">

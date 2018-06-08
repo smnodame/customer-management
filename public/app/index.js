@@ -72,6 +72,14 @@ app.controller('homeCtrl', [
         $scope.step = 1
         $scope.done = 1
         $scope.click_next = () => {
+            if($scope.step == 1) {
+                if($scope.detail.business_id && $scope.detail.business_name && $scope.detail.business_address && $scope.detail.business_telephone) {
+                    $scope.error = ''
+                } else {
+                    $scope.error = 'กรุณากรอกข้อมูลให้ครบทุกช่อง'
+                    return
+                }
+            }
             if($scope.step < 5) {
                 $scope.step = $scope.step + 1
                 window.scrollTo(0, 0)
@@ -80,7 +88,6 @@ app.controller('homeCtrl', [
                     $scope.done = $scope.step
                 }
             }
-
             console.log('========')
             console.log($scope.detail)
         }
