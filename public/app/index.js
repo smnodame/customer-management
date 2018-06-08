@@ -67,8 +67,8 @@ app.controller('customersCtrl', [
 ])
 
 app.controller('homeCtrl', [
-    '$scope', '$location', '$route', '$rootScope', '$routeParams',
-    function($scope, $location, $route, $rootScope, $routeParams) {
+    '$scope', '$location', '$route', '$rootScope', '$routeParams', '$http',
+    function($scope, $location, $route, $rootScope, $routeParams, $http) {
         $scope.step = 1
         $scope.done = 1
         $scope.click_next = () => {
@@ -114,8 +114,24 @@ app.controller('homeCtrl', [
             }
         }
 
+        const get_type_file = (filename) => {
+            const arr = filename.split('.')
+            return arr[arr.length - 1]
+        }
         $scope.on_create = () => {
             $scope.detail.goal_id = $scope.detail.business_detail_id = $scope.detail.executive_profile_id = $scope.detail.financial_information_id = $scope.detail.business_id
+            
+            if($scope.detail.business_detail_file) {
+                $scope.detail.business_detail_file = `goal-${$scope.detail.goal_id}.${get_type_file($scope.detail.business_detail_file.name)}`
+            }
+
+            if($scope.detail.goal_file_name) {
+                $scope.detail.goal_file_name = `goal-${$scope.detail.goal_id}.${get_type_file($scope.detail.goal_file_name.name)}`
+            }
+
+            $http.post('/api/customers', $scope.detail).then(() => {
+
+            })
         }
 
         $scope.detail = {

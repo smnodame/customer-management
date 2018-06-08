@@ -33,6 +33,9 @@ const query_service = {
     customer: {
         select: function() {
             return "SELECT * FROM `goal`, business_detail, executive_profile, financial_information, main_business where main_business.business_id = financial_information.financial_information_id and main_business.business_id = executive_profile.executive_profile_id and main_business.business_id = business_detail.business_detail_id and main_business.business_id = business_detail.business_detail_id"
+        },
+        insert: function(data) {
+            return "INSERT INTO posts SET ?"
         }
     }
 }
@@ -70,8 +73,10 @@ api_routes.post('/signin', function(req, res) {
 api_routes.use(function(req, res, next) {
     // check header or url parameters or post parameters for token
     var token = req.body.token || req.query.token || req.headers['x-access-token']
-    // next()
-    // return
+
+    next()
+    return
+
     // decode token
     if (token) {
         // verifies secret and checks exp
@@ -105,10 +110,12 @@ api_routes.get('/customers', function(req, res) {
 })
 
 api_routes.post('/customers', function(req, res) {
-    connection.query(query_service.customer.insert(), function (err, rows, fields) {
-        if (err) throw err
-        res.status(200)
-    })
+    console.log(req.body.business_detail_file)
+    console.log(req.body.goal_file_name)
+    // connection.query(query_service.customer.insert(), function (err, rows, fields) {
+    //     if (err) throw err
+    //     res.status(200)
+    // })
 })
 
 app.get('/', (req, res) => {
