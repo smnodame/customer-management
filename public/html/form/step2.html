@@ -45,12 +45,17 @@
             <label class="control-label col-md-3 col-sm-3 col-xs-12">สถานภาพ
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <select class="form-control">
-                    <option>เลือก</option>
-                    <option>โสด</option>
-                    <option>สมรส</option>
-                    <option>อย่า</option>
-                </select>
+                <div  class="btn-group">
+                    <label class="btn btn-default" ng-class="{ 'btn-primary': detail.executive_profile_status == 'single'}" style="padding-left: 0px" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                        <input data-ng-model="detail.executive_profile_status" style="visibility: hidden" type="radio" value="single"> โสด
+                    </label>
+                    <label class="btn btn-default" ng-class="{ 'btn-primary': detail.executive_profile_status == 'maried'}" style="padding-left: 0px" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                        <input data-ng-model="detail.executive_profile_status" style="visibility: hidden" type="radio" value="maried"> สมรส
+                    </label>
+                    <label class="btn btn-default" ng-class="{ 'btn-primary': detail.executive_profile_status == 'divorce'}" style="padding-left: 0px" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                        <input data-ng-model="detail.executive_profile_status" style="visibility: hidden" type="radio" value="divorce"> อย่า
+                    </label>
+                </div>
             </div>
         </div>
         <div class="form-group">

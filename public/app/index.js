@@ -134,7 +134,7 @@ app.controller('homeCtrl', [
             executive_profile_age: '',
             executive_profile_sex: 'male',
             executive_profile_education: '',
-            executive_profile_status: '',
+            executive_profile_status: 'single',
             executive_profile_career: '',
             executive_profile_experience: '',
 
