@@ -125,7 +125,7 @@ app.controller('homeCtrl', [
             executive_profile_id: '',
             executive_profile_name: '',
             executive_profile_age: '',
-            executive_profile_sex: '',
+            executive_profile_sex: 'male',
             executive_profile_education: '',
             executive_profile_status: '',
             executive_profile_career: '',
@@ -133,7 +133,7 @@ app.controller('homeCtrl', [
 
             child_profile_name: '',
             child_profile_age: '',
-            child_profile_sex: '',
+            child_profile_sex: 'male',
             child_profile_career: '',
             child_profile_experience: '',
             child_profile_education: '',
