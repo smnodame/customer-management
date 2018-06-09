@@ -16,13 +16,11 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>บริษัทไทยบีฟจำกัด<small></small></h2>
-
+                    <h2>{{ detail.business_name }}<small></small></h2>
+                    <button class="btn btn-warning pull-right" ng-click="redirect_to_edit()" style="margin-right: 5px;"><i class="fa fa-edit"></i> แก้ไข</button>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-
-
                     <div class="" role="tabpanel" data-example-id="togglable-tabs">
                         <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                             <li role="presentation" class="active"><a id="home-tab" ng-click="change_tab(1)" role="tab" data-toggle="tab" aria-expanded="true">Main Bussiness</a>

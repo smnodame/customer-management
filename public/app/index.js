@@ -149,6 +149,10 @@ app.controller('customerInfoCtrl', [
             })
         }
 
+        $scope.redirect_to_edit = () => {
+            window.location.href = '/#!/customer/' + $scope.detail.business_id + '/edit'
+        }
+
         $http.get(`/api/customers/${$routeParams.id}`).then((res) => {
             $scope.detail = res.data[0]
         })
