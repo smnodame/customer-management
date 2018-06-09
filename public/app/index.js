@@ -129,6 +129,11 @@ app.controller('editCustomerInfoCtrl', [
         }
 
         $scope.on_create = () => {
+            $scope.detail.goal_id = $scope.detail.business_detail_id = $scope.detail.executive_profile_id = $scope.detail.financial_information_id = $scope.detail.business_id
+            
+            $http.put(`/api/customers/${$routeParams.id}`, $scope.detail).then(() => {
+                window.location.href = '/#!/customer/' + $scope.detail.business_id
+            })
         }
     }
 ])
@@ -192,7 +197,7 @@ app.controller('customersCtrl', [
                         customer.executive_profile_name,
                         customer.business_detail_pet_quantity,
                         '<a href="/#!/customer/'+customer.business_id+'" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>'+
-                        '<a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>'+
+                        '<a href="/#!/customer/'+customer.business_id+'/edit" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>'+
                         `<a ng-click="on_delete_customer('${customer.business_id}')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>`
                     ]).draw( true )
                 })
@@ -321,7 +326,7 @@ app.controller('homeCtrl', [
             }
 
             $http.post('/api/customers', $scope.detail).then(() => {
-
+                window.location.href = '/#!/customer/' + $scope.detail.business_id
             })
         }
 
