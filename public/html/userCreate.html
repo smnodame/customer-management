@@ -255,7 +255,12 @@
                           <div class="panel-heading">Available Group</div>
                           <div class="panel-body" style="height: 300px; overflow-y: scroll; padding: 0">
                               <ul class="list-group">
-                                  <li class="list-group-item" style="cursor: pointer" ng-class="{ selected : is_in_selected_available_group(group.business_id)}" ng-click="on_click_group_in_available_group($event, group.business_id )" ng-repeat="group in available_group track by $index">
+                                  <li class="list-group-item" style="cursor: pointer" 
+                                    ng-class="{ selected : is_in_selected_available_group(group.business_id)}" 
+                                    ng-click="on_click_group_in_available_group($event, group.business_id )" 
+                                    ng-repeat="group in available_group track by $index"
+                                    ng-if="is_not_in_chosen_group(group.business_id)"
+                                  >
                                       <div style="width: 35%">
                                           <strong>{{ group.business_id }}</strong>
                                       </div>
@@ -277,11 +282,11 @@
                             <div class="panel-heading">Chosen Group</div>
                             <div class="panel-body" style="height: 300px; overflow-y: scroll; padding: 0">
                                 <ul class="list-group">
-                                    <li class="list-group-item" ng-repeat="selected in selecteds track by $index">
+                                    <li class="list-group-item" ng-repeat="group in chosen_group track by $index">
                                         <div style="width: 35%">
-                                            <strong>{{ selected.business_id }}</strong>
+                                            <strong>{{ group.business_id }}</strong>
                                         </div>
-                                        <span> {{  selected.business_name }}</span>
+                                        <span> {{  group.business_name }}</span>
                                     </li>
                                 </ul>
                             </div>

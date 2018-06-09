@@ -36,13 +36,23 @@ app.controller('userCreateCtrl', [
     '$scope', '$location', '$route', '$rootScope', '$routeParams', '$http',
     function($scope, $location, $route, $rootScope, $routeParams, $http) {
         $scope.selected_available_group = []
+        $scope.available_group = []
         $scope.chosen_group = []
         $scope.on_create = () => {
             console.log($scope.account)
         }
 
-        $scope.on_click_add = () => {
+        const get_group_from_id = (business_id) => {
+            return $scope.available_group.find((group) => group.business_id == business_id)
+        }
 
+        $scope.on_click_add = () => {
+            $scope.chosen_group = [ ...$scope.chosen_group , ...$scope.selected_available_group.map((id) => get_group_from_id(id))]
+            $scope.selected_available_group = []
+        }
+
+        $scope.is_not_in_chosen_group = (business_id) => {
+            return !$scope.chosen_group.find((group) => group.business_id == business_id)
         }
 
         $scope.on_click_group_in_available_group = (e, business_id) => {
