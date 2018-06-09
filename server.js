@@ -358,6 +358,19 @@ api_routes.get('/account/:id', function(req, res) {
     })
 })
 
+api_routes.delete('/account/:id', function(req, res) {
+    const data = {
+        account_id: req.params.id
+    }
+    connection.query('DELETE FROM `account` where ?', data, function (err, rows, fields) {
+        if (err) throw err
+        res.status(200).send({
+            success: true,
+            account: rows
+        })
+    })
+})
+
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html')
 })
