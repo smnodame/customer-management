@@ -35,53 +35,57 @@ app.run(function($rootScope) {
 app.controller('userCreateCtrl', [
     '$scope', '$location', '$route', '$rootScope', '$routeParams', '$http',
     function($scope, $location, $route, $rootScope, $routeParams, $http) {
-        $scope.selected_customer = []
-
+        $scope.selected_available_group = []
+        $scope.chosen_group = []
         $scope.on_create = () => {
             console.log($scope.account)
         }
 
-        $scope.on_click_customer = (e, business_id) => {
-            const is_in_selected_customer = $scope.is_in_selected_customer(business_id)
+        $scope.on_click_add = () => {
+
+        }
+
+        $scope.on_click_group_in_available_group = (e, business_id) => {
+            const is_in_selected_available_group = $scope.is_in_selected_available_group(business_id)
             if(e.ctrlKey) {
-                if(is_in_selected_customer) {
-                    const index = $scope.selected_customer.indexOf(business_id)
-                    $scope.selected_customer.splice(index, 1)
+                if(is_in_selected_available_group) {
+                    const index = $scope.selected_available_group.indexOf(business_id)
+                    $scope.selected_available_group.splice(index, 1)
                 } else {
-                    $scope.selected_customer.push(business_id)
+                    $scope.selected_available_group.push(business_id)
                 }
             } else if(e.shiftKey) {
-                if($scope.selected_customer.length == 0) {
-                    $scope.selected_customer.push(business_id)
+                if($scope.selected_available_group.length == 0) {
+                    $scope.selected_available_group.push(business_id)
                 } else {
-                    const start_index =   $scope.customers.map((customer) => customer.business_id).indexOf($scope.selected_customer[$scope.selected_customer.length - 1])
-                    const end_index = $scope.customers.map((customer) => customer.business_id).indexOf(business_id)
+                    const start_index =   $scope.available_group.map((customer) => customer.business_id).indexOf($scope.selected_available_group[$scope.selected_available_group.length - 1])
+                    const end_index = $scope.available_group.map((customer) => customer.business_id).indexOf(business_id)
                     if(start_index <= end_index) {
-                        $scope.selected_customer = $scope.customers.filter((value, index) => {
+                        $scope.selected_available_group = $scope.available_group.filter((value, index) => {
                             return  index >= start_index && index <= end_index
                         }).map((customer) => customer.business_id)
-                        console.log($scope.selected_customer)
+                        console.log($scope.selected_available_group)
                     } else {
-                        $scope.selected_customer = $scope.customers.filter((value, index) => {
+                        $scope.selected_available_group = $scope.available_group.filter((value, index) => {
                             return end_index >= index && index <= start_index
                         }).map((customer) => customer.business_id)
                     }
                 }
             } else {
-                $scope.selected_customer = [business_id]
+                $scope.selected_available_group = [business_id]
             }
         }
 
-        $scope.on_click_select_all_customer = () => {
-            $scope.selected_customer = $scope.customers.map((customer) => customer.business_id)
+        $scope.on_select_all_available_group = () => {
+            $scope.selected_available_group = $scope.available_group.map((customer) => customer.business_id)
         }
 
-        $scope.is_in_selected_customer = (business_id) => {
-            return !!$scope.selected_customer.find((id) => id == business_id)
+        $scope.is_in_selected_available_group = (business_id) => {
+            return !!$scope.selected_available_group.find((id) => id == business_id)
         }
         
         $http.get(`/api/customers`).then((res) => {
-            $scope.customers = res.data
+            $scope.available_group = res.data
         }) 
     }
 ])
