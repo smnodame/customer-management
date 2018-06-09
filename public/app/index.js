@@ -363,7 +363,7 @@ app.controller('userCtrl', [
                     account.account_phone,
                     account.account_position,
                     account.account_updated,
-                    '<a class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>'+
+                    '<a href="/#!/user/'+ account.account_id +'/edit" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>'+
                     `<a class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>`
                 ]).draw( true )
             })
