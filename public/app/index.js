@@ -131,9 +131,21 @@ app.controller('editCustomerInfoCtrl', [
         $scope.on_create = () => {
             $scope.detail.goal_id = $scope.detail.business_detail_id = $scope.detail.executive_profile_id = $scope.detail.financial_information_id = $scope.detail.business_id
             
-            $http.put(`/api/customers/${$routeParams.id}`, $scope.detail).then(() => {
-                window.location.href = '/#!/customer/' + $scope.detail.business_id
-            })
+            if(default_business_id == $scope.detail.business_id) {
+                $http.put(`/api/customers/${$routeParams.id}`, $scope.detail).then(() => {
+                    window.location.href = '/#!/customer/' + $scope.detail.business_id
+                })
+            } else {
+                $http.get('/api/check-customer-id?business_id=' + $scope.detail.business_id, $scope.detail).then((res) => {
+                    $scope.error = res.data.is_used? 'รหัสลูกค้าถูกใช้เเล้ว': ''
+                    if(!$scope.error) {
+                        $http.put(`/api/customers/${$routeParams.id}`, $scope.detail).then(() => {
+                            window.location.href = '/#!/customer/' + $scope.detail.business_id
+                        })
+                    }
+                })
+            }
+            
         }
     }
 ])
