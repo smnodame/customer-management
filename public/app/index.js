@@ -189,11 +189,29 @@ app.controller('userCreateCtrl', [
 ])
 
 app.controller('userCtrl', [
-    '$scope', '$location', '$route', '$rootScope', '$routeParams',
-    function($scope, $location, $route, $rootScope, $routeParams) {
-        $('#datatable-responsive').DataTable({
+    '$scope', '$location', '$route', '$rootScope', '$routeParams', '$http',
+    function($scope, $location, $route, $rootScope, $routeParams, $http) {
+        const tables = $('#datatable-responsive').DataTable({
             iDisplayLength: 100
         })
+
+        $http.get(`/api/account`).then((res) => {
+            res.data.account.forEach((account) => {
+                tables.row.add( [
+                    account.account_first_name,
+                    account.account_last_name,
+                    account.account_email,
+                    account.account_phone,
+                    account.account_position,
+                    account.account_updated,
+                    '<a class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>'+
+                    `<a class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>`
+                ]).draw( true )
+            })
+
+            var compileFn = $compile(angular.element(document.getElementById("datatable-responsive")))
+            compileFn($scope)
+        }) 
     }
 ])
 

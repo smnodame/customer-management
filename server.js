@@ -334,6 +334,16 @@ api_routes.get('/check-account-id', function(req, res) {
     })
 })
 
+api_routes.get('/account', function(req, res) {
+    connection.query('SELECT * FROM  account', function (err, rows, fields) {
+        if (err) throw err
+        res.status(200).send({
+            success: true,
+            account: rows
+        })
+    })
+})
+
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html')
 })
