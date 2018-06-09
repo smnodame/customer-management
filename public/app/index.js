@@ -58,6 +58,18 @@ app.controller('customerInfoCtrl', [
         $http.get(`/api/customers/${$routeParams.id}`).then((res) => {
             $scope.detail = res.data[0]
         })
+
+        $scope.sex_matched = {
+            male: 'ชาย',
+            female: 'หญิง'
+        }
+
+        $scope.status_matched = {
+            single: 'โสด',
+            engaged: 'หมั่น',
+            maried: 'แต่งงาน',
+            divorce: 'อย่า'
+        }
     }
 ])
 

@@ -13,7 +13,7 @@
                     </tr>
                     <tr>
                         <th>เพศ</th>
-                        <td>{{ detail.executive_profile_sex || '-' }}</td>
+                        <td>{{ sex_matched[detail.executive_profile_sex] || '-' }}</td>
                     </tr>
                     <tr>
                         <th>การศึกษา</th>
@@ -21,7 +21,7 @@
                     </tr>
                     <tr>
                         <th>สถานภาพ</th>
-                        <td>{{ detail.executive_profile_status || '-' }}</td>
+                        <td>{{ status_matched[detail.executive_profile_status] || '-' }}</td>
                     </tr>
                     <tr>
                         <th>อาชีพ</th>
@@ -50,7 +50,7 @@
             </tr>
             <tr>
                 <th>เพศ</th>
-                <td>{{ detail.child_profile_sex || '-' }}</td>
+                <td>{{ sex_matched[detail.child_profile_sex] || '-' }}</td>
             </tr>
             <tr>
                 <th>การศึกษา</th>
