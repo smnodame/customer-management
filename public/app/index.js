@@ -70,6 +70,10 @@ app.controller('customerInfoCtrl', [
             maried: 'แต่งงาน',
             divorce: 'อย่า'
         }
+
+        $scope.message_with_percent = (message) => {
+            return message? `${message} %` : ``
+        }
     }
 ])
 

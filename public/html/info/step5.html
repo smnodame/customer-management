@@ -17,11 +17,11 @@
             </tr>
             <tr>
                 <th>เงินทุนส่วนตัว (%)</th>
-                <td>{{ detail.financial_information_private_capital_rate || '-' }}</td>
+                <td>{{ message_with_percent(detail.financial_information_private_capital_rate) || '-' }}</td>
             </tr>
             <tr>
                 <th>เงินทุนเเหล่งอื่น (%)</th>
-                <td>{{ detail.financial_information_other_capital_rate || '-' }}</td>
+                <td>{{ message_with_percent(detail.financial_information_other_capital_rate) || '-' }}</td>
             </tr>
             <tr>
                 <th>สินทรัพย์ (ที่ดิน + สิ่งปลูกสร้าง)</th>
