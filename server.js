@@ -37,6 +37,15 @@ const query_service = {
         },
         insert: function() {
             return "INSERT INTO main_business SET ?; INSERT INTO executive_profile SET ?; INSERT INTO `goal` SET ?; INSERT INTO business_detail SET ?; INSERT INTO financial_information SET ?;"
+        },
+        delete: function(business_id) {
+            var query = ''
+            query += "DELETE FROM `main_business` WHERE business_id = '" + business_id + "';"
+            query += "DELETE FROM `financial_information` WHERE financial_information_id = '" + business_id + "';"
+            query += "DELETE FROM `executive_profile` WHERE executive_profile_id = '" + business_id + "';"
+            query += "DELETE FROM `business_detail` WHERE business_detail_id = '" + business_id + "';"
+            query += "DELETE FROM `goal` WHERE goal_id = '" + business_id + "';"
+            return query
         }
     }
 }
@@ -143,6 +152,15 @@ api_routes.get('/customers/:id', function(req, res) {
     connection.query(query_service.customer.select(` AND business_id = '${req.params.id}'`), function (err, rows, fields) {
         if (err) throw err
         res.json(rows)
+    })
+})
+
+api_routes.delete('/customers/:id', function(req, res) {
+    connection.query(query_service.customer.delete(req.params.id), function (err, rows, fields) {
+        if (err) throw err
+        res.status(200).send({
+            success: true
+        })
     })
 })
 

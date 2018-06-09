@@ -62,11 +62,15 @@ app.controller('customerInfoCtrl', [
 ])
 
 app.controller('customersCtrl', [
-    '$scope', '$location', '$route', '$rootScope', '$routeParams', '$http',
-    function($scope, $location, $route, $rootScope, $routeParams, $http) {
+    '$scope', '$location', '$route', '$rootScope', '$routeParams', '$http', '$compile',
+    function($scope, $location, $route, $rootScope, $routeParams, $http, $compile) {
         const tables = $('#datatable-responsive').DataTable()
 
-        
+        $scope.on_delete_customer = (business_id) => {
+            $http.delete(`/api/customers/${business_id}`).then(() => {
+                get_customers()
+            })
+        }
 
         const get_customers = () => {
             tables.clear()
@@ -81,9 +85,15 @@ app.controller('customersCtrl', [
                         customer.business_type,
                         customer.business_telephone,
                         customer.executive_profile_name,
-                        customer.business_detail_pet_quantity
+                        customer.business_detail_pet_quantity,
+                        '<a href="/#!/customer/'+customer.business_id+'" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>'+
+                        '<a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>'+
+                        `<a ng-click="on_delete_customer('${customer.business_id}')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>`
                     ]).draw( true )
                 })
+
+                var compileFn = $compile(angular.element(document.getElementById("datatable-responsive")))
+                compileFn($scope)
             })
         }  
 
