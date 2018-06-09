@@ -9,6 +9,10 @@ app.config(function($routeProvider) {
         templateUrl : "static/html/customers.html",
         controller: 'customersCtrl'
     })
+    .when("/customer/:id/edit", {
+        templateUrl: "static/html/customerEdit.html",
+        controller: 'editCustomerInfoCtrl'
+    })
     .when("/customer/:id", {
         templateUrl : "static/html/customerInfo.html",
         controller: 'customerInfoCtrl'
@@ -41,6 +45,80 @@ app.controller('userCtrl', [
         $('#datatable-responsive').DataTable({
             iDisplayLength: 100
         })
+    }
+])
+
+app.controller('editCustomerInfoCtrl', [
+    '$scope', '$location', '$route', '$rootScope', '$routeParams', '$http',
+    function($scope, $location, $route, $rootScope, $routeParams, $http) {
+        $scope.step = 1
+        $scope.done = 5
+        let default_business_id
+
+        $http.get(`/api/customers/${$routeParams.id}`).then((res) => {
+            $scope.detail = res.data[0]
+            default_business_id = res.data[0].business_id
+        })
+
+        const next_step = () => {
+            $scope.step = $scope.step + 1
+            window.scrollTo(0, 0)
+
+            if($scope.step > $scope.done) {
+                $scope.done = $scope.step
+            }
+        }
+
+        $scope.click_next = () => {
+            if($scope.step == 1) {
+                if($scope.check_form_valid()) {
+                    if(default_business_id == $scope.detail.business_id) {
+                        $scope.error = ''
+                        next_step()
+                    } else {
+                        $http.get('/api/check-customer-id?business_id=' + $scope.detail.business_id, $scope.detail).then((res) => {
+                            $scope.error = res.data.is_used? 'รหัสลูกค้าถูกใช้เเล้ว': ''
+                            if(!$scope.error) next_step()
+                        })
+                    }
+                } else {
+                    $scope.error = 'กรุณากรอกข้อมูลให้ครบทุกช่อง'
+                    return
+                }
+            } else if ($scope.step < 5) {
+                next_step()
+            }
+        }
+
+        $scope.check_form_valid = () => {
+            return $scope.detail.business_id && $scope.detail.business_name && $scope.detail.business_address && $scope.detail.business_telephone
+        }
+
+        $scope.can_save = () => {
+            return $scope.check_form_valid() && $scope.done == 5
+        }
+
+        $scope.click_previous = () => {
+            if($scope.step > 1) {
+                $scope.step = $scope.step - 1   
+                window.scrollTo(0, 0)             
+            }
+        }
+
+        $scope.go_to_step = (step) => {
+            if(step <= $scope.done) {
+                $scope.step = step
+                window.scrollTo(0, 0)                
+            }
+        }
+
+        const get_type_file = (filename) => {
+            const arr = filename.split('.')
+            return arr[arr.length - 1]
+        }
+
+        $scope.on_create = () => {
+        }
     }
 ])
 
@@ -191,6 +269,7 @@ app.controller('homeCtrl', [
             const arr = filename.split('.')
             return arr[arr.length - 1]
         }
+
         $scope.on_create = () => {
             $scope.detail.goal_id = $scope.detail.business_detail_id = $scope.detail.executive_profile_id = $scope.detail.financial_information_id = $scope.detail.business_id
             

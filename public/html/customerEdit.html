@@ -1,0 +1,96 @@
+<!-- page content -->
+<div class="">
+        <div class="page-title">
+        <div class="title_left">
+            <h3>แก้ไขข้อมูลลูกค้า</h3>
+        </div>
+    
+        <div class="title_right">
+            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+            </div>
+        </div>
+        </div>
+        <div class="clearfix" style="margin-bottom: 25px;"></div>
+    
+        <div class="row">
+    
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+            <div class="x_title">
+                <h2>ข้อมูลลูกค้า <small></small></h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+    
+    
+                <!-- Smart Wizard -->
+                <p>* ระบบสามารถบันทึกได้ เมื่อการกรอกข้อมูลครบทุกขั้นตอน</p>
+                <div id="wizard" class="form_wizard wizard_horizontal">
+                    <ul class="wizard_steps" style="margin-top: 35px; margin-bottom: 35px;">
+                        <li>
+                            <a class="selected" style="cursor: pointer"  ng-click="go_to_step(1)">
+                                <span class="step_no">1</span>
+                                <span class="step_descr">
+                                    Step 1<br />
+                                    <small>Main Business</small>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a ng-class="{selected: done >=2 }" style="cursor: pointer" ng-click="go_to_step(2)">
+                                <span class="step_no" style="background: #ccc">2</span>
+                                <span class="step_descr">
+                                    Step 2<br />
+                                    <small>ประวัติผู้บริหาร</small>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a ng-class="{selected: done >=3 }" style="cursor: pointer" ng-click="go_to_step(3)">
+                            <span class="step_no" style="background: #ccc">3</span>
+                            <span class="step_descr">
+                                Step 3<br />
+                                <small>เป้าหมาย</small>
+                            </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a ng-class="{selected: done >=4 }" style="cursor: pointer"  ng-click="go_to_step(4)">
+                                <span class="step_no" style="background: #ccc">4</span>
+                                <span class="step_descr">
+                                    Step 4<br />
+                                    <small>ข้อมูลธุรกิจ</small>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a  ng-class="{selected: done >=5 }" style="cursor: pointer"  ng-click="go_to_step(5)">
+                                <span class="step_no" style="background: #ccc">5</span>
+                                <span class="step_descr">
+                                    Step 5<br />
+                                    <small>ข้อมูลทางการเงิน</small>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+    
+                    <div ng-include="'/static/html/form/step1.html'"></div>
+                    <div ng-include="'/static/html/form/step2.html'"></div>
+                    <div ng-include="'/static/html/form/step3.html'"></div>
+                    <div ng-include="'/static/html/form/step4.html'"></div>
+                    <div ng-include="'/static/html/form/step5.html'"></div>
+                </div>
+                <div class="actionBar" style="display: flex">
+                    <div style="flex: 1" ></div>
+                    <p style="color: red; margin-right: 15px">{{ error }}</p>
+                    <a ng-click="on_create()" class="buttonFinish btn btn-default" ng-class="{ 'buttonDisabled': !can_save() }">Finish</a>
+                    <a ng-click="click_previous()" class="buttonPrevious btn btn-primary">Previous</a>                
+                    <a ng-click="click_next()" class="buttonNext btn btn-success">Next</a>
+                </div>
+                <!-- End SmartWizard Content -->
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+      <!-- /page content -->
