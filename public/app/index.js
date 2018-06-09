@@ -25,12 +25,170 @@ app.config(function($routeProvider) {
         templateUrl : 'static/html/userCreate.html',
         controller: 'userCreateCtrl'
     })
+    .when("/user/:id/edit", {
+        templateUrl : 'static/html/userCreate.html',
+        controller: 'userEditCtrl'
+    })
     .otherwise({redirectTo : '/'})
 })
 
 app.run(function($rootScope) { 
 })
 
+var generate_id = () => {
+    return '_' + Math.random().toString(36).substr(2, 9)
+}
+
+app.controller('userEditCtrl', [
+    '$scope', '$location', '$route', '$rootScope', '$routeParams', '$http',
+    function($scope, $location, $route, $rootScope, $routeParams, $http) {
+        $scope.selected_available_group = []
+        $scope.selected_chosen_group = []
+
+        $scope.available_group = []
+        $scope.chosen_group = []
+
+        $scope.on_create = () => {
+            if(check_is_valid()) {
+                $http.get('/api/check-account-id?account_email='+ $scope.account.account_email).then((res) => {
+                    if(!res.data.is_used) {
+                        if($scope.account.account_password.length >= 6) {
+                            if($scope.account.account_password == $scope.account.account_confirm_password) {
+                                $http.post(`/api/account`, $scope.account).then(() => {
+                                    window.location.href = '/#!/user/'
+                                })
+                                $scope.error = ''
+                            } else {
+                                $scope.error = 'password เเละ confirm password ไม่ถูกต้อง'
+                            }
+                        } else {
+                            $scope.error = 'ขนาดของ password ต้องมีขนาดมากว่า 6 ตัวอักษร'
+                        }
+                    } else {
+                        $scope.error = 'อีเมล์ถูกใช้ไปแเล้ว กรุณาเลือกใช้อีเมล์อื่น'
+                    }
+                })
+               
+            } else {
+                $scope.error = 'กรุณากรอกข้อมูลให้ครบทุกช่อง'
+            }
+        }
+
+        const check_is_valid = () => {
+            return $scope.account.account_position && $scope.account.account_password && $scope.account.account_phone && $scope.account.account_email && $scope.account.account_last_name && $scope.account.account_first_name
+        }
+
+        $http.get(`/api/account/${$routeParams.id}`).then((res) => {
+            $scope.account = res.data.account[0]
+            $scope.account.account_password = ''
+        })
+
+        const get_group_from_id = (business_id) => {
+            return $scope.available_group.find((group) => group.business_id == business_id)
+        }
+
+        $scope.on_click_add = () => {
+            $scope.chosen_group = [ ...$scope.chosen_group , ...$scope.selected_available_group.map((id) => get_group_from_id(id))]
+            $scope.selected_available_group = []
+            $scope.selected_chosen_group = []
+        }
+
+        $scope.on_click_remove = () => {
+            $scope.chosen_group = $scope.chosen_group.filter((group) => {
+                return $scope.selected_chosen_group.indexOf(group.business_id) < 0 
+            })
+            $scope.selected_available_group = []
+            $scope.selected_chosen_group = []
+        }
+        
+        $scope.is_not_in_chosen_group = (business_id) => {
+            return !$scope.chosen_group.find((group) => group.business_id == business_id)
+        }
+
+        $scope.on_click_group_in_chosen_group = (e, business_id) => {
+            document.getSelection().removeAllRanges()
+            const is_in_selected_chosen_group = $scope.is_in_selected_chosen_group(business_id)
+            if(e.ctrlKey) {
+                if(is_in_selected_chosen_group) {
+                    const index = $scope.selected_chosen_group.indexOf(business_id)
+                    $scope.selected_chosen_group.splice(index, 1)
+                } else {
+                    $scope.selected_chosen_group.push(business_id)
+                }
+            } else if(e.shiftKey) {
+                if($scope.selected_chosen_group.length == 0) {
+                    $scope.selected_chosen_group.push(business_id)
+                } else {
+                    const start_index =   $scope.chosen_group.map((customer) => customer.business_id).indexOf($scope.selected_chosen_group[$scope.selected_chosen_group.length - 1])
+                    const end_index = $scope.chosen_group.map((customer) => customer.business_id).indexOf(business_id)
+                    console.log( start_index + ' - ' + end_index )
+                    if(start_index <= end_index) {
+                        $scope.selected_chosen_group = $scope.chosen_group.filter((value, index) => {
+                            return  index >= start_index && index <= end_index
+                        }).map((customer) => customer.business_id)
+                    } else {
+                        $scope.selected_chosen_group = $scope.chosen_group.filter((value, index) => {
+                            return end_index >= index && index <= start_index
+                        }).map((customer) => customer.business_id)
+                    }
+                }
+            } else {
+                $scope.selected_chosen_group = [business_id]
+            }
+        }
+
+        $scope.on_click_group_in_available_group = (e, business_id) => {
+            const is_in_selected_available_group = $scope.is_in_selected_available_group(business_id)
+            document.getSelection().removeAllRanges()
+            if(e.ctrlKey) {
+                if(is_in_selected_available_group) {
+                    const index = $scope.selected_available_group.indexOf(business_id)
+                    $scope.selected_available_group.splice(index, 1)
+                } else {
+                    $scope.selected_available_group.push(business_id)
+                }
+            } else if(e.shiftKey) {
+                if($scope.selected_available_group.length == 0) {
+                    $scope.selected_available_group.push(business_id)
+                } else {
+                    const start_index =   $scope.available_group.map((customer) => customer.business_id).indexOf($scope.selected_available_group[$scope.selected_available_group.length - 1])
+                    const end_index = $scope.available_group.map((customer) => customer.business_id).indexOf(business_id)
+                    if(start_index <= end_index) {
+                        $scope.selected_available_group = $scope.available_group.filter((value, index) => {
+                            return  index >= start_index && index <= end_index && $scope.is_not_in_chosen_group(value.business_id)
+                        }).map((customer) => customer.business_id)
+                    } else {
+                        $scope.selected_available_group = $scope.available_group.filter((value, index) => {
+                            return end_index >= index && index <= start_index && $scope.is_not_in_chosen_group(value.business_id)
+                        }).map((customer) => customer.business_id)
+                    }
+                }
+            } else {
+                $scope.selected_available_group = [business_id]
+            }
+        }
+
+        $scope.on_select_all_available_group = () => {
+            $scope.selected_available_group = $scope.available_group.map((customer) => customer.business_id)
+        }
+
+        $scope.on_select_all_chosen_group = () => {
+            $scope.selected_chosen_group = $scope.chosen_group.map((customer) => customer.business_id)
+        }
+
+        $scope.is_in_selected_available_group = (business_id) => {
+            return !!$scope.selected_available_group.find((id) => id == business_id)
+        }
+        
+        $scope.is_in_selected_chosen_group = (business_id) => {
+            return !!$scope.selected_chosen_group.find((id) => id == business_id)
+        }
+
+        $http.get(`/api/customers`).then((res) => {
+            $scope.available_group = res.data
+        }) 
+    }
+])
 
 app.controller('userCreateCtrl', [
     '$scope', '$location', '$route', '$rootScope', '$routeParams', '$http',
@@ -72,6 +230,7 @@ app.controller('userCreateCtrl', [
         }
 
         $scope.account = {
+            account_id: generate_id(),
             account_position: '',
             account_password: '',
             account_phone: '',

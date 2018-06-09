@@ -25,6 +25,7 @@ const connection = mysql.createConnection({
 
 const get_account = (data) => {
     return {
+        account_id: data.account_id,
         account_position: data.account_position,
         account_password: data.account_password,
         account_phone: data.account_phone,
@@ -336,6 +337,19 @@ api_routes.get('/check-account-id', function(req, res) {
 
 api_routes.get('/account', function(req, res) {
     connection.query('SELECT * FROM  account', function (err, rows, fields) {
+        if (err) throw err
+        res.status(200).send({
+            success: true,
+            account: rows
+        })
+    })
+})
+
+api_routes.get('/account/:id', function(req, res) {
+    const data = {
+        account_id: req.params.id
+    }
+    connection.query('SELECT * FROM  account where ?', data, function (err, rows, fields) {
         if (err) throw err
         res.status(200).send({
             success: true,
