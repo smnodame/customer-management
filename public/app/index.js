@@ -58,7 +58,18 @@ app.controller('editCustomerInfoCtrl', [
         $http.get(`/api/customers/${$routeParams.id}`).then((res) => {
             $scope.detail = res.data[0]
             default_business_id = res.data[0].business_id
-        })
+
+            $scope.detail.business_detail_pet_quantity = parseInt(res.data[0].business_detail_pet_quantity)
+            $scope.detail.business_detail_meat_exchange_rate =  parseInt(res.data[0].business_detail_meat_exchange_rate)
+            $scope.detail.business_detail_sixness_rate =  parseInt(res.data[0].business_detail_sixness_rate)
+            $scope.detail.business_detail_mortality_rate =  parseInt(res.data[0].business_detail_mortality_rate)
+            $scope.detail.business_detail_cpf_product_usage_rate =  parseInt(res.data[0].business_detail_cpf_product_usage_rate)
+            $scope.detail.business_detail_other_product_usage_rate =  parseInt(res.data[0].business_detail_other_product_usage_rate)
+            $scope.detail.business_detail_number_of_workers =  parseInt(res.data[0].business_detail_number_of_workers)
+
+            $scope.detail.financial_information_private_capital_rate =  parseInt(res.data[0].financial_information_private_capital_rate)
+            $scope.detail.financial_information_other_capital_rate =  parseInt(res.data[0].financial_information_other_capital_rate)
+        }) 
 
         const next_step = () => {
             $scope.step = $scope.step + 1
