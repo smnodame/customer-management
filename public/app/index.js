@@ -42,7 +42,33 @@ app.controller('userCreateCtrl', [
         $scope.chosen_group = []
 
         $scope.on_create = () => {
-            console.log($scope.account)
+            if(check_is_valid()) {
+                if($scope.account.account_password.length >= 6) {
+                    if($scope.account.account_password == $scope.account.account_confirm_password) {
+                        console.log('=========')
+                        $scope.error = ''
+                    } else {
+                        $scope.error = 'password เเละ confirm password ไม่ถูกต้อง'
+                    }
+                } else {
+                    $scope.error = 'ขนาดของ password ต้องมีขนาดมากว่า 6 ตัวอักษร'
+                }
+            } else {
+                $scope.error = 'กรุณากรอกข้อมูลให้ครบทุกช่อง'
+            }
+        }
+
+        const check_is_valid = () => {
+            return $scope.account.account_position && $scope.account.account_password && $scope.account.account_phone && $scope.account.account_email && $scope.account.account_last_name && $scope.account.account_first_name
+        }
+
+        $scope.account = {
+            account_position: '',
+            account_password: '',
+            account_phone: '',
+            account_email: '',
+            account_last_name: '',
+            account_first_name: ''
         }
 
         const get_group_from_id = (business_id) => {
