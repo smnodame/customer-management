@@ -45,7 +45,9 @@ app.controller('userCreateCtrl', [
             if(check_is_valid()) {
                 if($scope.account.account_password.length >= 6) {
                     if($scope.account.account_password == $scope.account.account_confirm_password) {
-                        console.log('=========')
+                        $http.post(`/api/account`, $scope.account).then(() => {
+                            window.location.href = '/#!/user/'
+                        })
                         $scope.error = ''
                     } else {
                         $scope.error = 'password เเละ confirm password ไม่ถูกต้อง'
@@ -68,7 +70,8 @@ app.controller('userCreateCtrl', [
             account_phone: '',
             account_email: '',
             account_last_name: '',
-            account_first_name: ''
+            account_first_name: '',
+            account_photo_path: ''
         }
 
         const get_group_from_id = (business_id) => {

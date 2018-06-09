@@ -23,6 +23,19 @@ const connection = mysql.createConnection({
     multipleStatements : true
 })
 
+const get_account = (data) => {
+    return {
+        account_position: data.account_position,
+        account_password: data.account_password,
+        account_phone: data.account_phone,
+        account_email: data.account_email,
+        account_last_name: data.account_last_name,
+        account_first_name: data.account_first_name,
+        account_photo_path: data.account_photo_path,
+        account_updated: new Date()
+    }
+}
+
 const get_groups = (data) => {
     const goal = {
         goal_id: data.goal_id,
@@ -113,8 +126,8 @@ const api_routes = express.Router()
 
 const query_service = {
     account: {
-        insert: function(account_id, account_first_name, account_last_name, account_email, account_phone, account_password, account_photo_path, account_address) {
-            return "INSERT INTO `account` (`account_id`, `account_first_name`, `account_last_name`, `account_email`, `account_phone`, `account_password`, `account_photo_path`, `account_address`) VALUES ("+ account_id +", "+ account_first_name +", "+ account_last_name +", "+ account_email +", "+ account_phone +", "+ account_password +", "+ account_photo_path +", "+ account_address +");"
+        insert: function(account) {
+            return "INSERT INTO `account` SET ? "
         }
     },
     customer: {
@@ -280,6 +293,18 @@ api_routes.post('/customers', function(req, res) {
 api_routes.post('/file', function(req, res) {
     res.status(200).send({
         success: true
+    })
+})
+
+api_routes.post('/account', function(req, res) {
+    const data = req.body
+    const account = get_account(data)
+
+    connection.query(query_service.account.insert(account), account, function (err, rows, fields) {
+        if (err) throw err
+        res.status(200).send({
+            success: true
+        })
     })
 })
 
