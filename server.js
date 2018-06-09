@@ -96,7 +96,8 @@ const get_groups = (data) => {
         business_grade: data.business_grade,
         business_address: data.business_address,
         business_type: data.business_type,
-        business_telephone: data.business_telephone
+        business_telephone: data.business_telephone,
+        updated_date: new Date()
     }
 
     return {
