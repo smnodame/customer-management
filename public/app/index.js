@@ -52,12 +52,15 @@ app.controller('userCreateCtrl', [
         $scope.on_click_add = () => {
             $scope.chosen_group = [ ...$scope.chosen_group , ...$scope.selected_available_group.map((id) => get_group_from_id(id))]
             $scope.selected_available_group = []
+            $scope.selected_chosen_group = []
         }
 
         $scope.on_click_remove = () => {
             $scope.chosen_group = $scope.chosen_group.filter((group) => {
                 return $scope.selected_chosen_group.indexOf(group.business_id) < 0 
             })
+            $scope.selected_available_group = []
+            $scope.selected_chosen_group = []
         }
         
         $scope.is_not_in_chosen_group = (business_id) => {
@@ -65,6 +68,7 @@ app.controller('userCreateCtrl', [
         }
 
         $scope.on_click_group_in_chosen_group = (e, business_id) => {
+            document.getSelection().removeAllRanges()
             const is_in_selected_chosen_group = $scope.is_in_selected_chosen_group(business_id)
             if(e.ctrlKey) {
                 if(is_in_selected_chosen_group) {
@@ -97,6 +101,7 @@ app.controller('userCreateCtrl', [
 
         $scope.on_click_group_in_available_group = (e, business_id) => {
             const is_in_selected_available_group = $scope.is_in_selected_available_group(business_id)
+            document.getSelection().removeAllRanges()
             if(e.ctrlKey) {
                 if(is_in_selected_available_group) {
                     const index = $scope.selected_available_group.indexOf(business_id)
@@ -112,11 +117,11 @@ app.controller('userCreateCtrl', [
                     const end_index = $scope.available_group.map((customer) => customer.business_id).indexOf(business_id)
                     if(start_index <= end_index) {
                         $scope.selected_available_group = $scope.available_group.filter((value, index) => {
-                            return  index >= start_index && index <= end_index
+                            return  index >= start_index && index <= end_index && $scope.is_not_in_chosen_group(value.business_id)
                         }).map((customer) => customer.business_id)
                     } else {
                         $scope.selected_available_group = $scope.available_group.filter((value, index) => {
-                            return end_index >= index && index <= start_index
+                            return end_index >= index && index <= start_index && $scope.is_not_in_chosen_group(value.business_id)
                         }).map((customer) => customer.business_id)
                     }
                 }
