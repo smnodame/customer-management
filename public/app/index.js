@@ -36,8 +36,11 @@ app.controller('userCreateCtrl', [
     '$scope', '$location', '$route', '$rootScope', '$routeParams', '$http',
     function($scope, $location, $route, $rootScope, $routeParams, $http) {
         $scope.selected_available_group = []
+        $scope.selected_chosen_group = []
+
         $scope.available_group = []
         $scope.chosen_group = []
+
         $scope.on_create = () => {
             console.log($scope.account)
         }
@@ -51,8 +54,45 @@ app.controller('userCreateCtrl', [
             $scope.selected_available_group = []
         }
 
+        $scope.on_click_remove = () => {
+            $scope.chosen_group = $scope.chosen_group.filter((group) => {
+                return $scope.selected_chosen_group.indexOf(group.business_id) < 0 
+            })
+        }
+        
         $scope.is_not_in_chosen_group = (business_id) => {
             return !$scope.chosen_group.find((group) => group.business_id == business_id)
+        }
+
+        $scope.on_click_group_in_chosen_group = (e, business_id) => {
+            const is_in_selected_chosen_group = $scope.is_in_selected_chosen_group(business_id)
+            if(e.ctrlKey) {
+                if(is_in_selected_chosen_group) {
+                    const index = $scope.selected_chosen_group.indexOf(business_id)
+                    $scope.selected_chosen_group.splice(index, 1)
+                } else {
+                    $scope.selected_chosen_group.push(business_id)
+                }
+            } else if(e.shiftKey) {
+                if($scope.selected_chosen_group.length == 0) {
+                    $scope.selected_chosen_group.push(business_id)
+                } else {
+                    const start_index =   $scope.chosen_group.map((customer) => customer.business_id).indexOf($scope.selected_chosen_group[$scope.selected_chosen_group.length - 1])
+                    const end_index = $scope.chosen_group.map((customer) => customer.business_id).indexOf(business_id)
+                    console.log( start_index + ' - ' + end_index )
+                    if(start_index <= end_index) {
+                        $scope.selected_chosen_group = $scope.chosen_group.filter((value, index) => {
+                            return  index >= start_index && index <= end_index
+                        }).map((customer) => customer.business_id)
+                    } else {
+                        $scope.selected_chosen_group = $scope.chosen_group.filter((value, index) => {
+                            return end_index >= index && index <= start_index
+                        }).map((customer) => customer.business_id)
+                    }
+                }
+            } else {
+                $scope.selected_chosen_group = [business_id]
+            }
         }
 
         $scope.on_click_group_in_available_group = (e, business_id) => {
@@ -74,7 +114,6 @@ app.controller('userCreateCtrl', [
                         $scope.selected_available_group = $scope.available_group.filter((value, index) => {
                             return  index >= start_index && index <= end_index
                         }).map((customer) => customer.business_id)
-                        console.log($scope.selected_available_group)
                     } else {
                         $scope.selected_available_group = $scope.available_group.filter((value, index) => {
                             return end_index >= index && index <= start_index
@@ -90,10 +129,18 @@ app.controller('userCreateCtrl', [
             $scope.selected_available_group = $scope.available_group.map((customer) => customer.business_id)
         }
 
+        $scope.on_select_all_chosen_group = () => {
+            $scope.selected_chosen_group = $scope.chosen_group.map((customer) => customer.business_id)
+        }
+
         $scope.is_in_selected_available_group = (business_id) => {
             return !!$scope.selected_available_group.find((id) => id == business_id)
         }
         
+        $scope.is_in_selected_chosen_group = (business_id) => {
+            return !!$scope.selected_chosen_group.find((id) => id == business_id)
+        }
+
         $http.get(`/api/customers`).then((res) => {
             $scope.available_group = res.data
         }) 

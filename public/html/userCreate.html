@@ -282,7 +282,11 @@
                             <div class="panel-heading">Chosen Group</div>
                             <div class="panel-body" style="height: 300px; overflow-y: scroll; padding: 0">
                                 <ul class="list-group">
-                                    <li class="list-group-item" ng-repeat="group in chosen_group track by $index">
+                                    <li class="list-group-item" style="cursor: pointer" 
+                                      ng-class="{ selected : is_in_selected_chosen_group(group.business_id)}"  
+                                      ng-repeat="group in chosen_group track by $index" 
+                                      ng-click="on_click_group_in_chosen_group($event, group.business_id )" 
+                                    >
                                         <div style="width: 35%">
                                             <strong>{{ group.business_id }}</strong>
                                         </div>
@@ -292,7 +296,7 @@
                             </div>
                           </div>
                           <div style="text-align: center">
-                              <button class="btn" style="background-color:transparent" ><i class="fa fa-times-circle" style="font-size: 25px"></i> <span>ลบทั้งหมด</span></button>
+                              <button class="btn" style="background-color:transparent" ng-click="on_select_all_chosen_group()"><i class="fa fa-times-circle" style="font-size: 25px"></i> <span>ลบทั้งหมด</span></button>
                           </div>
                     </div>
                 </div>
