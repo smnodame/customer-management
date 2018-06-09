@@ -33,9 +33,31 @@ app.run(function($rootScope) {
 
 
 app.controller('userCreateCtrl', [
-    '$scope', '$location', '$route', '$rootScope', '$routeParams',
-    function($scope, $location, $route, $rootScope, $routeParams) {
+    '$scope', '$location', '$route', '$rootScope', '$routeParams', '$http',
+    function($scope, $location, $route, $rootScope, $routeParams, $http) {
+        $scope.selected_customer = []
+
+        $scope.on_create = () => {
+            console.log($scope.account)
+        }
+
+        $scope.on_click_customer = (e, business_id) => {
+            if(e.ctrlKey) {
+
+            } else if(e.shiftKey) {
+
+            } else {
+                $scope.selected_customer = [business_id]
+            }
+        }
+
+        $scope.is_in_selected_customer = (business_id) => {
+            return !!$scope.selected_customer.find((id) => id == business_id)
+        }
         
+        $http.get(`/api/customers`).then((res) => {
+            $scope.customers = res.data
+        }) 
     }
 ])
 

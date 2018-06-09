@@ -81,9 +81,6 @@
                                   </div>
                                 </div>
                               </div>
-                              <!-- <div class="modal-footer">
-                                                <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
-                                              </div> -->
                             </form>
                           </div>
                         </div>
@@ -121,51 +118,52 @@
                             <br />
                             <form class="form-horizontal form-label-left input_mask">
         
-                            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="ชื่อ">
-                                <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-        
-                            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                <input type="text" class="form-control" id="inputSuccess3" placeholder="นามสกุล">
-                                <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
-                            </div>
-        
-                            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                <input type="text" class="form-control has-feedback-left" id="inputSuccess4" placeholder="อีเมล์">
-                                <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-        
-                            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                <input type="text" class="form-control" id="inputSuccess5" placeholder="เบอร์โทรศัพท์">
-                                <span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
-                            </div>
-        
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Password</label>
-                                <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input type="text" class="form-control" placeholder="Password">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Confirm Password </label>
-                                <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input type="text" class="form-control" placeholder="Confirm Password">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">ที่อยู่</label>
-                                <div class="col-md-9 col-sm-9 col-xs-12">
-                                    <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ></textarea>
-                                </div>
-                            </div>
-                            <div class="ln_solid"></div>
-                            <div class="form-group" style="text-align: right">
-                                <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                                <button type="submit" class="btn btn-primary">ยกเลิก</button>
-                                <button type="submit" class="btn btn-success">สร้าง</button>
-                                </div>
-                            </div>
+                              <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                  <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="ชื่อ" ng-model="account.account_first_name">
+                                  <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                              </div>
+          
+                              <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                  <input type="text" class="form-control" id="inputSuccess3" placeholder="นามสกุล" ng-model="account.account_last_name">
+                                  <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                              </div>
+          
+                              <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                  <input type="text" class="form-control has-feedback-left"  placeholder="อีเมล์" ng-model="account.account_email">
+                                  <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
+                              </div>
+          
+                              <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                  <input type="text" class="form-control" id="inputSuccess5" placeholder="เบอร์โทรศัพท์" ng-model="account.account_phone">
+                                  <span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
+                              </div>
+                              
+                              <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                  <input type="password" class="form-control has-feedback-left"  placeholder="Password" ng-model="account.account_password">
+                                  <span class="fa fa-lock form-control-feedback left" aria-hidden="true"></span>
+                              </div>
+                              
+                              <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                  <input type="password" class="form-control has-feedback-left"  placeholder="Confirm Password" ng-model="account.account_confirm_password">
+                                  <span class="fa fa-lock form-control-feedback left" aria-hidden="true"></span>
+                              </div>
+
+                              <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                  <select class="form-control has-feedback-left" ng-model="account.account_position">
+                                      <option value="">ตำแหน่ง</option>
+                                      <option value="ฝ่ายขาย">ฝ่ายขาย</option>
+                                      <option value="admin">Admin</option>
+                                  </select>
+                                  <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
+
+                              </div>
+                              <div class="ln_solid"></div>
+                              <div class="form-group" style="text-align: right">
+                                  <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                  <button type="submit" class="btn btn-primary">ยกเลิก</button>
+                                  <button type="submit" class="btn btn-success" ng-click="on_create()">สร้าง</button>
+                                  </div>
+                              </div>
                             </form>
                         </div>
 
@@ -257,35 +255,12 @@
                           <div class="panel-heading">Available Group</div>
                           <div class="panel-body" style="height: 300px; overflow-y: scroll; padding: 0">
                               <ul class="list-group">
-                                  <li class="list-group-item">Cras justo odio</li>
-                                  <li class="list-group-item">Dapibus ac facilisis in</li>
-                                  <li class="list-group-item">Morbi leo risus</li>
-                                  <li class="list-group-item">Porta ac consectetur ac</li>
-                                  <li class="list-group-item">Vestibulum at eros</li>
-                                  <li class="list-group-item">Dapibus ac facilisis in</li>
-                                  <li class="list-group-item">Morbi leo risus</li>
-                                  <li class="list-group-item">Porta ac consectetur ac</li>
-                                  <li class="list-group-item">Vestibulum at eros</li>
-                                  <li class="list-group-item">Dapibus ac facilisis in</li>
-                                  <li class="list-group-item">Morbi leo risus</li>
-                                  <li class="list-group-item">Porta ac consectetur ac</li>
-                                  <li class="list-group-item">Vestibulum at eros</li>
-                                  <li class="list-group-item">Dapibus ac facilisis in</li>
-                                  <li class="list-group-item">Morbi leo risus</li>
-                                  <li class="list-group-item">Porta ac consectetur ac</li>
-                                  <li class="list-group-item">Vestibulum at eros</li>
-                                  <li class="list-group-item">Dapibus ac facilisis in</li>
-                                  <li class="list-group-item">Morbi leo risus</li>
-                                  <li class="list-group-item">Porta ac consectetur ac</li>
-                                  <li class="list-group-item">Vestibulum at eros</li>
-                                  <li class="list-group-item">Dapibus ac facilisis in</li>
-                                  <li class="list-group-item">Morbi leo risus</li>
-                                  <li class="list-group-item">Porta ac consectetur ac</li>
-                                  <li class="list-group-item">Vestibulum at eros</li>
-                                  <li class="list-group-item">Dapibus ac facilisis in</li>
-                                  <li class="list-group-item">Morbi leo risus</li>
-                                  <li class="list-group-item">Porta ac consectetur ac</li>
-                                  <li class="list-group-item">Vestibulum at eros</li>
+                                  <li class="list-group-item" style="cursor: pointer" ng-class="{ selected : is_in_selected_customer(customer.business_id)}" ng-click="on_click_customer($event, customer.business_id )" ng-repeat="customer in customers track by $index">
+                                      <div style="width: 35%">
+                                          <strong>{{ customer.business_id }}</strong>
+                                      </div>
+                                      <span> {{  customer.business_name }}</span>
+                                  </li>
                                 </ul>
                           </div>
                         </div>
@@ -302,36 +277,13 @@
                             <div class="panel-heading">Chosen Group</div>
                             <div class="panel-body" style="height: 300px; overflow-y: scroll; padding: 0">
                                 <ul class="list-group">
-                                    <li class="list-group-item">Cras justo odio</li>
-                                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                                    <li class="list-group-item">Morbi leo risus</li>
-                                    <li class="list-group-item">Porta ac consectetur ac</li>
-                                    <li class="list-group-item">Vestibulum at eros</li>
-                                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                                    <li class="list-group-item">Morbi leo risus</li>
-                                    <li class="list-group-item">Porta ac consectetur ac</li>
-                                    <li class="list-group-item">Vestibulum at eros</li>
-                                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                                    <li class="list-group-item">Morbi leo risus</li>
-                                    <li class="list-group-item">Porta ac consectetur ac</li>
-                                    <li class="list-group-item">Vestibulum at eros</li>
-                                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                                    <li class="list-group-item">Morbi leo risus</li>
-                                    <li class="list-group-item">Porta ac consectetur ac</li>
-                                    <li class="list-group-item">Vestibulum at eros</li>
-                                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                                    <li class="list-group-item">Morbi leo risus</li>
-                                    <li class="list-group-item">Porta ac consectetur ac</li>
-                                    <li class="list-group-item">Vestibulum at eros</li>
-                                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                                    <li class="list-group-item">Morbi leo risus</li>
-                                    <li class="list-group-item">Porta ac consectetur ac</li>
-                                    <li class="list-group-item">Vestibulum at eros</li>
-                                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                                    <li class="list-group-item">Morbi leo risus</li>
-                                    <li class="list-group-item">Porta ac consectetur ac</li>
-                                    <li class="list-group-item">Vestibulum at eros</li>
-                                  </ul>
+                                    <li class="list-group-item" ng-repeat="selected in selecteds track by $index">
+                                        <div style="width: 35%">
+                                            <strong>{{ selected.business_id }}</strong>
+                                        </div>
+                                        <span> {{  selected.business_name }}</span>
+                                    </li>
+                                </ul>
                             </div>
                           </div>
                           <div style="text-align: center">
