@@ -374,7 +374,7 @@ app.controller('userCtrl', [
                         account.account_position,
                         account.account_updated,
                         '<a href="/#!/user/'+ account.account_id +'/edit" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>'+
-                        `<a ng-click="on_delete(account.account_id)" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>`
+                        `<a ng-click="on_delete('${account.account_id}')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>`
                     ]).draw( true )
                 })
     
