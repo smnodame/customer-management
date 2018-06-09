@@ -25,7 +25,7 @@
                     <div id="crop-avatar">
                       <!-- Current avatar -->
                       <div class="avatar-view" title="Change the avatar">
-                        <img src="https://colorlib.com/polygon/gentelella/images/picture.jpg" alt="Avatar">
+                        <img src="/static/images/user.png" alt="Avatar">
                       </div>
 
                       <!-- Cropping modal -->
@@ -110,9 +110,9 @@
 
                   <div class="" role="tabpanel" data-example-id="togglable-tabs">
                     <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                      <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">รายละเอียด</a>
+                      <li role="presentation" class="active"><a  id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">รายละเอียด</a>
                       </li>
-                      <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">ลูกค้าที่ได้รับมอบหมาย</a>
+                      <li ng-if="is_created" role="presentation" class=""><a  role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">ลูกค้าที่ได้รับมอบหมาย</a>
                       </li>
                     </ul>
                     <div id="myTabContent" class="tab-content">
