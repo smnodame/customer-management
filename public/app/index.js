@@ -43,18 +43,25 @@ app.controller('userCreateCtrl', [
 
         $scope.on_create = () => {
             if(check_is_valid()) {
-                if($scope.account.account_password.length >= 6) {
-                    if($scope.account.account_password == $scope.account.account_confirm_password) {
-                        $http.post(`/api/account`, $scope.account).then(() => {
-                            window.location.href = '/#!/user/'
-                        })
-                        $scope.error = ''
+                $http.get('/api/check-account-id?account_email='+ $scope.account.account_email).then((res) => {
+                    if(!res.data.is_used) {
+                        if($scope.account.account_password.length >= 6) {
+                            if($scope.account.account_password == $scope.account.account_confirm_password) {
+                                $http.post(`/api/account`, $scope.account).then(() => {
+                                    window.location.href = '/#!/user/'
+                                })
+                                $scope.error = ''
+                            } else {
+                                $scope.error = 'password เเละ confirm password ไม่ถูกต้อง'
+                            }
+                        } else {
+                            $scope.error = 'ขนาดของ password ต้องมีขนาดมากว่า 6 ตัวอักษร'
+                        }
                     } else {
-                        $scope.error = 'password เเละ confirm password ไม่ถูกต้อง'
+                        $scope.error = 'อีเมล์ถูกใช้ไปแเล้ว กรุณาเลือกใช้อีเมล์อื่น'
                     }
-                } else {
-                    $scope.error = 'ขนาดของ password ต้องมีขนาดมากว่า 6 ตัวอักษร'
-                }
+                })
+               
             } else {
                 $scope.error = 'กรุณากรอกข้อมูลให้ครบทุกช่อง'
             }

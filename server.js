@@ -321,6 +321,19 @@ api_routes.get('/check-customer-id', function(req, res) {
     })
 })
 
+api_routes.get('/check-account-id', function(req, res) {
+    const data = {
+        account_email: req.query.account_email
+    }
+    connection.query('SELECT * FROM  account where ?', data, function (err, rows, fields) {
+        if (err) throw err
+        res.status(200).send({
+            success: true,
+            is_used: !!rows.length
+        })
+    })
+})
+
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html')
 })
