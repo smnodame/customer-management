@@ -168,6 +168,11 @@ const query_service = {
         delete: function(account_id) {
             return "DELETE FROM `user_group` WHERE account_id = '" + account_id + "';"
         }
+    },
+    user_group: {
+        select: function(business_id) {
+            return "SELECT * FROM `user_group` u join `account` a on u.account_id = a.account_id WHERE u.business_id = '" + business_id + "'"
+        }
     }
 }
 
@@ -431,6 +436,16 @@ api_routes.delete('/group/:id', function(req, res) {
         if (err) throw err
         res.status(200).send({
             success: true
+        })
+    })
+})
+
+api_routes.get('/user_group/:id', function(req, res) {
+    connection.query(query_service.user_group.select(req.params.id), function (err, rows, fields) {
+        if (err) throw err
+        res.status(200).send({
+            success: true,
+            account: rows
         })
     })
 })

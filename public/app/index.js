@@ -29,6 +29,10 @@ app.config(function($routeProvider) {
         templateUrl : 'static/html/userCreate.html',
         controller: 'userEditCtrl'
     })
+    .when("/user/:id", {
+        templateUrl : 'static/html/userCreate.html',
+        controller: 'userEditCtrl'
+    })
     .otherwise({redirectTo : '/'})
 })
 
@@ -530,14 +534,34 @@ app.controller('editCustomerInfoCtrl', [
 ])
 
 app.controller('customerInfoCtrl', [
-    '$scope', '$location', '$route', '$rootScope', '$routeParams', '$http',
-    function($scope, $location, $route, $rootScope, $routeParams, $http) {
+    '$scope', '$location', '$route', '$rootScope', '$routeParams', '$http', '$compile',
+    function($scope, $location, $route, $rootScope, $routeParams, $http, $compile) {
         $scope.tab_index = 1
+        
         $scope.change_tab = (tab_index) => {
             $scope.tab_index = tab_index
-            $(document).ready(function() {
-                $('#datatable-responsive').DataTable()
-            })
+            load_user()
+        }
+
+        const load_user = () => {
+            const tables = $('#datatable-responsive').DataTable()
+            tables.clear()
+            .draw()
+
+            $http.get(`/api/user_group/${$routeParams.id}`).then((res) => {
+                res.data.account.forEach((account) => {
+                    tables.row.add( [
+                        account.account_first_name,
+                        account.account_last_name,
+                        account.account_email,
+                        account.account_phone,
+                        account.account_position,
+                        '<a href="/#!/user/'+account.account_id+'/edit" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>'
+                    ]).draw( true )
+                })
+                var compileFn = $compile(angular.element(document.getElementById("datatable-responsive")))
+                compileFn($scope)
+            }) 
         }
 
         $scope.redirect_to_edit = () => {
