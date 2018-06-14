@@ -94,11 +94,11 @@
 
                   </div>
                   <!-- profile detail -->
-                  <div ng-if="is_created">
-                      <h3>Samuel Doe</h3>
+                  <div ng-if="is_edited">
+                      <h3>{{ account.account_first_name + ' ' + account.account_last_name }}</h3>
                       
                       <ul class="list-unstyled user_data">
-                        <li><i class="fa fa-calendar" style="margin-right: 5px"></i> อัพเดทเมื่อวันที่ 20/01/61
+                        <li><i class="fa fa-calendar" style="margin-right: 5px"></i> อัพเดทเมื่อวันที่ {{ account.account_updated }}
                         </li>
                       </ul>
                   </div>
@@ -112,7 +112,7 @@
                     <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                       <li role="presentation" class="active"><a  id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">รายละเอียด</a>
                       </li>
-                      <li ng-if="is_created" role="presentation" class=""><a  role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">ลูกค้าที่ได้รับมอบหมาย</a>
+                      <li ng-if="is_edited" role="presentation" class=""><a  role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">ลูกค้าที่ได้รับมอบหมาย</a>
                       </li>
                     </ul>
                     <div id="myTabContent" class="tab-content">
@@ -163,9 +163,10 @@
                               <div class="ln_solid"></div>
                               <div class="form-group" style="text-align: right">
                                   <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                                  <p style="color: red">{{ error }}</p>
-                                  <a href="/#!/user" type="submit" class="btn btn-primary">ยกเลิก</a>
-                                  <button type="submit" class="btn btn-success" ng-click="on_create()">สร้าง</button>
+                                    <p style="color: red">{{ error }}</p>
+                                    <a href="/#!/user" type="submit" class="btn btn-primary">ยกเลิก</a>
+                                    <button ng-if="!is_edited" type="submit" class="btn btn-success" ng-click="on_create()">สร้าง</button>
+                                    <button ng-if="is_edited" type="submit" class="btn btn-success" ng-click="on_edit()">เเก้ไข</button>
                                   </div>
                               </div>
                             </form>

@@ -47,6 +47,8 @@ app.controller('userEditCtrl', [
 
         $scope.available_group = []
         $scope.chosen_group = []
+        
+        $scope.is_edited = true
 
         $scope.on_create = () => {
             if(check_is_valid()) {
