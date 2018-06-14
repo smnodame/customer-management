@@ -179,6 +179,14 @@ app.controller('userEditCtrl', [
                         if($scope.account.account_password.length >= 6) {
                             if($scope.account.account_password == $scope.account.account_confirm_password) {
                                 $http.put(`/api/account/${$routeParams.id}`, $scope.account).then(() => {
+                                    return $http.delete(`/api/group/${$scope.account.account_id}`)
+                                }).then(() => {
+                                    return $http.post(`/api/group/${$scope.account.account_id}`, {
+                                        groups: $scope.chosen_group.map((group) => ({
+                                            business_id: group.business_id
+                                        }))
+                                    })
+                                }).then(() => {
                                     window.location.href = '/#!/user/'
                                 })
                                 $scope.error = ''
@@ -189,6 +197,14 @@ app.controller('userEditCtrl', [
                             $http.put(`/api/account/${$routeParams.id}`, {
                                 ...$scope.account,
                                 account_password: $scope.default_password
+                            }).then(() => {
+                                return $http.delete(`/api/group/${$scope.account.account_id}`)
+                            }).then(() => {
+                                return $http.post(`/api/group/${$scope.account.account_id}`, {
+                                    groups: $scope.chosen_group.map((group) => ({
+                                        business_id: group.business_id
+                                    }))
+                                })
                             }).then(() => {
                                 window.location.href = '/#!/user/'
                             })
