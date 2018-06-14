@@ -153,6 +153,15 @@ const query_service = {
         update: function(business_id) {
             return "UPDATE main_business SET ? WHERE business_id = '" + business_id + "'; UPDATE executive_profile SET ? WHERE executive_profile_id = '" + business_id + "'; UPDATE `goal` SET ? WHERE goal_id = '" + business_id + "'; UPDATE business_detail SET ? WHERE business_detail_id = '" + business_id + "'; UPDATE financial_information SET ? WHERE financial_information_id = '" + business_id + "';"
         }
+    },
+    group: {
+        insert: function(account_id, groups) {
+            var querys = []
+            groups.forEach(function(group) {
+                querys.push(" INSERT INTO user_group (`account_id`, `business_id`) VALUES ('"+ account_id +"', '" + group.business_id + "')")
+            })
+            return querys.join(';')
+        }
     }
 }
 
@@ -382,6 +391,15 @@ api_routes.delete('/account/:id', function(req, res) {
         res.status(200).send({
             success: true,
             account: rows
+        })
+    })
+})
+
+api_routes.post('/group/:id', function(req, res) {
+    connection.query(query_service.group.insert(req.params.id, req.body.groups), function (err, rows, fields) {
+        if (err) throw err
+        res.status(200).send({
+            success: true
         })
     })
 })

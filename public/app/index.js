@@ -220,6 +220,12 @@ app.controller('userCreateCtrl', [
                         if($scope.account.account_password.length >= 6) {
                             if($scope.account.account_password == $scope.account.account_confirm_password) {
                                 $http.post(`/api/account`, $scope.account).then(() => {
+                                    return $http.post(`/api/group/${$scope.account.account_id}`, {
+                                        groups: $scope.chosen_group.map((group) => ({
+                                            business_id: group.business_id
+                                        }))
+                                    })
+                                }).then(() => {
                                     window.location.href = '/#!/user/'
                                 })
                                 $scope.error = ''
@@ -623,9 +629,6 @@ app.controller('homeCtrl', [
             } else if ($scope.step < 5) {
                 next_step()
             }
-
-            console.log('========')
-            console.log($scope.detail)
         }
 
         $scope.check_form_valid = () => {
