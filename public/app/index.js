@@ -50,38 +50,16 @@ app.controller('userEditCtrl', [
         
         $scope.is_edited = true
 
-        $scope.on_create = () => {
-            if(check_is_valid()) {
-                $http.get('/api/check-account-id?account_email='+ $scope.account.account_email).then((res) => {
-                    if(!res.data.is_used) {
-                        if($scope.account.account_password.length >= 6) {
-                            if($scope.account.account_password == $scope.account.account_confirm_password) {
-                                $http.post(`/api/account`, $scope.account).then(() => {
-                                    window.location.href = '/#!/user/'
-                                })
-                                $scope.error = ''
-                            } else {
-                                $scope.error = 'password เเละ confirm password ไม่ถูกต้อง'
-                            }
-                        } else {
-                            $scope.error = 'ขนาดของ password ต้องมีขนาดมากว่า 6 ตัวอักษร'
-                        }
-                    } else {
-                        $scope.error = 'อีเมล์ถูกใช้ไปแเล้ว กรุณาเลือกใช้อีเมล์อื่น'
-                    }
-                })
-               
-            } else {
-                $scope.error = 'กรุณากรอกข้อมูลให้ครบทุกช่อง'
-            }
-        }
-
         const check_is_valid = () => {
-            return $scope.account.account_position && $scope.account.account_password && $scope.account.account_phone && $scope.account.account_email && $scope.account.account_last_name && $scope.account.account_first_name
+            return $scope.account.account_position && $scope.account.account_phone && $scope.account.account_email && $scope.account.account_last_name && $scope.account.account_first_name
         }
 
         $http.get(`/api/account/${$routeParams.id}`).then((res) => {
             $scope.account = res.data.account[0]
+
+            $scope.default_email = $scope.account.account_email
+            $scope.default_password = $scope.account.account_password
+
             $scope.account.account_password = ''
         })
 
@@ -188,7 +166,41 @@ app.controller('userEditCtrl', [
 
         $http.get(`/api/customers`).then((res) => {
             $scope.available_group = res.data
-        }) 
+        })
+
+        $scope.on_edit = () => {
+            if(check_is_valid()) {
+                $http.get('/api/check-account-id?account_email='+ $scope.account.account_email).then((res) => {
+                    if(!res.data.is_used || $scope.account.account_email == $scope.default_email) {
+                        if($scope.account.account_password.length >= 6) {
+                            if($scope.account.account_password == $scope.account.account_confirm_password) {
+                                $http.put(`/api/account/${$routeParams.id}`, $scope.account).then(() => {
+                                    window.location.href = '/#!/user/'
+                                })
+                                $scope.error = ''
+                            } else {
+                                $scope.error = 'password เเละ confirm password ไม่ถูกต้อง'
+                            }
+                        } else if ($scope.account.account_password.length == 0) {
+                            $http.put(`/api/account/${$routeParams.id}`, {
+                                ...$scope.account,
+                                account_password: $scope.default_password
+                            }).then(() => {
+                                window.location.href = '/#!/user/'
+                            })
+                            $scope.error = ''
+                        } else {
+                            $scope.error = 'ขนาดของ password ต้องมีขนาดมากว่า 6 ตัวอักษร'
+                        }
+                    } else {
+                        $scope.error = 'อีเมล์ถูกใช้ไปแเล้ว กรุณาเลือกใช้อีเมล์อื่น'
+                    }
+                })
+               
+            } else {
+                $scope.error = 'กรุณากรอกข้อมูลให้ครบทุกช่อง'
+            }
+        }
     }
 ])
 

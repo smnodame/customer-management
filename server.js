@@ -129,6 +129,9 @@ const query_service = {
     account: {
         insert: function(account) {
             return "INSERT INTO `account` SET ? "
+        },
+        update: function(account) {
+            return "UPDATE `account` SET ? WHERE account_id = '" + account.account_id + "'"
         }
     },
     customer: {
@@ -302,6 +305,18 @@ api_routes.post('/account', function(req, res) {
     const account = get_account(data)
 
     connection.query(query_service.account.insert(account), account, function (err, rows, fields) {
+        if (err) throw err
+        res.status(200).send({
+            success: true
+        })
+    })
+})
+
+api_routes.put('/account/:id', function(req, res) {
+    const data = req.body
+    const account = get_account(data)
+
+    connection.query(query_service.account.update(account), account, function (err, rows, fields) {
         if (err) throw err
         res.status(200).send({
             success: true
