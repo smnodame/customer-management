@@ -65,8 +65,6 @@ app.controller('userEditCtrl', [
 
         $http.get(`/api/group/${$routeParams.id}`).then((res) => {
             $scope.chosen_group = res.data.groups
-            console.log('==========')
-            console.log($scope.chosen_group)
         })
 
         const get_group_from_id = (business_id) => {
