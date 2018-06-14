@@ -161,6 +161,9 @@ const query_service = {
                 querys.push(" INSERT INTO user_group (`account_id`, `business_id`) VALUES ('"+ account_id +"', '" + group.business_id + "')")
             })
             return querys.join(';')
+        },
+        select: function(account_id) {
+            return "SELECT * FROM `user_group` u join `main_business` m on u.business_id = m.business_id WHERE u.account_id = '" + account_id + "'"
         }
     }
 }
@@ -395,13 +398,29 @@ api_routes.delete('/account/:id', function(req, res) {
     })
 })
 
-api_routes.post('/group/:id', function(req, res) {
-    connection.query(query_service.group.insert(req.params.id, req.body.groups), function (err, rows, fields) {
+api_routes.get('/group/:id', function(req, res) {
+    connection.query(query_service.group.select(req.params.id), function (err, rows, fields) {
         if (err) throw err
+        res.status(200).send({
+            success: true,
+            groups: rows
+        })
+    })
+})
+
+api_routes.post('/group/:id', function(req, res) {
+    if(req.body.groups.length == 0) {
         res.status(200).send({
             success: true
         })
-    })
+    } else {
+        connection.query(query_service.group.insert(req.params.id, req.body.groups), function (err, rows, fields) {
+            if (err) throw err
+            res.status(200).send({
+                success: true
+            })
+        })
+    }
 })
 
 app.get('/', (req, res) => {
