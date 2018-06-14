@@ -17,14 +17,14 @@
               </div>
               <div class="x_content">
 
-                <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
+                <div class="col-md-3 col-sm-3 col-xs-12 profile_left" style="text-align: center; margin-top: 20px;">
 
                   <div class="profile_img">
 
                     <!-- end of image cropping -->
                     <div id="crop-avatar">
                       <!-- Current avatar -->
-                      <div class="avatar-view" title="Change the avatar">
+                      <div class="avatar-view" title="Change the avatar" style="margin: 0 auto">
                         <img src="/static/images/user.png" alt="Avatar">
                       </div>
 
@@ -48,37 +48,6 @@
                                     <input class="avatar-input" id="avatarInput" name="avatar_file" type="file">
                                   </div>
 
-                                  <!-- Crop and preview -->
-                                  <div class="row">
-                                    <div class="col-md-9">
-                                      <div class="avatar-wrapper"></div>
-                                    </div>
-                                    <div class="col-md-3">
-                                      <div class="avatar-preview preview-lg"></div>
-                                      <div class="avatar-preview preview-md"></div>
-                                      <div class="avatar-preview preview-sm"></div>
-                                    </div>
-                                  </div>
-
-                                  <div class="row avatar-btns">
-                                    <div class="col-md-9">
-                                      <div class="btn-group">
-                                        <button class="btn btn-primary" data-method="rotate" data-option="-90" type="button" title="Rotate -90 degrees">Rotate Left</button>
-                                        <button class="btn btn-primary" data-method="rotate" data-option="-15" type="button">-15deg</button>
-                                        <button class="btn btn-primary" data-method="rotate" data-option="-30" type="button">-30deg</button>
-                                        <button class="btn btn-primary" data-method="rotate" data-option="-45" type="button">-45deg</button>
-                                      </div>
-                                      <div class="btn-group">
-                                        <button class="btn btn-primary" data-method="rotate" data-option="90" type="button" title="Rotate 90 degrees">Rotate Right</button>
-                                        <button class="btn btn-primary" data-method="rotate" data-option="15" type="button">15deg</button>
-                                        <button class="btn btn-primary" data-method="rotate" data-option="30" type="button">30deg</button>
-                                        <button class="btn btn-primary" data-method="rotate" data-option="45" type="button">45deg</button>
-                                      </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                      <button class="btn btn-primary btn-block avatar-save" type="submit">Done</button>
-                                    </div>
-                                  </div>
                                 </div>
                               </div>
                             </form>
@@ -118,7 +87,7 @@
                     <div id="myTabContent" class="tab-content">
                       <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">   
                         <div class="x_content">
-                            <br />
+                            <small ng-if="is_edited">* ถ้าหากไม่ต้องการเปลี่ยน password ไม่ต้องทำการกรอกในช่อง password </small>
                             <form class="form-horizontal form-label-left input_mask">
         
                               <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
@@ -237,10 +206,6 @@
                         </table>
                         <!-- end user projects -->
 
-                      </div>
-                      <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
-                        <p>xxFood truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui
-                          photo booth letterpress, commodo enim craft beer mlkshk </p>
                       </div>
                     </div>
                   </div>
