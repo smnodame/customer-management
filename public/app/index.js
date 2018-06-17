@@ -605,7 +605,7 @@ app.controller('customersCtrl', [
             tables.clear()
             .draw()
 
-            return $http.get(`/api/customers?query=${$scope.query}&business_type=${$scope.business_type}&business_grade=${$scope.business_grade}&amount_of_pets_min=${$scope.amount_of_pets_min}&amount_of_pets_max=${$scope.amount_of_pets_max}`).then((res) => {
+            return $http.get(`/api/customers?query=${$scope.query}&business_type=${$scope.business_type}&business_grade=${$scope.business_grade}&amount_of_pets_min=${$scope.amount_of_pets_min}&amount_of_pets_max=${$scope.amount_of_pets_max}&business_region=${$scope.business_region}`).then((res) => {
                 res.data.forEach((customer) => {
                     tables.row.add( [
                         customer.business_id,
@@ -613,6 +613,7 @@ app.controller('customersCtrl', [
                         customer.business_grade,
                         customer.business_type,
                         customer.business_telephone,
+                        customer.business_region,
                         customer.executive_profile_name,
                         customer.business_detail_pet_quantity,
                         '<a href="/#!/customer/'+customer.business_id+'" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>'+
@@ -632,7 +633,7 @@ app.controller('customersCtrl', [
             $scope.business_grade = ''
             $scope.amount_of_pets_min = ''
             $scope.amount_of_pets_max = ''
-
+            $scope.business_region = ''
             get_customers()
         }
 

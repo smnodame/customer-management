@@ -33,8 +33,8 @@
                             </div>
                             <div class="col-md-4 col-sm-4 col-xs-12">
                                 <div class="form-group">
-                                    <label class="control-label col-md-4 col-sm-4 col-xs-12">ประเภทธุรกิจ</label>
-                                    <div class="col-md-8 col-sm-8 col-xs-12">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">ประเภทธุรกิจ</label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
                                         <select class="form-control" ng-model="business_type">
                                             <option value="">เลือก</option>
                                             <option value="นิติบุคคล">นิติบุคคล</option>
@@ -68,7 +68,22 @@
                                     </div>
                                 </div>
                             </div>
-                            
+                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">ภูมิภาค</label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <select class="form-control" ng-model="business_region">
+                                            <option value="">เลือก</option>
+                                            <option value="เหนือ">เหนือ</option>
+                                            <option value="ตะวันออกเฉียงเหนือ">ตะวันออกเฉียงเหนือ</option>
+                                            <option value="ตะวันตก">ตะวันตก</option>
+                                            <option value="กลาง">กลาง</option>
+                                            <option value="ตะวันออก">ตะวันออก</option>
+                                            <option value="ใต้">ใต้</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row no-print">
@@ -97,6 +112,7 @@
                       <th>Grade</th>
                       <th>ประเภทธุรกิจ</th>
                       <th>เบอร์โทรศัพท์</th>
+                      <th>ภูมิภาค</th>
                       <th>ชื่อผู้บริหาร</th>
                       <th>จำนวนสัตว์ที่เลี้ยง</th>
                       <th># Action</th>

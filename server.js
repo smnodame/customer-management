@@ -257,6 +257,9 @@ api_routes.get('/customers', function(req, res) {
     if(req.query.business_type) {
         query.push(` business_type = '${req.query.business_type}' `)
     }
+    if(req.query.business_region) {
+        query.push(` business_region = '${req.query.business_region}'`)
+    }
     if(req.query.business_grade) {
         query.push(` business_grade = '${req.query.business_grade}' `)
     }
