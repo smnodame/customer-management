@@ -174,6 +174,17 @@ const query_service = {
         select: function(business_id) {
             return "SELECT * FROM `user_group` u join `account` a on u.account_id = a.account_id WHERE u.business_id = '" + business_id + "'"
         }
+    },
+    child: {
+        select: function(business_id) {
+            return "SELECT * FROM `child` where child_profile_id = '"+ business_id +"'";
+        },
+        insert: function() {
+            return "INSERT INTO `child` SET ?"
+        },
+        delete: function(business_id) {
+            return "DELETE FROM `child` where child_profile_id = '"+ business_id +"'";
+        }
     }
 }
 
@@ -450,6 +461,34 @@ api_routes.get('/user_group/:id', function(req, res) {
         res.status(200).send({
             success: true,
             account: rows
+        })
+    })
+})
+
+api_routes.get('/child/:id', function(req, res) {
+    connection.query(query_service.child.select(req.params.id), function (err, rows, fields) {
+        if (err) throw err
+        res.status(200).send({
+            success: true,
+            childs: rows
+        })
+    })
+})
+
+api_routes.post('/child', function(req, res) {
+    connection.query(query_service.child.insert(), req.body.child, function (err, rows, fields) {
+        if (err) throw err
+        res.status(200).send({
+            success: true
+        })
+    })
+})
+
+api_routes.delete('/child/:id', function(req, res) {
+    connection.query(query_service.child.delete(req.params.id), function (err, rows, fields) {
+        if (err) throw err
+        res.status(200).send({
+            success: true
         })
     })
 })

@@ -648,7 +648,7 @@ app.controller('customersCtrl', [
 app.controller('homeCtrl', [
     '$scope', '$location', '$route', '$rootScope', '$routeParams', '$http',
     function($scope, $location, $route, $rootScope, $routeParams, $http) {
-        $scope.step = 2
+        $scope.step = 1
         $scope.done = 1
 
         const next_step = () => {
@@ -743,13 +743,19 @@ app.controller('homeCtrl', [
             }
 
             $http.post('/api/customers', $scope.detail).then(() => {
-                window.location.href = '/#!/customer/' + $scope.detail.business_id
+                $http.delete(`api/child/${$scope.detail.business_id}`).then(() => {
+                    $http.post('api/child', {
+                        child: $scope.detail.child_additional
+                    }).then(() => {
+                        window.location.href = '/#!/customer/' + $scope.detail.business_id                    
+                    })
+                })
             })
         }
 
         $scope.add_child = () => {
-            console.log('fadfasd')
             $scope.detail.child_additional.push({
+                child_profile_id: $scope.detail.business_id,
                 child_profile_name: '',
                 child_profile_age: '',
                 child_profile_sex: 'male',
