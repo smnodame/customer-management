@@ -1,5 +1,6 @@
 <div ng-if="step == 1" id="step-1">
     <form class="form-horizontal form-label-left">
+
         <div class="form-group" style="margin: 20px">
             <h2 class="control-label col-md-3 col-sm-3 col-xs-12">Main bussiness
             </h2>
@@ -7,85 +8,111 @@
                 <hr  />
             </div>
         </div>
-        <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="customer-id">รหัสลูกค้า <span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="customer-id" required="required" ng-model="detail.business_id" class="form-control col-md-7 col-xs-12">
+        <div class="col-md-2 col-sm-2 col-xs-12"></div>
+        <div class="col-md-2 col-sm-12 col-xs-12 profile_left" style="text-align: center; margin-top: 20px;">
+                
+            <div class="profile_img">
+
+                <!-- end of image cropping -->
+                <div id="crop-avatar">
+                <!-- Current avatar -->
+                <div class="avatar-view" title="Change the avatar" style="margin: 0 auto">
+                    <img src="/static/images/user.png" alt="Avatar">
+                </div>
+
+                <!-- Loading state -->
+                <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
+                </div>
+                <!-- end of image cropping -->
+
             </div>
+
+            <!-- end of profile detail -->
+            <a style="margin: 28px" class="btn btn-success"><i class="fa fa-edit m-right-xs" style="margin-right: 5px"></i>เปลี่ยนรูปโปรไฟล์</a>
+            <br />
         </div>
-        <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="customer-name">ชื่อธุรกิจ <span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="customer-name" name="customer-name" ng-model="detail.business_name" required="required" class="form-control col-md-7 col-xs-12">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="address" class="control-label col-md-3 col-sm-3 col-xs-12">ที่อยู่ <span class="required">*</span></label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <textarea style="overflow-x: hidden; margin-bottom: 10px" id="address" class="form-control col-md-7 col-xs-12" ng-model="detail.business_address" type="text" name="address" rows="5" ></textarea>
-            </div>
-        </div>
-        <div class="form-group" style="margin-bottom: 15px;">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">ภูมิภาค <span class="required">*</span> </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <div id="customer-type" class="btn-group">
-                    <label class="btn btn-default" data-toggle-class="btn-primary" style="padding-left: 0px" ng-class="{ 'btn-primary': detail.business_region == 'เหนือ'}"data-toggle-passive-class="btn-default">
-                        <input type="radio" data-ng-model="detail.business_region" style="visibility: hidden" name="region" value="เหนือ"> &nbsp; เหนือ &nbsp;
-                    </label>
-                    <label class="btn btn-default" data-toggle-class="btn-primary" style="padding-left: 0px" ng-class="{ 'btn-primary': detail.business_region == 'ตะวันออกเฉียงเหนือ'}" data-toggle-passive-class="btn-default">
-                        <input type="radio" data-ng-model="detail.business_region" style="visibility: hidden" name="region" value="ตะวันออกเฉียงเหนือ"> ตะวันออกเฉียงเหนือ
-                    </label>
-                    <label class="btn btn-default" data-toggle-class="btn-primary" style="padding-left: 0px" ng-class="{ 'btn-primary': detail.business_region == 'ตะวันตก'}" data-toggle-passive-class="btn-default">
-                        <input type="radio" data-ng-model="detail.business_region" style="visibility: hidden" name="region" value="ตะวันตก"> ตะวันตก
-                    </label>
-                    <label class="btn btn-default" data-toggle-class="btn-primary" style="padding-left: 0px" ng-class="{ 'btn-primary': detail.business_region == 'กลาง'}" data-toggle-passive-class="btn-default">
-                        <input type="radio" data-ng-model="detail.business_region" style="visibility: hidden" name="region" value="กลาง"> กลาง
-                    </label>
-                    <label class="btn btn-default" data-toggle-class="btn-primary" style="padding-left: 0px" ng-class="{ 'btn-primary': detail.business_region == 'ตะวันออก'}" data-toggle-passive-class="btn-default">
-                        <input type="radio" data-ng-model="detail.business_region" style="visibility: hidden" name="region" value="ตะวันออก"> ตะวันออก
-                    </label>
-                    <label class="btn btn-default" data-toggle-class="btn-primary" style="padding-left: 0px" ng-class="{ 'btn-primary': detail.business_region == 'ใต้'}" data-toggle-passive-class="btn-default">
-                        <input type="radio" data-ng-model="detail.business_region" style="visibility: hidden" name="region" value="ใต้"> ใต้
-                    </label>
+
+        <div class="col-md-7 col-sm-12 col-xs-12">
+            <div class="form-group">
+                <label class="control-label col-md-2 col-sm-3 col-xs-12" for="customer-id">รหัสลูกค้า <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input type="text" id="customer-id" required="required" ng-model="detail.business_id" class="form-control col-md-8 col-xs-12">
                 </div>
             </div>
-        </div>
-        <div class="form-group" style="margin-bottom: 15px;">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">ประเภทธุรกิจ <span class="required">*</span> </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <div id="customer-type" class="btn-group">
-                    <label class="btn btn-default" data-toggle-class="btn-primary" style="padding-left: 0px" ng-class="{ 'btn-primary': detail.business_type == 'นิติบุคคล'}"data-toggle-passive-class="btn-default">
-                        <input type="radio" data-ng-model="detail.business_type" style="visibility: hidden" name="customer-type" value="นิติบุคคล"> &nbsp; นิติบุคคล &nbsp;
-                    </label>
-                    <label class="btn btn-default" data-toggle-class="btn-primary" style="padding-left: 0px" ng-class="{ 'btn-primary': detail.business_type == 'บุคคลธรรมดา'}" data-toggle-passive-class="btn-default">
-                        <input type="radio" data-ng-model="detail.business_type" style="visibility: hidden" name="customer-type" value="บุคคลธรรมดา"> บุคคลธรรมดา
-                    </label>
+            <div class="form-group">
+                <label class="control-label col-md-2 col-sm-3 col-xs-12" for="customer-name">ชื่อธุรกิจ <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="text" id="customer-name" name="customer-name" ng-model="detail.business_name" required="required" class="form-control col-md-8 col-xs-12">
                 </div>
             </div>
-        </div>
-        <div class="form-group" style="margin-bottom: 15px;">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">Grade <span class="required">*</span></label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <div id="grade-type" class="btn-group">
-                    <label class="btn btn-default" ng-class="{ 'btn-primary': detail.business_grade == 'bronze'}" style="padding-left: 0px" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                        <input type="radio" data-ng-model="detail.business_grade" style="visibility: hidden" name="grade-type" value="bronze"> &nbsp; Bronze &nbsp;
-                    </label>
-                    <label class="btn btn-default" ng-class="{ 'btn-primary': detail.business_grade == 'silver'}" style="padding-left: 0px" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                        <input type="radio" data-ng-model="detail.business_grade" style="visibility: hidden" name="grade-type" value="silver"> Silver
-                    </label>
-                    <label class="btn btn-default" ng-class="{ 'btn-primary': detail.business_grade == 'gold'}" style="padding-left: 0px" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                        <input type="radio" data-ng-model="detail.business_grade" style="visibility: hidden" name="grade-type" value="gold"> Gold
-                    </label>
+            <div class="form-group">
+                <label for="address" class="control-label col-md-2 col-sm-3 col-xs-12">ที่อยู่ <span class="required">*</span></label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <textarea style="overflow-x: hidden; margin-bottom: 10px" id="address" class="form-control col-md-8 col-xs-12" ng-model="detail.business_address" type="text" name="address" rows="5" ></textarea>
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">เบอร์โทรศัพท์ <span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-            <input id="phone" class="form-control col-md-7 col-xs-12" ng-model="detail.business_telephone" required="required" type="text">
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label class="control-label col-md-2 col-sm-3 col-xs-12">ภูมิภาค <span class="required">*</span> </label>
+                <div class="col-md-6 col-sm-7 col-xs-12">
+                    <div id="customer-type" class="btn-group">
+                        <label class="btn btn-default" data-toggle-class="btn-primary" style="padding-left: 0px" ng-class="{ 'btn-primary': detail.business_region == 'เหนือ'}"data-toggle-passive-class="btn-default">
+                            <input type="radio" data-ng-model="detail.business_region" style="visibility: hidden" name="region" value="เหนือ"> &nbsp; เหนือ &nbsp;
+                        </label>
+                        <label class="btn btn-default" data-toggle-class="btn-primary" style="padding-left: 0px" ng-class="{ 'btn-primary': detail.business_region == 'ตะวันออกเฉียงเหนือ'}" data-toggle-passive-class="btn-default">
+                            <input type="radio" data-ng-model="detail.business_region" style="visibility: hidden" name="region" value="ตะวันออกเฉียงเหนือ"> ตะวันออกเฉียงเหนือ
+                        </label>
+                        <label class="btn btn-default" data-toggle-class="btn-primary" style="padding-left: 0px" ng-class="{ 'btn-primary': detail.business_region == 'ตะวันตก'}" data-toggle-passive-class="btn-default">
+                            <input type="radio" data-ng-model="detail.business_region" style="visibility: hidden" name="region" value="ตะวันตก"> ตะวันตก
+                        </label>
+                        <label class="btn btn-default" data-toggle-class="btn-primary" style="padding-left: 0px" ng-class="{ 'btn-primary': detail.business_region == 'กลาง'}" data-toggle-passive-class="btn-default">
+                            <input type="radio" data-ng-model="detail.business_region" style="visibility: hidden" name="region" value="กลาง"> กลาง
+                        </label>
+                        <label class="btn btn-default" data-toggle-class="btn-primary" style="padding-left: 0px" ng-class="{ 'btn-primary': detail.business_region == 'ตะวันออก'}" data-toggle-passive-class="btn-default">
+                            <input type="radio" data-ng-model="detail.business_region" style="visibility: hidden" name="region" value="ตะวันออก"> ตะวันออก
+                        </label>
+                        <label class="btn btn-default" data-toggle-class="btn-primary" style="padding-left: 0px" ng-class="{ 'btn-primary': detail.business_region == 'ใต้'}" data-toggle-passive-class="btn-default">
+                            <input type="radio" data-ng-model="detail.business_region" style="visibility: hidden" name="region" value="ใต้"> ใต้
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label class="control-label col-md-2 col-sm-3 col-xs-12">ประเภทธุรกิจ <span class="required">*</span> </label>
+                <div class="col-md-6 col-sm-7 col-xs-12">
+                    <div id="customer-type" class="btn-group">
+                        <label class="btn btn-default" data-toggle-class="btn-primary" style="padding-left: 0px" ng-class="{ 'btn-primary': detail.business_type == 'นิติบุคคล'}"data-toggle-passive-class="btn-default">
+                            <input type="radio" data-ng-model="detail.business_type" style="visibility: hidden" name="customer-type" value="นิติบุคคล"> &nbsp; นิติบุคคล &nbsp;
+                        </label>
+                        <label class="btn btn-default" data-toggle-class="btn-primary" style="padding-left: 0px" ng-class="{ 'btn-primary': detail.business_type == 'บุคคลธรรมดา'}" data-toggle-passive-class="btn-default">
+                            <input type="radio" data-ng-model="detail.business_type" style="visibility: hidden" name="customer-type" value="บุคคลธรรมดา"> บุคคลธรรมดา
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label class="control-label col-md-2 col-sm-3 col-xs-12">Grade <span class="required">*</span></label>
+                <div class="col-md-6 col-sm-7 col-xs-12">
+                    <div id="grade-type" class="btn-group">
+                        <label class="btn btn-default" ng-class="{ 'btn-primary': detail.business_grade == 'bronze'}" style="padding-left: 0px" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                            <input type="radio" data-ng-model="detail.business_grade" style="visibility: hidden" name="grade-type" value="bronze"> &nbsp; Bronze &nbsp;
+                        </label>
+                        <label class="btn btn-default" ng-class="{ 'btn-primary': detail.business_grade == 'silver'}" style="padding-left: 0px" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                            <input type="radio" data-ng-model="detail.business_grade" style="visibility: hidden" name="grade-type" value="silver"> Silver
+                        </label>
+                        <label class="btn btn-default" ng-class="{ 'btn-primary': detail.business_grade == 'gold'}" style="padding-left: 0px" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                            <input type="radio" data-ng-model="detail.business_grade" style="visibility: hidden" name="grade-type" value="gold"> Gold
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2 col-sm-3 col-xs-12">เบอร์โทรศัพท์ <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-7 col-xs-12">
+                <input id="phone" class="form-control col-md-7 col-xs-12" ng-model="detail.business_telephone" required="required" type="text">
+                </div>
             </div>
         </div>
     </form>
