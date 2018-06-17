@@ -109,6 +109,7 @@ const get_groups = (data) => {
         business_name: data.business_name,
         business_grade: data.business_grade,
         business_address: data.business_address,
+        business_region: data.business_region,
         business_type: data.business_type,
         business_telephone: data.business_telephone,
         updated_date: new Date()

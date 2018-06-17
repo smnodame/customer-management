@@ -810,6 +810,7 @@ app.controller('homeCtrl', [
             business_name: '',
             business_grade: 'bronze',
             business_address: '',
+            business_region: 'เหนือ',
             business_type: 'นิติบุคคล',
             business_telephone: ''
         }
