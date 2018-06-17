@@ -437,6 +437,7 @@ app.controller('editCustomerInfoCtrl', [
         $scope.step = 1
         $scope.done = 5
         let default_business_id
+        $scope.detail= {}
 
         $http.get(`/api/customers/${$routeParams.id}`).then((res) => {
             $scope.detail = res.data[0]
@@ -453,6 +454,10 @@ app.controller('editCustomerInfoCtrl', [
             $scope.detail.financial_information_private_capital_rate =  parseInt(res.data[0].financial_information_private_capital_rate)
             $scope.detail.financial_information_other_capital_rate =  parseInt(res.data[0].financial_information_other_capital_rate)
         }) 
+
+        $http.get(`api/child/${$routeParams.id}`).then((res) => {
+            $scope.detail.child_additional = res.data.childs || []
+        })
 
         const next_step = () => {
             $scope.step = $scope.step + 1
@@ -511,20 +516,28 @@ app.controller('editCustomerInfoCtrl', [
             return arr[arr.length - 1]
         }
 
+        const on_call_api = () => {
+            $http.put(`/api/customers/${$routeParams.id}`, $scope.detail).then(() => {
+                $http.delete(`api/child/${$routeParams.id}`).then(() => {
+                    $http.post('api/child', {
+                        child: $scope.detail.child_additional
+                    }).then(() => {
+                        window.location.href = '/#!/customer/' + $scope.detail.business_id                  
+                    })
+                })
+            })
+        }
+
         $scope.on_create = () => {
             $scope.detail.goal_id = $scope.detail.business_detail_id = $scope.detail.executive_profile_id = $scope.detail.financial_information_id = $scope.detail.business_id
             
             if(default_business_id == $scope.detail.business_id) {
-                $http.put(`/api/customers/${$routeParams.id}`, $scope.detail).then(() => {
-                    window.location.href = '/#!/customer/' + $scope.detail.business_id
-                })
+                on_call_api()
             } else {
                 $http.get('/api/check-customer-id?business_id=' + $scope.detail.business_id, $scope.detail).then((res) => {
                     $scope.error = res.data.is_used? 'รหัสลูกค้าถูกใช้เเล้ว': ''
                     if(!$scope.error) {
-                        $http.put(`/api/customers/${$routeParams.id}`, $scope.detail).then(() => {
-                            window.location.href = '/#!/customer/' + $scope.detail.business_id
-                        })
+                        on_call_api()
                     }
                 })
             }
