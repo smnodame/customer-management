@@ -476,12 +476,23 @@ api_routes.get('/child/:id', function(req, res) {
 })
 
 api_routes.post('/child', function(req, res) {
-    connection.query(query_service.child.insert(), req.body.child, function (err, rows, fields) {
-        if (err) throw err
+    if(req.body.child.length==0) {
         res.status(200).send({
             success: true
         })
-    })
+    } else {
+        var query = []
+        req.body.child.forEach(function() {
+            query.push(query_service.child.insert())
+        })
+        connection.query(query.join(';'), req.body.child, function (err, rows, fields) {
+            if (err) throw err
+            res.status(200).send({
+                success: true
+            })
+        })
+    }
+    
 })
 
 api_routes.delete('/child/:id', function(req, res) {

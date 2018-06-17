@@ -175,7 +175,7 @@ app.controller('userEditCtrl', [
         $http.get(`/api/customers`).then((res) => {
             $scope.available_group = res.data
         })
-
+        
         $scope.on_edit = () => {
             if(check_is_valid()) {
                 $http.get('/api/check-account-id?account_email='+ $scope.account.account_email).then((res) => {
@@ -455,6 +455,22 @@ app.controller('editCustomerInfoCtrl', [
             $scope.detail.financial_information_other_capital_rate =  parseInt(res.data[0].financial_information_other_capital_rate)
         }) 
 
+        $scope.add_child = () => {
+            $scope.detail.child_additional.push({
+                child_profile_id: $scope.detail.business_id,
+                child_profile_name: '',
+                child_profile_age: '',
+                child_profile_sex: 'male',
+                child_profile_career: '',
+                child_profile_experience: '',
+                child_profile_education: '',
+            })
+        }
+
+        $scope.remove_child = () => {
+            $scope.detail.child_additional.splice($scope.detail.child_additional.length - 1, 1)
+        }
+        
         $http.get(`api/child/${$routeParams.id}`).then((res) => {
             $scope.detail.child_additional = res.data.childs || []
         })
