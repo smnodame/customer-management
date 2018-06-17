@@ -75,11 +75,58 @@
                 <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ng-model="detail.executive_profile_experience" ></textarea>
             </div>
         </div>
+        
+        <!-- ข้อมูลคู่สมรส -->
+        <div style="margin: 20px">
+        </div>
+        <div class="form-group" style="margin: 20px">
+            <h2 class="control-label col-md-3 col-sm-3 col-xs-12">ข้อมูลคู่สมรส
+            </h2>
+            <div class="col-md-6 col-sm-6 col-xs-12" style="margin-top: 6px"> 
+                <hr  />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">ชื่อ
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="text" class="form-control col-md-7 col-xs-12" ng-model="detail.spouse_profile_name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">อายุ
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="text" class="form-control col-md-7 col-xs-12" ng-model="detail.spouse_profile_age">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">การศึกษา
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="text" class="form-control col-md-7 col-xs-12" ng-model="detail.spouse_profile_education">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">อาชีพ
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+            <input type="text" class="form-control col-md-7 col-xs-12" ng-model="detail.spouse_profile_career">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">ประสบการณ์ทำงาน
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ng-model="detail.spouse_profile_experience" ></textarea>
+            </div>
+        </div>
+
         <!-- ข้อมูลบุตร -->
         <div style="margin: 20px">
         </div>
         <div class="form-group" style="margin: 20px">
-            <h2 class="control-label col-md-3 col-sm-3 col-xs-12">ข้อมูลบุตร
+            <h2 class="control-label col-md-3 col-sm-3 col-xs-12">ข้อมูลบุตร คนที่ 1
             </h2>
             <div class="col-md-6 col-sm-6 col-xs-12" style="margin-top: 6px"> 
                 <hr  />
@@ -133,50 +180,77 @@
                 <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ng-model="detail.child_profile_experience"></textarea>
             </div>
         </div>
-        <!-- ข้อมูลคู่สมรส -->
-        <div style="margin: 20px">
-        </div>
-        <div class="form-group" style="margin: 20px">
-            <h2 class="control-label col-md-3 col-sm-3 col-xs-12">ข้อมูลคู่สมรส
-            </h2>
-            <div class="col-md-6 col-sm-6 col-xs-12" style="margin-top: 6px"> 
-                <hr  />
+        <!-- additional child -->
+        <div ng-repeat="child in detail.child_additional track by $index">
+            <div style="margin: 20px">
             </div>
-        </div>
-        <div class="form-group">
+            <div class="form-group" style="margin: 20px">
+                <h2 class="control-label col-md-3 col-sm-3 col-xs-12">ข้อมูลบุตร คนที่ {{ $index + 2 }}
+                </h2>
+                <div class="col-md-6 col-sm-6 col-xs-12" style="margin-top: 6px"> 
+                    <hr  />
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">ชื่อ
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input type="text" class="form-control col-md-7 col-xs-12" ng-model="detail.spouse_profile_name">
+                    <input type="text" class="form-control col-md-7 col-xs-12" ng-model="child.child_profile_name">
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">อายุ
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input type="text" class="form-control col-md-7 col-xs-12" ng-model="detail.spouse_profile_age">
+                    <input type="text" class="form-control col-md-7 col-xs-12" ng-model="child.child_profile_age">
+                </div>
+            </div>
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">เพศ</label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div  class="btn-group">
+                        <label class="btn btn-default" ng-class="{ 'btn-primary': child.child_profile_sex == 'male'}" style="padding-left: 0px" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                            <input type="radio" data-ng-model="child.child_profile_sex" style="visibility: hidden" value="male"> ชาย
+                        </label>
+                        <label class="btn btn-default" ng-class="{ 'btn-primary': child.child_profile_sex == 'female'}" style="padding-left: 0px" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                            <input type="radio" data-ng-model="child.child_profile_sex" style="visibility: hidden" value="female"> หญิง
+                        </label>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">การศึกษา
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input type="text" class="form-control col-md-7 col-xs-12" ng-model="detail.spouse_profile_education">
+                    <input type="text" class="form-control col-md-7 col-xs-12" ng-model="child.child_profile_education">
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">อาชีพ
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" class="form-control col-md-7 col-xs-12" ng-model="detail.spouse_profile_career">
+                    <input type="text" class="form-control col-md-7 col-xs-12" ng-model="child.child_profile_career">
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">ประสบการณ์ทำงาน
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ng-model="detail.spouse_profile_experience" ></textarea>
+                    <textarea class="form-control col-md-7 col-xs-12" type="text" rows="3" ng-model="child.child_profile_experience"></textarea>
                 </div>
             </div>
+        </div>
+        <div class="form-group" style="margin-top: 20px">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <a class="btn btn-info btn-circle" ng-click="add_child()"> 
+                    <i class="fa fa-plus" ></i>
+                </a>
+                <a class="btn btn-warning btn-circle" ng-click="remove_child()"> 
+                    <i class="fa fa-minus" ></i>
+                </a>
+            </div>
+        </div>
     </form>
 </div>

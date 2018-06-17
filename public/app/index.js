@@ -648,7 +648,7 @@ app.controller('customersCtrl', [
 app.controller('homeCtrl', [
     '$scope', '$location', '$route', '$rootScope', '$routeParams', '$http',
     function($scope, $location, $route, $rootScope, $routeParams, $http) {
-        $scope.step = 1
+        $scope.step = 2
         $scope.done = 1
 
         const next_step = () => {
@@ -747,6 +747,22 @@ app.controller('homeCtrl', [
             })
         }
 
+        $scope.add_child = () => {
+            console.log('fadfasd')
+            $scope.detail.child_additional.push({
+                child_profile_name: '',
+                child_profile_age: '',
+                child_profile_sex: 'male',
+                child_profile_career: '',
+                child_profile_experience: '',
+                child_profile_education: '',
+            })
+        }
+
+        $scope.remove_child = () => {
+            $scope.detail.child_additional.splice($scope.detail.child_additional.length - 1, 1)
+        }
+
         $scope.detail = {
             goal_id: '',
             goal_detail: '',
@@ -813,7 +829,9 @@ app.controller('homeCtrl', [
             business_address: '',
             business_region: 'เหนือ',
             business_type: 'นิติบุคคล',
-            business_telephone: ''
+            business_telephone: '',
+
+            child_additional: []
         }
     }
 ])
