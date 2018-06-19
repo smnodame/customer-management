@@ -4,6 +4,16 @@ const bodyParser = require('body-parser')
 const path = require('path')
 const jwt = require('jsonwebtoken')
 const mysql = require('mysql')
+const pdf = require('html-pdf')
+
+//nunjucks templating 
+const nunjucks = require('nunjucks')
+
+//Nunjucks is a product from Mozilla and we are using it as a template engine.
+nunjucks.configure('public', {
+    autoescape: true,
+    express: app
+})
 
 /* middleware
   - serveing static files
@@ -501,6 +511,25 @@ api_routes.delete('/child/:id', function(req, res) {
         res.status(200).send({
             success: true
         })
+    })
+})
+
+app.get('/printpdf1', function (req, res) {
+    var today = new Date()
+    var obj = {
+        date: today,
+        data:{
+            ticketnum : 12121212,
+            dateissued: '2014-04-02',
+            officername: 'john doe',
+            notes:'lorem epsum'
+        }
+    }
+
+    var renderedHtml =  nunjucks.render('nunjucks.tmpl.html',obj)
+    pdf.create(renderedHtml, {}).toStream(function(err, stream){
+        console.log(stream)
+        stream.pipe(res)
     })
 })
 
