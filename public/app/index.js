@@ -735,7 +735,7 @@ app.controller('homeCtrl', [
             const arr = filename.split('.')
             return arr[arr.length - 1]
         }
-
+        
         $scope.on_create = () => {
             $scope.detail.goal_id = $scope.detail.business_detail_id = $scope.detail.executive_profile_id = $scope.detail.financial_information_id = $scope.detail.business_id
             
@@ -761,6 +761,24 @@ app.controller('homeCtrl', [
                 const file = $scope.detail.goal_file_name
                 const filename = `${generate_id()}.${get_type_file(file.name)}`
                 $scope.detail.goal_file_name = filename
+
+                const formData = new FormData()
+                formData.append('filename', filename)
+                formData.append('fileupload', file)
+                
+                fetch('/api/upload', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .catch(error => console.error('Error:', error))
+                .then(response => console.log('Success:', response))
+            }
+
+            if($scope.detail.business_logo_file) {
+                const file = $scope.detail.business_logo_file
+                const filename = `${generate_id()}.${get_type_file(file.name)}`
+                $scope.detail.business_logo_file = filename
 
                 const formData = new FormData()
                 formData.append('filename', filename)
@@ -868,6 +886,7 @@ app.controller('homeCtrl', [
             business_address: '',
             business_region: 'เหนือ',
             business_type: 'นิติบุคคล',
+            business_logo_file: '',
             business_telephone: '',
 
             child_additional: []

@@ -135,6 +135,7 @@ const get_groups = (data) => {
         business_region: data.business_region,
         business_type: data.business_type,
         business_telephone: data.business_telephone,
+        business_logo_file: data.business_logo_file,
         updated_date: new Date()
     }
 
