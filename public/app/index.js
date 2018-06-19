@@ -39,8 +39,8 @@ app.config(function($routeProvider) {
 app.run(function($rootScope) { 
 })
 
-var generate_id = () => {
-    return '_' + Math.random().toString(36).substr(2, 9)
+const generate_id = () => {
+    return 'id-' + Math.random().toString(36).substr(2, 16)
 }
 
 app.controller('userEditCtrl', [
@@ -741,14 +741,14 @@ app.controller('homeCtrl', [
             
             if($scope.detail.business_detail_file) {
                 const file = $scope.detail.business_detail_file
-                const file_name = `goal-${$scope.detail.goal_id}.${get_type_file($scope.detail.business_detail_file.name)}`
-                $scope.detail.business_detail_file = file_name
+                const filename = `${generate_id()}.${get_type_file(file.name)}`
+                $scope.detail.business_detail_file = filename
 
                 const formData = new FormData()
-                formData.append('file', file)
-                formData.append('file_name', file_name)
+                formData.append('filename', filename)
+                formData.append('fileupload', file)
                 
-                fetch('/api/file', {
+                fetch('/api/upload', {
                     method: 'POST',
                     body: formData
                 })
@@ -759,14 +759,14 @@ app.controller('homeCtrl', [
 
             if($scope.detail.goal_file_name) {
                 const file = $scope.detail.goal_file_name
-                const file_name = `goal-${$scope.detail.goal_id}.${get_type_file($scope.detail.goal_file_name.name)}`
-                $scope.detail.goal_file_name = file_name
+                const filename = `${generate_id()}.${get_type_file(file.name)}`
+                $scope.detail.goal_file_name = filename
 
                 const formData = new FormData()
-                formData.append('file', file)
-                formData.append('file_name', file_name)
+                formData.append('filename', filename)
+                formData.append('fileupload', file)
                 
-                fetch('/api/file', {
+                fetch('/api/upload', {
                     method: 'POST',
                     body: formData
                 })
