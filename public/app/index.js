@@ -736,6 +736,10 @@ app.controller('homeCtrl', [
             return arr[arr.length - 1]
         }
         
+        $scope.onClickChangeLogo = () => {
+            $("#fileLoader").click()
+        }
+
         $scope.on_create = () => {
             $scope.detail.goal_id = $scope.detail.business_detail_id = $scope.detail.executive_profile_id = $scope.detail.financial_information_id = $scope.detail.business_id
             
