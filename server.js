@@ -5,11 +5,13 @@ const path = require('path')
 const jwt = require('jsonwebtoken')
 const mysql = require('mysql')
 const pdf = require('html-pdf')
+const multer  = require('multer')
+const upload  = multer({ storage: multer.memoryStorage() })
 
 //nunjucks templating 
 const nunjucks = require('nunjucks')
 
-//Nunjucks is a product from Mozilla and we are using it as a template engine.
+// Nunjucks is a product from Mozilla and we are using it as a template engine.
 nunjucks.configure('public', {
     autoescape: true,
     express: app
@@ -535,6 +537,14 @@ app.get('/printpdf1', function (req, res) {
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html')
+})
+
+api_routes.post('/upload', upload.single('fileupload'), (req, res) => {  
+    console.log(req.body)
+    console.log(req.file)
+    res.status(200).send({
+        success: true
+    })
 })
 
 const PORT = process.env.PORT || 5000
