@@ -6,7 +6,18 @@ const jwt = require('jsonwebtoken')
 const mysql = require('mysql')
 const pdf = require('html-pdf')
 const multer  = require('multer')
-const upload  = multer({ storage: multer.memoryStorage() })
+
+var storage = multer.diskStorage({
+	destination: function(req, file, callback) {
+		callback(null, './files')
+	},
+	filename: function(req, file, callback) {
+        console.log(req.body)
+		callback(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+	}
+})
+
+const upload  = multer({ storage: storage })
 
 //nunjucks templating 
 const nunjucks = require('nunjucks')
@@ -535,16 +546,14 @@ app.get('/printpdf1', function (req, res) {
     })
 })
 
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html')
-})
-
 api_routes.post('/upload', upload.single('fileupload'), (req, res) => {  
-    console.log(req.body)
-    console.log(req.file)
     res.status(200).send({
         success: true
     })
+})
+
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.html')
 })
 
 const PORT = process.env.PORT || 5000
