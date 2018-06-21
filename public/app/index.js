@@ -465,7 +465,7 @@ app.controller('editCustomerInfoCtrl', [
         $scope.onClickChangeLogo = () => {
             $("#fileLoader").click()
         }
-        
+
         $http.get(`/api/customers/${$routeParams.id}`).then((res) => {
             $scope.detail = res.data[0]
             default_business_id = res.data[0].business_id
@@ -560,6 +560,62 @@ app.controller('editCustomerInfoCtrl', [
         }
 
         const on_call_api = () => {
+
+            if(typeof($scope.detail.business_detail_file) != 'string') {
+                const file = $scope.detail.business_detail_file
+                const filename = `${generate_id()}.${get_type_file(file.name)}`
+                $scope.detail.business_detail_file = filename
+
+                const formData = new FormData()
+                formData.append('filename', filename)
+                formData.append('fileupload', file)
+                
+                fetch('/api/upload', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .catch(error => console.error('Error:', error))
+                .then(response => console.log('Success:', response))
+            }
+
+            if(typeof($scope.detail.goal_file_name) != 'string') {
+                const file = $scope.detail.goal_file_name
+                const filename = `${generate_id()}.${get_type_file(file.name)}`
+                $scope.detail.goal_file_name = filename
+
+                const formData = new FormData()
+                formData.append('filename', filename)
+                formData.append('fileupload', file)
+                
+                fetch('/api/upload', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .catch(error => console.error('Error:', error))
+                .then(response => console.log('Success:', response))
+            }
+
+            if(typeof($scope.detail.business_logo_file) != 'string') {
+                const file = $scope.detail.business_logo_file
+                const filename = `${generate_id()}.${get_type_file(file.name)}`
+                $scope.detail.business_logo_file = filename
+
+                const formData = new FormData()
+                formData.append('filename', filename)
+                formData.append('fileupload', file)
+                
+                fetch('/api/upload', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .catch(error => console.error('Error:', error))
+                .then(response => console.log('Success:', response))
+            }
+
+
             $http.put(`/api/customers/${$routeParams.id}`, $scope.detail).then(() => {
                 $http.delete(`api/child/${$routeParams.id}`).then(() => {
                     $http.post('api/child', {
