@@ -823,14 +823,22 @@ app.controller('customersCtrl', [
                 get_customers()
             })
         }
-
+        
         const get_customers = () => {
             tables.clear()
             .draw()
 
             return $http.get(`/api/customers?query=${$scope.query}&business_type=${$scope.business_type}&business_grade=${$scope.business_grade}&amount_of_pets_min=${$scope.amount_of_pets_min}&amount_of_pets_max=${$scope.amount_of_pets_max}&business_region=${$scope.business_region}`).then((res) => {
                 res.data.forEach((customer) => {
+                    const image = customer.business_logo_file? `/static/files/${customer.business_logo_file}` : '/static/images/user.png'
                     tables.row.add( [
+                        `
+                        <ul class="list-inline">
+                            <li>
+                                <img src="${image}" class="avatar" alt="Avatar">
+                            </li>
+                        </ul>
+                        `,
                         customer.business_id,
                         customer.business_name,
                         customer.business_grade,
