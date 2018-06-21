@@ -450,6 +450,22 @@ app.controller('editCustomerInfoCtrl', [
         let default_business_id
         $scope.detail= {}
 
+        $scope.getPathFile = (filename) => {
+            return filename? '/static/files/'+filename : ''
+        }
+
+        $scope.onLogoChange = () => {
+            getBase64($scope.detail.business_logo_file, (res) => {
+                $scope.$apply(function() {
+                    $scope.logo_base64 = res
+                })
+            })
+        }
+
+        $scope.onClickChangeLogo = () => {
+            $("#fileLoader").click()
+        }
+        
         $http.get(`/api/customers/${$routeParams.id}`).then((res) => {
             $scope.detail = res.data[0]
             default_business_id = res.data[0].business_id
@@ -842,6 +858,10 @@ app.controller('homeCtrl', [
 
         $scope.remove_child = () => {
             $scope.detail.child_additional.splice($scope.detail.child_additional.length - 1, 1)
+        }
+
+        $scope.getPathFile = (filename) => {
+            return filename? '/static/files/'+filename : ''
         }
 
         $scope.detail = {
