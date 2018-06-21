@@ -65,6 +65,27 @@ app.controller('userEditCtrl', [
         
         $scope.is_edited = true
 
+        const get_type_file = (filename) => {
+            const arr = filename.split('.')
+            return arr[arr.length - 1]
+        }
+
+        $scope.getPathFile = (filename) => {
+            return filename? '/static/files/'+filename : ''
+        }
+
+        $scope.onProfileChange = () => {
+            getBase64($scope.account.account_photo_path, (res) => {
+                $scope.$apply(function() {
+                    $scope.profile_base64 = res
+                })
+            })
+        }
+
+        $scope.onClickChangeProfile = () => {
+            $("#fileLoader").click()
+        }
+
         const check_is_valid = () => {
             return $scope.account.account_position && $scope.account.account_phone && $scope.account.account_email && $scope.account.account_last_name && $scope.account.account_first_name
         }
@@ -193,6 +214,25 @@ app.controller('userEditCtrl', [
                     if(!res.data.is_used || $scope.account.account_email == $scope.default_email) {
                         if($scope.account.account_password.length >= 6) {
                             if($scope.account.account_password == $scope.account.account_confirm_password) {
+                                
+                                if(typeof($scope.account.account_photo_path) != 'string') {
+                                    const file = $scope.account.account_photo_path
+                                    const filename = `${generate_id()}.${get_type_file(file.name)}`
+                                    $scope.account.account_photo_path = filename
+                    
+                                    const formData = new FormData()
+                                    formData.append('filename', filename)
+                                    formData.append('fileupload', file)
+                                    
+                                    fetch('/api/upload', {
+                                        method: 'POST',
+                                        body: formData
+                                    })
+                                    .then(response => response.json())
+                                    .catch(error => console.error('Error:', error))
+                                    .then(response => console.log('Success:', response))
+                                }
+
                                 $http.put(`/api/account/${$routeParams.id}`, $scope.account).then(() => {
                                     return $http.delete(`/api/group/${$scope.account.account_id}`)
                                 }).then(() => {
@@ -209,6 +249,25 @@ app.controller('userEditCtrl', [
                                 $scope.error = 'password เเละ confirm password ไม่ถูกต้อง'
                             }
                         } else if ($scope.account.account_password.length == 0) {
+
+                            if(typeof($scope.account.account_photo_path) != 'string') {
+                                const file = $scope.account.account_photo_path
+                                const filename = `${generate_id()}.${get_type_file(file.name)}`
+                                $scope.account.account_photo_path = filename
+                
+                                const formData = new FormData()
+                                formData.append('filename', filename)
+                                formData.append('fileupload', file)
+                                
+                                fetch('/api/upload', {
+                                    method: 'POST',
+                                    body: formData
+                                })
+                                .then(response => response.json())
+                                .catch(error => console.error('Error:', error))
+                                .then(response => console.log('Success:', response))
+                            }
+
                             $http.put(`/api/account/${$routeParams.id}`, {
                                 ...$scope.account,
                                 account_password: $scope.default_password
@@ -248,12 +307,52 @@ app.controller('userCreateCtrl', [
         $scope.available_group = []
         $scope.chosen_group = []
 
+        $scope.getPathFile = (filename) => {
+            return filename? '/static/files/'+filename : ''
+        }
+
+        const get_type_file = (filename) => {
+            const arr = filename.split('.')
+            return arr[arr.length - 1]
+        }
+
+        $scope.onProfileChange = () => {
+            getBase64($scope.account.account_photo_path, (res) => {
+                $scope.$apply(function() {
+                    $scope.profile_base64 = res
+                })
+            })
+        }
+
+        $scope.onClickChangeProfile = () => {
+            $("#fileLoader").click()
+        }
+
         $scope.on_create = () => {
             if(check_is_valid()) {
                 $http.get('/api/check-account-id?account_email='+ $scope.account.account_email).then((res) => {
                     if(!res.data.is_used) {
                         if($scope.account.account_password.length >= 6) {
                             if($scope.account.account_password == $scope.account.account_confirm_password) {
+
+                                if(typeof($scope.account.account_photo_path) != 'string') {
+                                    const file = $scope.account.account_photo_path
+                                    const filename = `${generate_id()}.${get_type_file(file.name)}`
+                                    $scope.account.account_photo_path = filename
+                    
+                                    const formData = new FormData()
+                                    formData.append('filename', filename)
+                                    formData.append('fileupload', file)
+                                    
+                                    fetch('/api/upload', {
+                                        method: 'POST',
+                                        body: formData
+                                    })
+                                    .then(response => response.json())
+                                    .catch(error => console.error('Error:', error))
+                                    .then(response => console.log('Success:', response))
+                                }
+
                                 $http.post(`/api/account`, $scope.account).then(() => {
                                     return $http.post(`/api/group/${$scope.account.account_id}`, {
                                         groups: $scope.chosen_group.map((group) => ({

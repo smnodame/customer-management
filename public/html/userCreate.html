@@ -20,12 +20,12 @@
                 <div class="col-md-3 col-sm-3 col-xs-12 profile_left" style="text-align: center; margin-top: 20px;">
 
                   <div class="profile_img">
-
                     <!-- end of image cropping -->
                     <div id="crop-avatar">
                       <!-- Current avatar -->
                       <div class="avatar-view" title="Change the avatar" style="margin: 0 auto">
-                        <img src="/static/images/user.png" alt="Avatar">
+                        <input type="file" id="fileLoader" name="files" ng-change="onProfileChange()" style="display: none" ng-model="account.account_photo_path" title="Load File" />
+                        <img data-ng-src="{{ profile_base64 || getPathFile(account.account_photo_path) || '/static/images/user.png' }}" style="width: 100%; height: 100%" alt="Avatar">
                       </div>
 
                       <!-- Loading state -->
@@ -44,7 +44,7 @@
                       </ul>
                   </div>
                   <!-- end of profile detail -->
-                  <a style="margin: 28px;" class="btn btn-success"><i class="fa fa-edit m-right-xs" style="margin-right: 5px"></i>เปลี่ยนรูปโปรไฟล์</a>
+                  <a style="margin: 28px;" class="btn btn-success" ng-click="onClickChangeProfile()"><i class="fa fa-edit m-right-xs" style="margin-right: 5px" ></i>เปลี่ยนรูปโปรไฟล์</a>
                   <br />
                 </div>
                 <div class="col-md-9 col-sm-9 col-xs-12">
