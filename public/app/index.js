@@ -214,7 +214,7 @@ app.controller('userEditCtrl', [
                     if(!res.data.is_used || $scope.account.account_email == $scope.default_email) {
                         if($scope.account.account_password.length >= 6) {
                             if($scope.account.account_password == $scope.account.account_confirm_password) {
-                                
+
                                 if(typeof($scope.account.account_photo_path) != 'string') {
                                     const file = $scope.account.account_photo_path
                                     const filename = `${generate_id()}.${get_type_file(file.name)}`
@@ -520,7 +520,15 @@ app.controller('userCtrl', [
 
             $http.get(`/api/account`).then((res) => {
                 res.data.account.forEach((account) => {
+                    const image = account.account_photo_path? `/static/files/${account.account_photo_path}` : '/static/images/user.png'
                     tables.row.add( [
+                        `
+                        <ul class="list-inline">
+                            <li>
+                                <img src="${image}" class="avatar" alt="Avatar">
+                            </li>
+                        </ul>
+                        `,
                         account.account_first_name,
                         account.account_last_name,
                         account.account_email,
