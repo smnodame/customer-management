@@ -43,6 +43,17 @@ const generate_id = () => {
     return 'id-' + Math.random().toString(36).substr(2, 16)
 }
 
+function getBase64(file, callback) {
+    var reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = function () {
+        callback(reader.result)
+    }
+    reader.onerror = function (error) {
+        callback(error)
+    }
+}
+
 app.controller('userEditCtrl', [
     '$scope', '$location', '$route', '$rootScope', '$routeParams', '$http',
     function($scope, $location, $route, $rootScope, $routeParams, $http) {
@@ -736,6 +747,15 @@ app.controller('homeCtrl', [
             return arr[arr.length - 1]
         }
         
+
+        $scope.onLogoChange = () => {
+            getBase64($scope.detail.business_logo_file, (res) => {
+                $scope.$apply(function() {
+                    $scope.logo_base64 = res
+                })
+            })
+        }
+
         $scope.onClickChangeLogo = () => {
             $("#fileLoader").click()
         }
