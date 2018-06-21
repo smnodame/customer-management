@@ -13,7 +13,7 @@ var storage = multer.diskStorage({
 	},
 	filename: function(req, file, callback) {
         console.log(req.body)
-		callback(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+		callback(null, req.body.filename)
 	}
 })
 
