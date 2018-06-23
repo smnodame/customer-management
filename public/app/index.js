@@ -36,6 +36,10 @@ app.config(function($routeProvider) {
     .otherwise({redirectTo : '/'})
 })
 
+app.controller('mainCtrl', ($scope) => {
+    $scope.page = "login"
+})
+
 app.run(function($rootScope) { 
 })
 
