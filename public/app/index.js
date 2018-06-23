@@ -59,7 +59,13 @@ app.config(function($routeProvider, $httpProvider) {
 app.controller('mainCtrl', ['$scope', '$timeout', ($scope, $timeout) => {
     $timeout(() => { 
         const token = localStorage.getItem("token")
-        $scope.page = token? "content" : "login"
+        if(token) {
+            $scope.account = JSON.parse(localStorage.getItem("account"))
+            $scope.page = "content"
+        } else {
+            $scope.page = "login"
+        }
+
     }, 200)
 }])
 
