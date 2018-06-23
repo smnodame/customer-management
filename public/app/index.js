@@ -37,7 +37,7 @@ app.config(function($routeProvider) {
 })
 
 app.controller('mainCtrl', ($scope) => {
-    $scope.page = "login"
+    $scope.page = "x"
 })
 
 app.run(function($rootScope) { 

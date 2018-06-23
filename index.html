@@ -71,8 +71,20 @@
     </style>
   </head>
 
-  <body ng-app="app" class="nav-md" ng-controller="mainCtrl" ng-class="{'gray-bg': page == 'login'}">
-      <div class="" ng-if="page == 'login'">
+  <body ng-app="app" class="nav-md" ng-controller="mainCtrl" ng-class="{'gray-bg': page != 'content'}">
+      <div class="">
+        <div id="wrapper">
+          <div id="login" class="animate form">
+            <section class="login_content">
+              <img src="/static/images/icons.png" style="width: 200px" />
+            </section>
+            <!-- content -->
+          </div>
+        </div>
+      </div>
+
+
+      <div class="" ng-if="page == 'login'" style="display: none">
           <a class="hiddenanchor" id="toregister"></a>
           <a class="hiddenanchor" id="tologin"></a>
       
@@ -151,7 +163,7 @@
 
 
 
-      <div class="container body" ng-if="page == 'content'">
+      <div class="container body" ng-if="page == 'content'" style="display: none">
         <div class="main_container">
           <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
