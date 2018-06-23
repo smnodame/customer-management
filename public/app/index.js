@@ -38,8 +38,14 @@ app.config(function($routeProvider) {
 
 app.controller('mainCtrl', ['$scope', '$timeout', ($scope, $timeout) => {
     $timeout(() => { 
-        $scope.page = "content"
-    }, 1500)
+        $scope.page = "login"
+    }, 200)
+}])
+
+app.controller('loginCtrl', ['$scope', '$timeout', ($scope, $timeout) => {
+    $scope.login = () => {
+        console.log('==========')
+    }
 }])
 
 app.run(function($rootScope) { 
