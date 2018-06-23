@@ -42,9 +42,24 @@ app.controller('mainCtrl', ['$scope', '$timeout', ($scope, $timeout) => {
     }, 200)
 }])
 
-app.controller('loginCtrl', ['$scope', '$timeout', ($scope, $timeout) => {
+app.controller('loginCtrl', ['$scope', '$timeout', '$http', ($scope, $timeout, $http) => {
     $scope.login = () => {
-        console.log('==========')
+        $scope.error = ""
+
+        const data = {
+            username: $scope.username,
+            password: $scope.password
+        }
+
+        $http.post(`/api/signin`, data).then((res) => {
+            if(res.data.success) {
+
+            } else {
+                $scope.password = ""
+                $scope.error = res.data.message
+            }
+            // location.reload()
+        })
     }
 }])
 

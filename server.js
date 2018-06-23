@@ -213,16 +213,18 @@ const query_service = {
 }
 
 api_routes.post('/signin', function(req, res) {
-    connection.query('SELECT * FROM account WHERE username = ' + req.body.username, function (err, rows, fields) {
+    const data = {
+        account_email: req.body.username
+    }
+    connection.query('SELECT * FROM account WHERE ? ', data, function (err, rows, fields) {
         if (err) throw err
-        res.json(rows)
 
         if (!rows.length) {
             res.json({ success: false, message: 'Authentication failed. User not found.' })
         } else {
             // check if password matches
             const account = rows[0]
-            if (account.password != req.body.password) {
+            if (account.account_password != req.body.password) {
                 res.json({ success: false, message: 'Authentication failed. Wrong password.' })
             } else {
                 // create a token

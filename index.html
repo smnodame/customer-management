@@ -102,14 +102,15 @@
                 <form ng-submit="login()">
                   <h1>Login Form</h1>
                   <div>
-                    <input type="text" class="form-control" placeholder="Username" required="" />
+                    <input type="text" class="form-control" ng-model="username" placeholder="Username" required="" />
                   </div>
                   <div>
-                    <input type="password" class="form-control" placeholder="Password" required="" />
+                    <input type="password" class="form-control" ng-model="password" placeholder="Password" required="" />
                   </div>
                   <div style="margin-bottom: 10px;">
                     <button type="submit" class="btn btn-success submit" style="width: 100%">Log in</button>
                   </div>
+                  <p style="color: red">{{ error }}</p>
                   <div class="clearfix"></div>
                   <div class="separator">
                     <div class="clearfix"></div>
