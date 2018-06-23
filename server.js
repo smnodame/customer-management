@@ -247,10 +247,7 @@ api_routes.post('/signin', function(req, res) {
 api_routes.use(function(req, res, next) {
     // check header or url parameters or post parameters for token
     var token = req.body.token || req.query.token || req.headers['x-access-token']
-
-    next()
-    return
-
+    
     // decode token
     if (token) {
         // verifies secret and checks exp

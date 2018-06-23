@@ -1,5 +1,25 @@
 var app = angular.module("app", ["ngRoute", "angular-file-input"])
-app.config(function($routeProvider) {
+app.config(function($routeProvider, $httpProvider) {
+
+    $httpProvider.interceptors.push(['$q', '$location', function ($q, $location) {
+        return {
+            'request': function (config) {
+                config.headers = config.headers || {};
+                if (localStorage.token) {
+                    config.headers['x-access-token'] = localStorage.token
+                }
+                return config
+            },
+            'responseError': function (response) {
+                if (response.status === 401 || response.status === 403) {
+                    localStorage.clear()
+                    location.reload()
+                }
+                return $q.reject(response)
+            }
+        }
+    }])
+
     $routeProvider
     .when("/", {
         templateUrl : "static/html/home.html",

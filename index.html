@@ -91,7 +91,7 @@
         </div>
       </div>
 
-      <div style="display: none" ng-controller="loginCtrl"  ng-class="{'show-page': page == 'login'}">
+      <div style="display: none" ng-controller="loginCtrl" ng-if="page == 'login'"  ng-class="{'show-page': page == 'login'}">
           <a class="hiddenanchor" id="toregister"></a>
           <a class="hiddenanchor" id="tologin"></a>
       
@@ -164,7 +164,7 @@
 
 
 
-      <div class="container body" style="display: none"  ng-class="{'show-page': page == 'content'}">
+      <div class="container body" style="display: none" ng-if="page == 'content'"  ng-class="{'show-page': page == 'content'}">
         <div class="main_container">
           <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
