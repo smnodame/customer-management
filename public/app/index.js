@@ -38,7 +38,7 @@ app.config(function($routeProvider) {
 
 app.controller('mainCtrl', ['$scope', '$timeout', ($scope, $timeout) => {
     $timeout(() => { 
-        $scope.page = "login"
+        $scope.page = "content"
     }, 1500)
 }])
 
