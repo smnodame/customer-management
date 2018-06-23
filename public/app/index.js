@@ -36,9 +36,11 @@ app.config(function($routeProvider) {
     .otherwise({redirectTo : '/'})
 })
 
-app.controller('mainCtrl', ($scope) => {
-    $scope.page = "x"
-})
+app.controller('mainCtrl', ['$scope', '$timeout', ($scope, $timeout) => {
+    $timeout(() => { 
+        $scope.page = "login"
+    }, 1500)
+}])
 
 app.run(function($rootScope) { 
 })

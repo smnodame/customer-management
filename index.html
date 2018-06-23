@@ -68,11 +68,19 @@
       .gray-bg {
         background: #F7F7F7;
       }
+
+      .show-page {
+        display: block !important;
+      }
+
+      .hide-page {
+        display: none;
+      }
     </style>
   </head>
 
   <body ng-app="app" class="nav-md" ng-controller="mainCtrl" ng-class="{'gray-bg': page != 'content'}">
-      <div class="">
+      <div class="" ng-class="{'hide-page': !!page}">
         <div id="wrapper">
           <div id="login" class="animate form">
             <section class="login_content">
@@ -83,8 +91,7 @@
         </div>
       </div>
 
-
-      <div class="" ng-if="page == 'login'" style="display: none">
+      <div style="display: none"  ng-class="{'show-page': page == 'login'}">
           <a class="hiddenanchor" id="toregister"></a>
           <a class="hiddenanchor" id="tologin"></a>
       
