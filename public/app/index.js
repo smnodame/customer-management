@@ -67,6 +67,11 @@ app.controller('mainCtrl', ['$scope', '$timeout', ($scope, $timeout) => {
         }
 
     }, 200)
+
+    $scope.logout = (() => {
+        localStorage.clear()
+        location.href = "/"
+    })
 }])
 
 app.controller('loginCtrl', ['$scope', '$timeout', '$http', ($scope, $timeout, $http) => {
