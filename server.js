@@ -224,6 +224,7 @@ api_routes.post('/signin', function(req, res) {
         } else {
             // check if password matches
             const account = rows[0]
+            
             if (account.account_password != req.body.password) {
                 res.json({ success: false, message: 'Authentication failed. Wrong password.' })
             } else {
@@ -231,12 +232,13 @@ api_routes.post('/signin', function(req, res) {
                 var token = jwt.sign({ a: 'a' }, app.get('superSecret'), {
                     expiresIn: 60 * 60 * 24, // expires in 24 hours
                 })
-                
+                delete account.account_password
                 // return the information including token as JSON
                 res.json({
                     success: true,
                     message: 'Enjoy your token.',
-                    token: token
+                    token: token,
+                    data: account
                 })
             }
         }
@@ -247,7 +249,7 @@ api_routes.post('/signin', function(req, res) {
 api_routes.use(function(req, res, next) {
     // check header or url parameters or post parameters for token
     var token = req.body.token || req.query.token || req.headers['x-access-token']
-    
+
     // decode token
     if (token) {
         // verifies secret and checks exp

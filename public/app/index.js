@@ -75,6 +75,7 @@ app.controller('loginCtrl', ['$scope', '$timeout', '$http', ($scope, $timeout, $
         $http.post(`/api/signin`, data).then((res) => {
             if(res.data.success) {
                 localStorage.setItem("token", res.data.token)
+                localStorage.setItem("account", JSON.stringify(res.data.data))
                 location.reload()
             } else {
                 $scope.password = ""
