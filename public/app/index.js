@@ -38,7 +38,8 @@ app.config(function($routeProvider) {
 
 app.controller('mainCtrl', ['$scope', '$timeout', ($scope, $timeout) => {
     $timeout(() => { 
-        $scope.page = "login"
+        const token = localStorage.getItem("token")
+        $scope.page = token? "content" : "login"
     }, 200)
 }])
 
@@ -53,12 +54,13 @@ app.controller('loginCtrl', ['$scope', '$timeout', '$http', ($scope, $timeout, $
 
         $http.post(`/api/signin`, data).then((res) => {
             if(res.data.success) {
-
+                localStorage.setItem("token", res.data.token)
+                location.reload()
             } else {
                 $scope.password = ""
                 $scope.error = res.data.message
             }
-            // location.reload()
+            
         })
     }
 }])

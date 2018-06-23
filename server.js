@@ -18,6 +18,7 @@ var storage = multer.diskStorage({
 })
 
 const upload  = multer({ storage: storage })
+app.set('superSecret', 'supersecret') // secret variable
 
 //nunjucks templating 
 const nunjucks = require('nunjucks')
@@ -218,7 +219,6 @@ api_routes.post('/signin', function(req, res) {
     }
     connection.query('SELECT * FROM account WHERE ? ', data, function (err, rows, fields) {
         if (err) throw err
-
         if (!rows.length) {
             res.json({ success: false, message: 'Authentication failed. User not found.' })
         } else {
@@ -228,10 +228,10 @@ api_routes.post('/signin', function(req, res) {
                 res.json({ success: false, message: 'Authentication failed. Wrong password.' })
             } else {
                 // create a token
-                var token = jwt.sign(account, app.get('superSecret'), {
-                    expiresIn: 1440 // expires in 24 hours
+                var token = jwt.sign({ a: 'a' }, app.get('superSecret'), {
+                    expiresIn: 60 * 60 * 24, // expires in 24 hours
                 })
-
+                
                 // return the information including token as JSON
                 res.json({
                     success: true,
