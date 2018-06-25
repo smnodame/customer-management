@@ -388,6 +388,10 @@ app.controller('userCreateCtrl', [
             return obj.business_name.toLowerCase().search($scope.queryAvailableGroup) >= 0
         }
 
+        $scope.$watch('queryAvailableGroup', function() {
+            $scope.selected_available_group = []
+        })
+
         $scope.getPathFile = (filename) => {
             return filename? '/static/files/'+filename : ''
         }
@@ -543,14 +547,14 @@ app.controller('userCreateCtrl', [
                 if($scope.selected_available_group.length == 0) {
                     $scope.selected_available_group.push(business_id)
                 } else {
-                    const start_index =   $scope.available_group.map((customer) => customer.business_id).indexOf($scope.selected_available_group[$scope.selected_available_group.length - 1])
-                    const end_index = $scope.available_group.map((customer) => customer.business_id).indexOf(business_id)
+                    const start_index = $scope.available_group.filter($scope.filterFn).map((customer) => customer.business_id).indexOf($scope.selected_available_group[$scope.selected_available_group.length - 1])
+                    const end_index = $scope.available_group.filter($scope.filterFn).map((customer) => customer.business_id).indexOf(business_id)
                     if(start_index <= end_index) {
-                        $scope.selected_available_group = $scope.available_group.filter((value, index) => {
+                        $scope.selected_available_group = $scope.available_group.filter($scope.filterFn).filter((value, index) => {
                             return  index >= start_index && index <= end_index && $scope.is_not_in_chosen_group(value.business_id)
                         }).map((customer) => customer.business_id)
                     } else {
-                        $scope.selected_available_group = $scope.available_group.filter((value, index) => {
+                        $scope.selected_available_group = $scope.available_group.filter($scope.filterFn).filter((value, index) => {
                             return end_index >= index && index <= start_index && $scope.is_not_in_chosen_group(value.business_id)
                         }).map((customer) => customer.business_id)
                     }
@@ -561,7 +565,7 @@ app.controller('userCreateCtrl', [
         }
 
         $scope.on_select_all_available_group = () => {
-            $scope.selected_available_group = $scope.available_group.filter($scope.filterFn).map((customer) => customer.business_id)
+            $scope.selected_available_group = $scope.available_group.filter((value) => $scope.is_not_in_chosen_group(value.business_id)).filter($scope.filterFn).map((customer) => customer.business_id)
         }
 
         $scope.on_select_all_chosen_group = () => {
