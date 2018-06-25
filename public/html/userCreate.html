@@ -51,12 +51,15 @@
 
                   <div class="" role="tabpanel" data-example-id="togglable-tabs">
                     <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                      <li role="presentation" class="active"><a  id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">รายละเอียด</a>
-                      </li>
-                      <li ng-if="is_edited" role="presentation" class=""><a  role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">ลูกค้าที่ได้รับมอบหมาย</a>
-                      </li>
+                        <li role="presentation" class="active"><a id="home-tab" role="tab" ng-click="change_tab(1)" data-toggle="tab" aria-expanded="true">รายละเอียด</a>
+                        </li>
+                        <li role="presentation" ng-if="is_edited" class=""><a role="tab" ng-click="change_tab(2)" data-toggle="tab" aria-expanded="false">ลูกค้าที่ได้รับมอบหมาย</a>
+                        </li>
                     </ul>
-                    <div id="myTabContent" class="tab-content">
+                    <div ng-show="tab_index == 2" class="tab-content">
+                      fsafs
+                    </div>
+                    <div ng-show="tab_index == 1" class="tab-content">
                       <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">   
                         <div class="x_content">
                             <small ng-if="is_edited">* ถ้าหากไม่ต้องการเปลี่ยน password ไม่ต้องทำการกรอกในช่อง password </small>

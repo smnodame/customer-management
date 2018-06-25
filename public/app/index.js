@@ -125,7 +125,12 @@ app.controller('userEditCtrl', [
         $scope.chosen_group = []
         
         $scope.is_edited = true
-
+        $scope.tab_index = 1
+        
+        $scope.change_tab = (tab_index) => {
+            $scope.tab_index = tab_index
+        }
+        
         const get_type_file = (filename) => {
             const arr = filename.split('.')
             return arr[arr.length - 1]
@@ -367,6 +372,12 @@ app.controller('userCreateCtrl', [
 
         $scope.available_group = []
         $scope.chosen_group = []
+
+        $scope.tab_index = 1
+        
+        $scope.change_tab = (tab_index) => {
+            $scope.tab_index = tab_index
+        }
 
         $scope.getPathFile = (filename) => {
             return filename? '/static/files/'+filename : ''
