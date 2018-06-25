@@ -130,7 +130,7 @@ app.controller('userEditCtrl', [
         $scope.change_tab = (tab_index) => {
             $scope.tab_index = tab_index
         }
-        
+
         const get_type_file = (filename) => {
             const arr = filename.split('.')
             return arr[arr.length - 1]
@@ -379,6 +379,15 @@ app.controller('userCreateCtrl', [
             $scope.tab_index = tab_index
         }
 
+        $scope.filterFn = function(obj)
+        {
+            if(!$scope.queryAvailableGroup) {
+                return true
+            }
+            
+            return obj.business_name.toLowerCase().search($scope.queryAvailableGroup) >= 0
+        }
+
         $scope.getPathFile = (filename) => {
             return filename? '/static/files/'+filename : ''
         }
@@ -552,7 +561,7 @@ app.controller('userCreateCtrl', [
         }
 
         $scope.on_select_all_available_group = () => {
-            $scope.selected_available_group = $scope.available_group.map((customer) => customer.business_id)
+            $scope.selected_available_group = $scope.available_group.filter($scope.filterFn).map((customer) => customer.business_id)
         }
 
         $scope.on_select_all_chosen_group = () => {

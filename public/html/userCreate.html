@@ -199,13 +199,26 @@
                 <div class="x_content" style="display: flex">
                     <div style="flex: 1; padding: 15px">
                         <div class="panel panel-default">
-                          <div class="panel-heading">Available Group</div>
+                          <div class="panel-heading" style="display: flex">
+                            <p>Available Group</p>
+                            <div style="flex: 1"></div>
+                            <form style="width: 50%">
+                              <div class="col-xs-12 form-group pull-right top_search" style="margin-bottom: 0px">
+                                <div class="input-group" style="margin-bottom: 0px">
+                                  <input type="text" class="form-control" placeholder="Search for..." ng-model="queryAvailableGroup">
+                                  <span class="input-group-btn">
+                                      <button class="btn btn-default" type="button">Go!</button>
+                                  </span>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
                           <div class="panel-body" style="height: 300px; overflow-y: scroll; padding: 0">
                               <ul class="list-group">
                                   <li class="list-group-item" style="cursor: pointer" 
                                     ng-class="{ selected : is_in_selected_available_group(group.business_id)}" 
                                     ng-click="on_click_group_in_available_group($event, group.business_id )" 
-                                    ng-repeat="group in available_group track by $index"
+                                    ng-repeat="group in available_group  | filter: filterFn track by $index"
                                     ng-if="is_not_in_chosen_group(group.business_id)"
                                   >
                                       <div style="width: 35%">
