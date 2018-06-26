@@ -116,8 +116,8 @@ function getBase64(file, callback) {
 }
 
 app.controller('userEditCtrl', [
-    '$scope', '$location', '$route', '$rootScope', '$routeParams', '$http',
-    function($scope, $location, $route, $rootScope, $routeParams, $http) {
+    '$scope', '$location', '$route', '$rootScope', '$routeParams', '$http', '$compile',
+    function($scope, $location, $route, $rootScope, $routeParams, $http, $compile) {
         $scope.selected_available_group = []
         $scope.selected_chosen_group = []
 
@@ -127,8 +127,13 @@ app.controller('userEditCtrl', [
         $scope.is_edited = true
         $scope.tab_index = 1
         
+        const tables = $('#datatable-responsive').DataTable({
+            iDisplayLength: 10
+        })
+
         $scope.change_tab = (tab_index) => {
             $scope.tab_index = tab_index
+            get_customers()
         }
 
         const get_type_file = (filename) => {
@@ -147,7 +152,7 @@ app.controller('userEditCtrl', [
         $scope.$watch('queryChosenGroup', function() {
             $scope.selected_chosen_group = []
         })
-        
+
         $scope.getPathFile = (filename) => {
             return filename? '/static/files/'+filename : ''
         }
@@ -189,6 +194,7 @@ app.controller('userEditCtrl', [
             $scope.chosen_group = [ ...$scope.chosen_group , ...$scope.selected_available_group.map((id) => get_group_from_id(id))]
             $scope.selected_available_group = []
             $scope.selected_chosen_group = []
+            get_customers()
         }
 
         $scope.on_click_remove = () => {
@@ -197,6 +203,7 @@ app.controller('userEditCtrl', [
             })
             $scope.selected_available_group = []
             $scope.selected_chosen_group = []
+            get_customers()
         }
         
         $scope.is_not_in_chosen_group = (business_id) => {
@@ -372,6 +379,36 @@ app.controller('userEditCtrl', [
             } else {
                 $scope.error = 'กรุณากรอกข้อมูลให้ครบทุกช่อง'
             }
+        }
+
+        const get_customers = () => {
+            tables.clear()
+            .draw()
+
+            $scope.chosen_group.forEach((customer) => {
+                const image = customer.business_logo_file? `/static/files/${customer.business_logo_file}` : '/static/images/user.png'
+                tables.row.add( [
+                    `
+                    <ul class="list-inline">
+                        <li>
+                            <img src="${image}" class="avatar" alt="Avatar">
+                        </li>
+                    </ul>
+                    `,
+                    customer.business_id,
+                    customer.business_name,
+                    customer.business_grade,
+                    customer.business_type,
+                    customer.business_telephone || '-',
+                    customer.business_region,
+                    customer.executive_profile_name || '-',
+                    customer.business_detail_pet_quantity || '-',
+                    '<a href="/#!/customer/'+customer.business_id+'" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>'
+                ]).draw( true )
+            })
+
+            var compileFn = $compile(angular.element(document.getElementById("datatable-responsive")))
+            compileFn($scope)
         }
     }
 ])
