@@ -277,6 +277,8 @@ app.controller('userEditCtrl', [
             $scope.selected_available_group = $scope.available_group.filter((value) => $scope.is_not_in_chosen_group(value.business_id)).filter($scope.filterFn).map((customer) => customer.business_id)
         }
 
+        $scope.get_length_available_group = () => $scope.available_group.filter((value) => $scope.is_not_in_chosen_group(value.business_id)).length
+        
         $scope.on_select_all_chosen_group = () => {
             $scope.selected_chosen_group = $scope.chosen_group.filter($scope.filterCg).map((customer) => customer.business_id)
         }
@@ -428,6 +430,8 @@ app.controller('userCreateCtrl', [
             $scope.tab_index = tab_index
         }
 
+        $scope.get_length_available_group = () => $scope.available_group.filter((value) => $scope.is_not_in_chosen_group(value.business_id)).length
+        
         $scope.filterFn = (obj) => !$scope.queryAvailableGroup? true : obj.business_name.toLowerCase().search($scope.queryAvailableGroup) >= 0
 
         $scope.filterCg = (obj) => !$scope.queryChosenGroup? true : obj.business_name.toLowerCase().search($scope.queryChosenGroup) >= 0
