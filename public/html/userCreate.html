@@ -44,7 +44,7 @@
                       </ul>
                   </div>
                   <!-- end of profile detail -->
-                  <a style="margin: 28px;" class="btn btn-success" ng-click="onClickChangeProfile()"><i class="fa fa-edit m-right-xs" style="margin-right: 5px" ></i>เปลี่ยนรูปโปรไฟล์</a>
+                  <a style="margin: 28px;" class="btn btn-success" ng-click="onClickChangeProfile()" ng-hide="!is_superuser && !is_owner"><i class="fa fa-edit m-right-xs" style="margin-right: 5px" ></i>เปลี่ยนรูปโปรไฟล์</a>
                   <br />
                 </div>
                 <div class="col-md-9 col-sm-9 col-xs-12">
@@ -53,7 +53,7 @@
                     <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                         <li role="presentation" class="active"><a id="home-tab" role="tab" ng-click="change_tab(1)" data-toggle="tab" aria-expanded="true">รายละเอียด</a>
                         </li>
-                        <li role="presentation" ng-if="is_owner" class=""><a role="tab" ng-click="change_tab(2)" data-toggle="tab" aria-expanded="false">ลูกค้าที่ได้รับมอบหมาย</a>
+                        <li role="presentation" ng-if="!is_superuser" class=""><a role="tab" ng-click="change_tab(2)" data-toggle="tab" aria-expanded="false">ลูกค้าที่ได้รับมอบหมาย</a>
                         </li>
                     </ul>
                     <div ng-show="tab_index == 2" class="tab-content">
@@ -83,32 +83,32 @@
                             <form class="form-horizontal form-label-left input_mask">
         
                               <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                  <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="ชื่อ" ng-model="account.account_first_name">
+                                  <input type="text" class="form-control has-feedback-left" ng-disabled="!is_superuser && !is_owner" id="inputSuccess2" placeholder="ชื่อ" ng-model="account.account_first_name">
                                   <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                               </div>
           
                               <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                  <input type="text" class="form-control" id="inputSuccess3" placeholder="นามสกุล" ng-model="account.account_last_name">
+                                  <input type="text" class="form-control" id="inputSuccess3" ng-disabled="!is_superuser && !is_owner" placeholder="นามสกุล" ng-model="account.account_last_name">
                                   <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
                               </div>
           
                               <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                  <input type="text" class="form-control has-feedback-left"  placeholder="อีเมล์" ng-model="account.account_email">
+                                  <input type="text" class="form-control has-feedback-left" ng-disabled="!is_superuser && !is_owner"  placeholder="อีเมล์" ng-model="account.account_email">
                                   <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
                               </div>
           
                               <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                  <input type="text" class="form-control" id="inputSuccess5" placeholder="เบอร์โทรศัพท์" ng-model="account.account_phone">
+                                  <input type="text" class="form-control" id="inputSuccess5" ng-disabled="!is_superuser && !is_owner" placeholder="เบอร์โทรศัพท์" ng-model="account.account_phone">
                                   <span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
                               </div>
                               
                               <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                  <input type="password" class="form-control has-feedback-left"  placeholder="Password" ng-model="account.account_password">
+                                  <input type="password" class="form-control has-feedback-left"  ng-disabled="!is_superuser && !is_owner" placeholder="Password" ng-model="account.account_password">
                                   <span class="fa fa-lock form-control-feedback left" aria-hidden="true"></span>
                               </div>
                               
                               <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                  <select class="form-control has-feedback-left" ng-model="account.account_position">
+                                  <select class="form-control has-feedback-left" ng-model="account.account_position" ng-disabled="!is_superuser">
                                       <option value="">ตำแหน่ง</option>
                                       <option value="ฝ่ายขาย">ฝ่ายขาย</option>
                                       <option value="admin">Admin</option>
@@ -117,7 +117,7 @@
                               </div>
 
                               <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                  <input type="password" class="form-control has-feedback-left"  placeholder="Confirm Password" ng-model="account.account_confirm_password">
+                                  <input type="password" class="form-control has-feedback-left" ng-disabled="!is_superuser && !is_owner"  placeholder="Confirm Password" ng-model="account.account_confirm_password">
                                   <span class="fa fa-lock form-control-feedback left" aria-hidden="true"></span>
                               </div>
                               <div class="ln_solid"></div>
@@ -127,9 +127,9 @@
                                   <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 23px">
                                       <hr />
                                     <p style="color: red">{{ error }}</p>
-                                    <a href="/#!/user" type="submit" class="btn btn-primary">ยกเลิก</a>
-                                    <button ng-if="!is_edited" type="submit" class="btn btn-success" ng-click="on_create()">สร้าง</button>
-                                    <button ng-if="is_edited" type="submit" class="btn btn-success" ng-click="on_edit()">เเก้ไข</button>
+                                    <a href="/#!/user" class="btn btn-primary" ng-hide="!is_superuser && !is_owner">ยกเลิก</a>
+                                    <button ng-if="!is_edited" type="submit" class="btn btn-success" ng-click="on_create()" ng-hide="!is_superuser && !is_owner">สร้าง</button>
+                                    <button ng-if="is_edited" type="submit" class="btn btn-success" ng-click="on_edit()" ng-hide="!is_superuser && !is_owner">เเก้ไข</button>
                                   </div>
                               </div>
                             </form>
@@ -143,7 +143,7 @@
             </div>
           </div>
           
-          <div class="col-md-12 col-sm-12 col-xs-12" ng-if="!is_owner">
+          <div class="col-md-12 col-sm-12 col-xs-12" ng-if="is_superuser">
               <div class="x_panel">
                 <div class="x_title">
                   <h2>กลุ่มลูกค้า <small>สามารถกดปุ่ม ctrl หรือ shift เพื่อทำการเลือกหลายกลุ่ม</small></h2>

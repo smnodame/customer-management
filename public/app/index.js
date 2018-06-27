@@ -132,6 +132,7 @@ app.controller('userEditCtrl', [
         })
 
         $scope.is_owner = JSON.parse(localStorage.getItem("account")).account_id == $routeParams.id
+        $scope.is_superuser = JSON.parse(localStorage.getItem("account")).account_position == 'admin'
 
         $scope.change_tab = (tab_index) => {
             $scope.tab_index = tab_index
@@ -426,6 +427,8 @@ app.controller('userCreateCtrl', [
         $scope.available_group = []
         $scope.chosen_group = []
 
+        $scope.is_superuser = true
+        
         $scope.tab_index = 1
         
         $scope.change_tab = (tab_index) => {
