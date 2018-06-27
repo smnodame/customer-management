@@ -164,7 +164,7 @@
 
 
 
-      <div class="container body" style="display: none" ng-if="page == 'content'"  ng-class="{'show-page': page == 'content'}">
+      <div class="container body" style="display: none" ng-show="page == 'content'"  ng-class="{'show-page': page == 'content'}">
         <div class="main_container">
           <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
@@ -199,13 +199,13 @@
                   <h3>MENU</h3>
                   <ul class="nav side-menu">
                     <li><a><i class="fa fa-book"></i> CUSTOMERS <span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu" style="display: block">
+                      <ul class="nav child_menu">
                         <li><a href="/#!/">เพิ่มข้อมูลลูกค้า</a></li>
                         <li><a href="/#!/customer">ข้อมูลลูกค้าทั้งหมด</a></li>
                       </ul>
                     </li>
                       <li><a><i class="fa fa-users"></i> USERS <span class="fa fa-chevron-down"></span></a>
-                          <ul class="nav child_menu" style="display: block">
+                          <ul class="nav child_menu">
                               <li><a href="/#!/user/create">เพิ่มผู้ใข้</a></li>
                               <li><a href="/#!/user">รายชื่อผู้ใช้ทั้งหมด</a></li>
                           </ul>
