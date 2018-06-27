@@ -76,6 +76,21 @@
       .hide-page {
         display: none;
       }
+
+      /* custom */
+      body.nav-sm .navbar.nav_title .site_title img {
+        height: 50px !important;
+        width: 50px !important;
+      }
+
+      body.nav-sm .navbar.nav_title .site_title {
+        height: 65px !important;
+      }
+
+      body.nav-sm .navbar.nav_title {
+        height: 60px !important;
+      }
+
     </style>
   </head>
 
@@ -160,9 +175,6 @@
             </div>
           </div>
         </div>
-
-
-
 
       <div class="container body" style="display: none" ng-show="page == 'content'"  ng-class="{'show-page': page == 'content'}">
         <div class="main_container">
