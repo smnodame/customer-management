@@ -53,7 +53,7 @@
                     <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                         <li role="presentation" class="active"><a id="home-tab" role="tab" ng-click="change_tab(1)" data-toggle="tab" aria-expanded="true">รายละเอียด</a>
                         </li>
-                        <li role="presentation" ng-if="is_edited" class=""><a role="tab" ng-click="change_tab(2)" data-toggle="tab" aria-expanded="false">ลูกค้าที่ได้รับมอบหมาย</a>
+                        <li role="presentation" ng-if="is_owner" class=""><a role="tab" ng-click="change_tab(2)" data-toggle="tab" aria-expanded="false">ลูกค้าที่ได้รับมอบหมาย</a>
                         </li>
                     </ul>
                     <div ng-show="tab_index == 2" class="tab-content">
@@ -142,7 +142,8 @@
               </div>
             </div>
           </div>
-          <div class="col-md-12 col-sm-12 col-xs-12">
+          
+          <div class="col-md-12 col-sm-12 col-xs-12" ng-if="!is_owner">
               <div class="x_panel">
                 <div class="x_title">
                   <h2>กลุ่มลูกค้า <small>สามารถกดปุ่ม ctrl หรือ shift เพื่อทำการเลือกหลายกลุ่ม</small></h2>

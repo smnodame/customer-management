@@ -49,10 +49,10 @@ app.config(function($routeProvider, $httpProvider) {
         templateUrl : 'static/html/userCreate.html',
         controller: 'userEditCtrl'
     })
-    .when("/user/:id", {
-        templateUrl : 'static/html/userCreate.html',
-        controller: 'userEditCtrl'
-    })
+    // .when("/user/:id", {
+    //     templateUrl : 'static/html/userCreate.html',
+    //     controller: 'userEditCtrl'
+    // })
     .otherwise({redirectTo : '/'})
 })
 
@@ -130,6 +130,8 @@ app.controller('userEditCtrl', [
         const tables = $('#datatable-responsive').DataTable({
             iDisplayLength: 10
         })
+
+        $scope.is_owner = JSON.parse(localStorage.getItem("account")).account_id == $routeParams.id
 
         $scope.change_tab = (tab_index) => {
             $scope.tab_index = tab_index
