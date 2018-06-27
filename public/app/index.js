@@ -52,13 +52,22 @@ app.config(function($routeProvider, $httpProvider) {
     .otherwise({redirectTo : '/'})
 })
 
-app.controller('mainCtrl', ['$scope', '$timeout', ($scope, $timeout) => {
+app.controller('mainCtrl', ['$scope', '$timeout', '$route', ($scope, $timeout, $route) => {
     $timeout(() => { 
         const token = localStorage.getItem("token")
         if(token) {
             $scope.account = JSON.parse(localStorage.getItem("account"))
             $scope.is_superuser = $scope.account.account_position == 'admin'
             $scope.page = "content"
+
+            const blockCtrl = ['homeCtrl', 'editCustomerInfoCtrl', 'userCtrl', 'userCreateCtrl']
+
+            $scope.$on('$routeChangeStart', function (event, next, prev) {
+                if(blockCtrl.find((c) => c == next['$$route'].controller)) {
+                    $scope.no_permission = true
+                }
+            })
+
         } else {
             $scope.page = "login"
         }
@@ -698,7 +707,7 @@ app.controller('editCustomerInfoCtrl', [
 
         $scope.account = JSON.parse(localStorage.getItem("account"))
         $scope.is_superuser = $scope.account.account_position == 'admin'
-        
+
         $scope.getPathFile = (filename) => {
             return filename? '/static/files/'+filename : ''
         }
