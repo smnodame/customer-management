@@ -49,10 +49,6 @@ app.config(function($routeProvider, $httpProvider) {
         templateUrl : 'static/html/userCreate.html',
         controller: 'userEditCtrl'
     })
-    // .when("/user/:id", {
-    //     templateUrl : 'static/html/userCreate.html',
-    //     controller: 'userEditCtrl'
-    // })
     .otherwise({redirectTo : '/'})
 })
 
@@ -61,6 +57,7 @@ app.controller('mainCtrl', ['$scope', '$timeout', ($scope, $timeout) => {
         const token = localStorage.getItem("token")
         if(token) {
             $scope.account = JSON.parse(localStorage.getItem("account"))
+            $scope.is_superuser = $scope.account.account_position == 'admin'
             $scope.page = "content"
         } else {
             $scope.page = "login"
@@ -428,7 +425,7 @@ app.controller('userCreateCtrl', [
         $scope.chosen_group = []
 
         $scope.is_superuser = true
-        
+
         $scope.tab_index = 1
         
         $scope.change_tab = (tab_index) => {
@@ -966,6 +963,17 @@ app.controller('customersCtrl', [
             })
         }
         
+        $scope.is_superuser = JSON.parse(localStorage.getItem("account")).account_position == 'admin'
+
+        function getActionHtml(customer) {
+            let action = '<a href="/#!/customer/'+customer.business_id+'" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>'
+            if($scope.is_superuser) {
+                action = action + '<a href="/#!/customer/'+customer.business_id+'/edit" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>'+
+                `<a ng-click="on_delete_customer('${customer.business_id}')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>`
+            }
+            return action
+        }
+
         const get_customers = () => {
             tables.clear()
             .draw()
@@ -989,9 +997,7 @@ app.controller('customersCtrl', [
                         customer.business_region,
                         customer.executive_profile_name,
                         customer.business_detail_pet_quantity,
-                        '<a href="/#!/customer/'+customer.business_id+'" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>'+
-                        '<a href="/#!/customer/'+customer.business_id+'/edit" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>'+
-                        `<a ng-click="on_delete_customer('${customer.business_id}')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>`
+                        getActionHtml(customer)
                     ]).draw( true )
                 })
 

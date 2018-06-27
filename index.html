@@ -212,11 +212,11 @@
                   <ul class="nav side-menu">
                     <li><a><i class="fa fa-book"></i> CUSTOMERS <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
-                        <li><a href="/#!/">เพิ่มข้อมูลลูกค้า</a></li>
+                        <li ng-hide="!is_superuser"><a href="/#!/">เพิ่มข้อมูลลูกค้า</a></li>
                         <li><a href="/#!/customer">ข้อมูลลูกค้าทั้งหมด</a></li>
                       </ul>
                     </li>
-                      <li><a><i class="fa fa-users"></i> USERS <span class="fa fa-chevron-down"></span></a>
+                      <li ng-hide="!is_superuser"><a><i class="fa fa-users"></i> USERS <span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
                               <li><a href="/#!/user/create">เพิ่มผู้ใข้</a></li>
                               <li><a href="/#!/user">รายชื่อผู้ใช้ทั้งหมด</a></li>
