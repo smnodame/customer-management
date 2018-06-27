@@ -17,7 +17,7 @@
             <div class="x_panel">
                 <div class="x_title">
                     <h2>{{ detail.business_name }}<small></small></h2>
-                    <button class="btn btn-warning pull-right" ng-click="redirect_to_edit()" style="margin-right: 5px;"><i class="fa fa-edit"></i> แก้ไข</button>
+                    <button ng-if="is_superuser" class="btn btn-warning pull-right" ng-click="redirect_to_edit()" style="margin-right: 5px;"><i class="fa fa-edit"></i> แก้ไข</button>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">

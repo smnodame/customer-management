@@ -53,7 +53,7 @@
                     <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                         <li role="presentation" class="active"><a id="home-tab" role="tab" ng-click="change_tab(1)" data-toggle="tab" aria-expanded="true">รายละเอียด</a>
                         </li>
-                        <li role="presentation" ng-if="!is_superuser" class=""><a role="tab" ng-click="change_tab(2)" data-toggle="tab" aria-expanded="false">ลูกค้าที่ได้รับมอบหมาย</a>
+                        <li role="presentation" ng-if="is_owner || is_superuser" class=""><a role="tab" ng-click="change_tab(2)" data-toggle="tab" aria-expanded="false">ลูกค้าที่ได้รับมอบหมาย</a>
                         </li>
                     </ul>
                     <div ng-show="tab_index == 2" class="tab-content">

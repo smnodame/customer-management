@@ -696,6 +696,9 @@ app.controller('editCustomerInfoCtrl', [
         let default_business_id
         $scope.detail= {}
 
+        $scope.account = JSON.parse(localStorage.getItem("account"))
+        $scope.is_superuser = $scope.account.account_position == 'admin'
+        
         $scope.getPathFile = (filename) => {
             return filename? '/static/files/'+filename : ''
         }
