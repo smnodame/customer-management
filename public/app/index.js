@@ -63,8 +63,12 @@ app.controller('mainCtrl', ['$scope', '$timeout', '$route', ($scope, $timeout, $
             const blockCtrl = ['homeCtrl', 'editCustomerInfoCtrl', 'userCtrl', 'userCreateCtrl']
 
             $scope.$on('$routeChangeStart', function (event, next, prev) {
-                if(blockCtrl.find((c) => c == next['$$route'].controller)) {
-                    $scope.no_permission = true
+                if(!$scope.is_superuser) {
+                    if(blockCtrl.find((c) => c == next['$$route'].controller)) {
+                        $scope.page = 403
+                    } else {
+                        $scope.page = "content"
+                    }
                 }
             })
 

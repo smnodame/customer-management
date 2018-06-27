@@ -106,6 +106,27 @@
         </div>
       </div>
 
+      <div class="container body" style="display: none" ng-if="page == '403'"  ng-class="{'show-page': page == '403'}">
+          
+        <div class="main_container">
+    
+          <!-- page content -->
+          <div class="col-md-12">
+            <div class="col-middle">
+              <div class="text-center text-center">
+                <h1 class="error-number">403</h1>
+                <h2>Sorry you do not have permission to access</h2>
+                <!-- <p>This page you are looking for does not exsist <a href="#">Report this?</a> -->
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- /page content -->
+    
+        </div>
+        <!-- footer content -->
+      </div>
+
       <div style="display: none" ng-controller="loginCtrl" ng-if="page == 'login'"  ng-class="{'show-page': page == 'login'}">
           <a class="hiddenanchor" id="toregister"></a>
           <a class="hiddenanchor" id="tologin"></a>
