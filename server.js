@@ -169,6 +169,9 @@ const query_service = {
         select: function(query) {
             return "SELECT * FROM financial_information, main_business, `goal`, business_detail, executive_profile where main_business.business_id = financial_information.financial_information_id and `goal`.`goal_id` = main_business.business_id and business_detail.business_detail_id = main_business.business_id and executive_profile.executive_profile_id = main_business.business_id and business_id != ''"+ query
         },
+        select_belonger: function(query) {
+            return "SELECT * FROM (SELECT account_id, business_id as group_business_id FROM user_group) as user_group, financial_information, main_business, `goal`, business_detail, executive_profile where user_group.group_business_id = main_business.business_id and main_business.business_id = financial_information.financial_information_id and `goal`.`goal_id` = main_business.business_id and business_detail.business_detail_id = main_business.business_id and executive_profile.executive_profile_id = main_business.business_id and business_id != ''"+ query
+        },
         insert: function() {
             return "INSERT INTO main_business SET ?; INSERT INTO executive_profile SET ?; INSERT INTO `goal` SET ?; INSERT INTO business_detail SET ?; INSERT INTO financial_information SET ?;"
         },
@@ -312,13 +315,26 @@ api_routes.get('/customers', function(req, res) {
     if(req.query.amount_of_pets_max) {
         query.push(` business_detail_pet_quantity <= ${req.query.amount_of_pets_max} `)
     }
+    /** is not superuser */
+    if(req.decoded.account_position != 'admin') {
+        query.push(` account_id = '${req.decoded.account_id}' `)
+    }
+
     if(query.length) {
         query[0] = ' AND ' + query[0]
     }
-    connection.query(query_service.customer.select(query.join(' AND ')), function (err, rows, fields) {
-        if (err) throw err
-        res.json(rows)
-    })
+
+    if(req.decoded.account_position == 'admin') {
+        connection.query(query_service.customer.select(query.join(' AND ')), function (err, rows, fields) {
+            if (err) throw err
+            res.json(rows)
+        })
+    } else {
+        connection.query(query_service.customer.select_belonger(query.join(' AND ')), function (err, rows, fields) {
+            if (err) throw err
+            res.json(rows)
+        })
+    }
 })
 
 api_routes.get('/customers/:id', function(req, res) {
