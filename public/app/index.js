@@ -1077,8 +1077,8 @@ app.controller('customersCtrl', [
 app.controller('homeCtrl', [
     '$scope', '$location', '$route', '$rootScope', '$routeParams', '$http',
     function($scope, $location, $route, $rootScope, $routeParams, $http) {
-        $scope.step = 1
-        $scope.done = 1
+        $scope.step = 6
+        $scope.done = 6
 
         const next_step = () => {
             $scope.step = $scope.step + 1
