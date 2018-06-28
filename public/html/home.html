@@ -78,6 +78,15 @@
                             </span>
                         </a>
                     </li>
+                    <li>
+                        <a  ng-class="{selected: done >=6 }" style="cursor: pointer"  ng-click="go_to_step(6)">
+                            <span class="step_no" style="background: #ccc">6</span>
+                            <span class="step_descr">
+                                Step 6<br />
+                                <small>ผู้ดูแล</small>
+                            </span>
+                        </a>
+                    </li>
                 </ul>
 
                 <div ng-include="'/static/html/form/step1.html'"></div>
@@ -85,6 +94,7 @@
                 <div ng-include="'/static/html/form/step3.html'"></div>
                 <div ng-include="'/static/html/form/step4.html'"></div>
                 <div ng-include="'/static/html/form/step5.html'"></div>
+                <div ng-include="'/static/html/form/step6.html'"></div>
             </div>
             <div class="actionBar" style="display: flex">
                 <div style="flex: 1" ></div>

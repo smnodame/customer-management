@@ -1100,7 +1100,7 @@ app.controller('homeCtrl', [
                     $scope.error = 'กรุณากรอกข้อมูลให้ครบทุกช่อง'
                     return
                 }
-            } else if ($scope.step < 5) {
+            } else if ($scope.step < 6) {
                 next_step()
             }
         }
@@ -1110,7 +1110,7 @@ app.controller('homeCtrl', [
         }
 
         $scope.can_save = () => {
-            return $scope.check_form_valid() && $scope.done == 5
+            return $scope.check_form_valid() && $scope.done == 6
         }
 
         $scope.click_previous = () => {
