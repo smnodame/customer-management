@@ -32,8 +32,8 @@
             <!-- Smart Wizard -->
             <p>* ระบบสามารถบันทึกได้ เมื่อการกรอกข้อมูลครบทุกขั้นตอน</p>
             <div id="wizard" class="form_wizard wizard_horizontal">
-                <ul class="wizard_steps" style="margin-top: 35px; margin-bottom: 35px;">
-                    <li>
+                <ul class="wizard_steps" style="margin-top: 35px; margin-bottom: 35px; display: flex">
+                    <li style="flex: 1">
                         <a class="selected" style="cursor: pointer"  ng-click="go_to_step(1)">
                             <span class="step_no">1</span>
                             <span class="step_descr">
@@ -42,7 +42,7 @@
                             </span>
                         </a>
                     </li>
-                    <li>
+                    <li style="flex: 1">
                         <a ng-class="{selected: done >=2 }" style="cursor: pointer" ng-click="go_to_step(2)">
                             <span class="step_no" style="background: #ccc">2</span>
                             <span class="step_descr">
@@ -51,7 +51,7 @@
                             </span>
                         </a>
                     </li>
-                    <li>
+                    <li style="flex: 1">
                         <a ng-class="{selected: done >=3 }" style="cursor: pointer" ng-click="go_to_step(3)">
                         <span class="step_no" style="background: #ccc">3</span>
                         <span class="step_descr">
@@ -60,7 +60,7 @@
                         </span>
                         </a>
                     </li>
-                    <li>
+                    <li style="flex: 1">
                         <a ng-class="{selected: done >=4 }" style="cursor: pointer"  ng-click="go_to_step(4)">
                             <span class="step_no" style="background: #ccc">4</span>
                             <span class="step_descr">
@@ -69,7 +69,7 @@
                             </span>
                         </a>
                     </li>
-                    <li>
+                    <li style="flex: 1">
                         <a  ng-class="{selected: done >=5 }" style="cursor: pointer"  ng-click="go_to_step(5)">
                             <span class="step_no" style="background: #ccc">5</span>
                             <span class="step_descr">
@@ -78,7 +78,7 @@
                             </span>
                         </a>
                     </li>
-                    <li>
+                    <li style="flex: 1">
                         <a  ng-class="{selected: done >=6 }" style="cursor: pointer"  ng-click="go_to_step(6)">
                             <span class="step_no" style="background: #ccc">6</span>
                             <span class="step_descr">
