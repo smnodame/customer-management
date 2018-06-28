@@ -22,6 +22,10 @@ app.config(function($routeProvider, $httpProvider) {
 
     $routeProvider
     .when("/", {
+        templateUrl : "static/html/customers.html",
+        controller: 'customersCtrl'
+    })
+    .when("/customer/create", {
         templateUrl : "static/html/home.html",
         controller: 'homeCtrl'
     })
@@ -53,6 +57,7 @@ app.config(function($routeProvider, $httpProvider) {
 })
 
 app.controller('mainCtrl', ['$scope', '$timeout', '$route', ($scope, $timeout, $route) => {
+    
     $timeout(() => { 
         const token = localStorage.getItem("token")
         if(token) {
@@ -107,7 +112,19 @@ app.controller('loginCtrl', ['$scope', '$timeout', '$http', ($scope, $timeout, $
     }
 }])
 
-app.run(function($rootScope) { 
+app.run(function($rootScope, $route) { 
+    const blockUrl = ['/customer/create', '/customer/create/', '/customer/:id/edit', '/customer/:id/edit/', '/user', '/user/', '/user/create', '/user/create/']
+    const account = JSON.parse(localStorage.getItem("account")) || { is_superuser: null }
+    const hash = location.hash.replace('#!', '')
+
+    if(!account.is_superuser) {
+        blockUrl.forEach((url) => {
+            if(hash.match($route.routes[url].regexp)) {
+                location.href = "/"
+                return 
+            }
+        })
+    }
 })
 
 const generate_id = () => {
