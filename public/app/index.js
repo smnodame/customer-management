@@ -85,7 +85,7 @@ app.controller('mainCtrl', ['$scope', '$timeout', '$route', ($scope, $timeout, $
 
     $scope.logout = (() => {
         localStorage.clear()
-        location.href = "/"
+        location.href = "/#!/"
     })
 }])
 
@@ -114,13 +114,13 @@ app.controller('loginCtrl', ['$scope', '$timeout', '$http', ($scope, $timeout, $
 
 app.run(function($rootScope, $route) { 
     const blockUrl = ['/customer/create', '/customer/create/', '/customer/:id/edit', '/customer/:id/edit/', '/user', '/user/', '/user/create', '/user/create/']
-    const account = JSON.parse(localStorage.getItem("account")) || { is_superuser: null }
+    const account = JSON.parse(localStorage.getItem("account")) || { account_position: null }
     const hash = location.hash.replace('#!', '')
 
-    if(!account.is_superuser) {
+    if(!(account.account_position == 'admin')) {
         blockUrl.forEach((url) => {
             if(hash.match($route.routes[url].regexp)) {
-                location.href = "/"
+                location.href = "/#!/"
                 return 
             }
         })
