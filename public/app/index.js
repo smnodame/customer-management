@@ -326,7 +326,10 @@ app.controller('userEditCtrl', [
                                     
                                     fetch('/api/upload', {
                                         method: 'POST',
-                                        body: formData
+                                        body: formData,
+                                        headers: {
+                                            'x-access-token': localStorage.getItem("token")
+                                        }
                                     })
                                     .then(response => response.json())
                                     .catch(error => console.error('Error:', error))
@@ -361,16 +364,18 @@ app.controller('userEditCtrl', [
                                 
                                 fetch('/api/upload', {
                                     method: 'POST',
-                                    body: formData
+                                    body: formData,
+                                    headers: {
+                                        'x-access-token': localStorage.getItem("token")
+                                    }
                                 })
                                 .then(response => response.json())
                                 .catch(error => console.error('Error:', error))
                                 .then(response => console.log('Success:', response))
                             }
-
+                            delete $scope.account.account_password
                             $http.put(`/api/account/${$routeParams.id}`, {
-                                ...$scope.account,
-                                account_password: $scope.default_password
+                                ...$scope.account
                             }).then(() => {
                                 return $http.delete(`/api/group/${$scope.account.account_id}`)
                             }).then(() => {
@@ -498,7 +503,10 @@ app.controller('userCreateCtrl', [
                                     
                                     fetch('/api/upload', {
                                         method: 'POST',
-                                        body: formData
+                                        body: formData,
+                                        headers: {
+                                            'x-access-token': localStorage.getItem("token")
+                                        }
                                     })
                                     .then(response => response.json())
                                     .catch(error => console.error('Error:', error))
@@ -834,7 +842,10 @@ app.controller('editCustomerInfoCtrl', [
                 
                 fetch('/api/upload', {
                     method: 'POST',
-                    body: formData
+                    body: formData,
+                    headers: {
+                        'x-access-token': localStorage.getItem("token")
+                    }
                 })
                 .then(response => response.json())
                 .catch(error => console.error('Error:', error))
@@ -852,7 +863,10 @@ app.controller('editCustomerInfoCtrl', [
                 
                 fetch('/api/upload', {
                     method: 'POST',
-                    body: formData
+                    body: formData,
+                    headers: {
+                        'x-access-token': localStorage.getItem("token")
+                    }
                 })
                 .then(response => response.json())
                 .catch(error => console.error('Error:', error))
@@ -870,7 +884,10 @@ app.controller('editCustomerInfoCtrl', [
                 
                 fetch('/api/upload', {
                     method: 'POST',
-                    body: formData
+                    body: formData,
+                    headers: {
+                        'x-access-token': localStorage.getItem("token")
+                    }
                 })
                 .then(response => response.json())
                 .catch(error => console.error('Error:', error))
@@ -1125,7 +1142,10 @@ app.controller('homeCtrl', [
                 
                 fetch('/api/upload', {
                     method: 'POST',
-                    body: formData
+                    body: formData,
+                    headers: {
+                        'x-access-token': localStorage.getItem("token")
+                    }
                 })
                 .then(response => response.json())
                 .catch(error => console.error('Error:', error))
@@ -1143,7 +1163,10 @@ app.controller('homeCtrl', [
                 
                 fetch('/api/upload', {
                     method: 'POST',
-                    body: formData
+                    body: formData,
+                    headers: {
+                        'x-access-token': localStorage.getItem("token")
+                    }
                 })
                 .then(response => response.json())
                 .catch(error => console.error('Error:', error))
@@ -1161,7 +1184,10 @@ app.controller('homeCtrl', [
                 
                 fetch('/api/upload', {
                     method: 'POST',
-                    body: formData
+                    body: formData,
+                    headers: {
+                        'x-access-token': localStorage.getItem("token")
+                    }
                 })
                 .then(response => response.json())
                 .catch(error => console.error('Error:', error))

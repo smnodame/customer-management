@@ -48,10 +48,9 @@ const connection = mysql.createConnection({
 })
 
 const get_account = (data) => {
-    return {
+    res = {
         account_id: data.account_id,
         account_position: data.account_position,
-        account_password: data.account_password,
         account_phone: data.account_phone,
         account_email: data.account_email,
         account_last_name: data.account_last_name,
@@ -59,6 +58,12 @@ const get_account = (data) => {
         account_photo_path: data.account_photo_path,
         account_updated: new Date()
     }
+    if(data.account_password) {
+        res.account_password = data.account_password
+    } else {
+        delete res.account_password
+    }
+    return res
 }
 
 const get_groups = (data) => {
