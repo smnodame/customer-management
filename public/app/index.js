@@ -86,6 +86,7 @@ app.controller('mainCtrl', ['$scope', '$timeout', '$route', ($scope, $timeout, $
     $scope.logout = (() => {
         localStorage.clear()
         location.href = "/#!/"
+        location.reload()
     })
 }])
 
