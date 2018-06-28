@@ -13,7 +13,7 @@ app.config(function($routeProvider, $httpProvider) {
             'responseError': function (response) {
                 if (response.status === 401 || response.status === 403) {
                     localStorage.clear()
-                    location.reload()
+                    location.href = '/#!/'
                 }
                 return $q.reject(response)
             }
