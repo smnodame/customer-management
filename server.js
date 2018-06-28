@@ -197,7 +197,7 @@ const query_service = {
     },
     user_group: {
         select: function(business_id) {
-            return "SELECT * FROM `user_group` u join `account` a on u.account_id = a.account_id WHERE u.business_id = '" + business_id + "'"
+            return "SELECT u.user_group_id, a.`account_id`, a.`account_first_name`, a.`account_last_name`, a.`account_email`, a.`account_phone`, a.`account_photo_path`, a.`account_position`, a.`account_updated` FROM `user_group` u join `account` a on u.account_id = a.account_id WHERE u.business_id = '" + business_id + "'"
         }
     },
     child: {
@@ -411,7 +411,7 @@ api_routes.get('/check-account-id', function(req, res) {
 })
 
 api_routes.get('/account', function(req, res) {
-    connection.query('SELECT * FROM  account', function (err, rows, fields) {
+    connection.query('SELECT `account_id`, `account_first_name`, `account_last_name`, `account_email`, `account_phone`, `account_photo_path`, `account_position`, `account_updated` FROM  account', function (err, rows, fields) {
         if (err) throw err
         res.status(200).send({
             success: true,
@@ -424,7 +424,7 @@ api_routes.get('/account/:id', function(req, res) {
     const data = {
         account_id: req.params.id
     }
-    connection.query('SELECT * FROM  account where ?', data, function (err, rows, fields) {
+    connection.query('SELECT `account_id`, `account_first_name`, `account_last_name`, `account_email`, `account_phone`, `account_photo_path`, `account_position`, `account_updated` FROM  account where ?', data, function (err, rows, fields) {
         if (err) throw err
         res.status(200).send({
             success: true,
