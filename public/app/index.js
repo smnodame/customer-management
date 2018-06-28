@@ -1012,8 +1012,8 @@ app.controller('customersCtrl', [
                 get_customers()
             })
         }
-        
-        $scope.is_superuser = JSON.parse(localStorage.getItem("account")).account_position == 'admin'
+        const acccount = JSON.parse(localStorage.getItem("account")) || { account_position : null }
+        $scope.is_superuser = acccount.account_position == 'admin'
 
         function getActionHtml(customer) {
             let action = '<a href="/#!/customer/'+customer.business_id+'" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>'
