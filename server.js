@@ -233,11 +233,13 @@ api_routes.post('/signin', function(req, res) {
             if (account.account_password != req.body.password) {
                 res.json({ success: false, message: 'Authentication failed. Wrong password.' })
             } else {
+                delete account.account_password
+
                 // create a token
-                var token = jwt.sign({ a: 'a' }, app.get('superSecret'), {
+                var token = jwt.sign(account, app.get('superSecret'), {
                     expiresIn: 60 * 60 * 24, // expires in 24 hours
                 })
-                delete account.account_password
+                
                 // return the information including token as JSON
                 res.json({
                     success: true,
