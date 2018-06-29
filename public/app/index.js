@@ -1078,6 +1078,135 @@ app.controller('customersCtrl', [
 app.controller('homeCtrl', [
     '$scope', '$location', '$route', '$rootScope', '$routeParams', '$http',
     function($scope, $location, $route, $rootScope, $routeParams, $http) {
+
+        /** logic code for step 6 */
+
+        $scope.selected_available_group = []
+        $scope.selected_chosen_group = []
+
+        $scope.available_group = []
+        $scope.chosen_group = []
+
+        const get_group_from_id = (account_id) => {
+            return $scope.available_group.find((group) => group.account_id == account_id)
+        }
+
+        $scope.filterFn = (obj) => !$scope.queryAvailableGroup? true : `${obj.first_name} ${obj.last_name}`.toLowerCase().search($scope.queryAvailableGroup) >= 0
+        
+        $scope.filterCg = (obj) => !$scope.queryChosenGroup? true : `${obj.first_name} ${obj.last_name}`.toLowerCase().search($scope.queryChosenGroup) >= 0
+
+        $scope.$watch('queryAvailableGroup', function() {
+            $scope.selected_available_group = []
+        })
+
+        $scope.$watch('queryChosenGroup', function() {
+            $scope.selected_chosen_group = []
+        })
+
+        $scope.on_click_add = () => {
+            $scope.chosen_group = [ ...$scope.chosen_group , ...$scope.selected_available_group.map((id) => get_group_from_id(id))]
+            $scope.selected_available_group = []
+            $scope.selected_chosen_group = []
+        }
+
+        $scope.on_click_remove = () => {
+            $scope.chosen_group = $scope.chosen_group.filter((group) => {
+                return $scope.selected_chosen_group.indexOf(group.account_id) < 0 
+            })
+            $scope.selected_available_group = []
+            $scope.selected_chosen_group = []
+        }
+        
+        $scope.is_not_in_chosen_group = (account_id) => {
+            return !$scope.chosen_group.find((group) => group.account_id == account_id)
+        }
+
+        $scope.on_click_group_in_chosen_group = (e, account_id) => {
+            document.getSelection().removeAllRanges()
+            const is_in_selected_chosen_group = $scope.is_in_selected_chosen_group(account_id)
+            if(e.ctrlKey) {
+                if(is_in_selected_chosen_group) {
+                    const index = $scope.selected_chosen_group.indexOf(account_id)
+                    $scope.selected_chosen_group.splice(index, 1)
+                } else {
+                    $scope.selected_chosen_group.push(account_id)
+                }
+            } else if(e.shiftKey) {
+                if($scope.selected_chosen_group.length == 0) {
+                    $scope.selected_chosen_group.push(account_id)
+                } else {
+                    const start_index =   $scope.chosen_group.filter($scope.filterCg).map((customer) => customer.account_id).indexOf($scope.selected_chosen_group[$scope.selected_chosen_group.length - 1])
+                    const end_index = $scope.chosen_group.filter($scope.filterCg).map((customer) => customer.account_id).indexOf(account_id)
+                    console.log( start_index + ' - ' + end_index )
+                    if(start_index <= end_index) {
+                        $scope.selected_chosen_group = $scope.chosen_group.filter($scope.filterCg).filter((value, index) => {
+                            return  index >= start_index && index <= end_index
+                        }).map((customer) => customer.account_id)
+                    } else {
+                        $scope.selected_chosen_group = $scope.chosen_group.filter($scope.filterCg).filter((value, index) => {
+                            return end_index >= index && index <= start_index
+                        }).map((customer) => customer.account_id)
+                    }
+                }
+            } else {
+                $scope.selected_chosen_group = [account_id]
+            }
+        }
+
+        $scope.on_click_group_in_available_group = (e, account_id) => {
+            const is_in_selected_available_group = $scope.is_in_selected_available_group(account_id)
+            document.getSelection().removeAllRanges()
+            if(e.ctrlKey) {
+                if(is_in_selected_available_group) {
+                    const index = $scope.selected_available_group.indexOf(account_id)
+                    $scope.selected_available_group.splice(index, 1)
+                } else {
+                    $scope.selected_available_group.push(account_id)
+                }
+            } else if(e.shiftKey) {
+                if($scope.selected_available_group.length == 0) {
+                    $scope.selected_available_group.push(account_id)
+                } else {
+                    const start_index =   $scope.available_group.filter($scope.filterFn).map((customer) => customer.account_id).indexOf($scope.selected_available_group[$scope.selected_available_group.length - 1])
+                    const end_index = $scope.available_group.filter($scope.filterFn).map((customer) => customer.account_id).indexOf(account_id)
+                    if(start_index <= end_index) {
+                        $scope.selected_available_group = $scope.available_group.filter($scope.filterFn).filter((value, index) => {
+                            return  index >= start_index && index <= end_index && $scope.is_not_in_chosen_group(value.account_id)
+                        }).map((customer) => customer.account_id)
+                    } else {
+                        $scope.selected_available_group = $scope.available_group.filter($scope.filterFn).filter((value, index) => {
+                            return end_index >= index && index <= start_index && $scope.is_not_in_chosen_group(value.account_id)
+                        }).map((customer) => customer.account_id)
+                    }
+                }
+            } else {
+                $scope.selected_available_group = [account_id]
+            }
+        }
+
+        $scope.on_select_all_available_group = () => {
+            $scope.selected_available_group = $scope.available_group.filter((value) => $scope.is_not_in_chosen_group(value.account_id)).filter($scope.filterFn).map((customer) => customer.account_id)
+        }
+
+        $scope.get_length_available_group = () => $scope.available_group.filter((value) => $scope.is_not_in_chosen_group(value.account_id)).length
+        
+        $scope.on_select_all_chosen_group = () => {
+            $scope.selected_chosen_group = $scope.chosen_group.filter($scope.filterCg).map((customer) => customer.account_id)
+        }
+
+        $scope.is_in_selected_available_group = (account_id) => {
+            return !!$scope.selected_available_group.find((id) => id == account_id)
+        }
+        
+        $scope.is_in_selected_chosen_group = (account_id) => {
+            return !!$scope.selected_chosen_group.find((id) => id == account_id)
+        }
+
+        $http.get(`/api/account`).then((res) => {
+            $scope.available_group = res.data.account
+        }) 
+
+        /** logic code from step 1 - 5 */
         $scope.step = 6
         $scope.done = 6
 
