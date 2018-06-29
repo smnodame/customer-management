@@ -198,10 +198,13 @@ const query_service = {
             return "SELECT u.user_group_id, a.`account_id`, a.`account_first_name`, a.`account_last_name`, a.`account_email`, a.`account_phone`, a.`account_photo_path`, a.`account_position`, a.`account_updated` FROM `user_group` u join `account` a on u.account_id = a.account_id WHERE u.business_id = '" + business_id + "'"
         },
         insert: function() {
-            return " INSERT INTO user_group (`account_id`, `business_id`) VALUES ?"
+            return " INSERT INTO user_group (`account_id`, `business_id`) VALUES ? ;"
         },
         delete: function(account_id) {
             return "DELETE FROM `user_group` WHERE account_id = '" + account_id + "';"
+        },
+        delete_by_lists: function(business_id) {
+            return "DELETE FROM `user_group` WHERE business_id = '" + business_id + "' AND account_id IN (?);"
         }
     },
     child: {
@@ -352,17 +355,28 @@ api_routes.delete('/customers/:id', function(req, res) {
 api_routes.put('/customers/:id', function(req, res) {
     const data = req.body
     const groups = get_groups(data)
+    const insert = req.body.user_ids.insert.map(function(id) {
+        return [id, req.body.business_id]
+    })
+    // initail query
+    var query = query_service.customer.update(req.params.id)
+    var args = [groups.main_business, groups.executive_profile, groups.goal, groups.business_detail, groups.financial_information]
     
-    connection.query(query_service.customer.update(req.params.id), [groups.main_business, groups.executive_profile, groups.goal, groups.business_detail, groups.financial_information], function (err, rows, fields) {
+    if(insert.length != 0) {
+        query = query + query_service.user_group.insert()
+        args.push(insert)
+    }
+    if(req.body.user_ids.delete.length != 0) {
+        query = query + query_service.user_group.delete_by_lists(req.body.business_id)
+        console.log('========')
+        console.log(query_service.user_group.delete_by_lists(req.body.business_id))
+        args.push(req.body.user_ids.delete)
+        console.log(args)
+    }
+    connection.query(query, args, function (err, rows, fields) {
         if (err) throw err
-        const data = req.body.user_ids.insert.map(function(id) {
-            return [id, req.body.business_id]
-        })
-        connection.query(query_service.user_group.insert(),  [data], function (err, rows, fields) {
-            if (err) throw err
-            res.status(200).send({
-                success: true
-            })
+        res.status(200).send({
+            success: true
         })
     })
 })
