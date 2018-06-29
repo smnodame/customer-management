@@ -1207,8 +1207,8 @@ app.controller('homeCtrl', [
         }) 
 
         /** logic code from step 1 - 5 */
-        $scope.step = 6
-        $scope.done = 6
+        $scope.step = 1
+        $scope.done = 1
 
         const next_step = () => {
             $scope.step = $scope.step + 1
