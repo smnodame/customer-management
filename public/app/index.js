@@ -688,9 +688,13 @@ app.controller('userCtrl', [
     '$scope', '$location', '$route', '$rootScope', '$routeParams', '$http', '$compile',
     function($scope, $location, $route, $rootScope, $routeParams, $http, $compile) {
         const tables = $('#datatable-responsive').DataTable({
-            iDisplayLength: 100
+            iDisplayLength: 100,
+            drawCallback: function() {
+                var compileFn = $compile(angular.element(document.getElementById("datatable-responsive")))
+                compileFn($scope)
+            }
         })
-
+        
         $scope.on_delete = () => {
             $http.delete(`/api/account/${$scope.draft_delete_account_id}`).then(() => {
                 load_user()
@@ -1182,10 +1186,15 @@ app.controller('customerInfoCtrl', [
 app.controller('customersCtrl', [
     '$scope', '$location', '$route', '$rootScope', '$routeParams', '$http', '$compile',
     function($scope, $location, $route, $rootScope, $routeParams, $http, $compile) {
-        const tables = $('#datatable-responsive').DataTable()
+        const tables = $('#datatable-responsive').DataTable({
+            drawCallback: function() {
+                var compileFn = $compile(angular.element(document.getElementById("datatable-responsive")))
+                compileFn($scope)
+            }
+        })
 
-        $scope.on_delete_customer = (business_id) => {
-            $http.delete(`/api/customers/${business_id}`).then(() => {
+        $scope.on_delete_customer = () => {
+            $http.delete(`/api/customers/${$scope.draft_delete_business_id}`).then(() => {
                 get_customers()
             })
         }
@@ -1196,9 +1205,13 @@ app.controller('customersCtrl', [
             let action = '<a href="/#!/customer/'+customer.business_id+'" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>'
             if($scope.is_superuser) {
                 action = action + '<a href="/#!/customer/'+customer.business_id+'/edit" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>'+
-                `<a ng-click="on_delete_customer('${customer.business_id}')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>`
+                `<a ng-click="draft_delete('${customer.business_id}')" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#remove-customer"><i class="fa fa-trash-o"></i> Delete </a>`
             }
             return action
+        }
+
+        $scope.draft_delete = (business_id) => {
+            $scope.draft_delete_business_id = business_id
         }
 
         const get_customers = () => {
