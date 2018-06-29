@@ -25,7 +25,7 @@ app.config(function($routeProvider, $httpProvider) {
         templateUrl : "static/html/customers.html",
         controller: 'customersCtrl'
     })
-    .when("/x", {
+    .when("/customer/create", {
         templateUrl : "static/html/home.html",
         controller: 'homeCtrl'
     })
@@ -172,15 +172,20 @@ app.controller('userEditCtrl', [
             return arr[arr.length - 1]
         }
 
-        $scope.filterFn = (obj) => !$scope.queryAvailableGroup? true : obj.business_name.toLowerCase().search($scope.queryAvailableGroup) >= 0
-        
-        $scope.filterCg = (obj) => !$scope.queryChosenGroup? true : obj.business_name.toLowerCase().search($scope.queryChosenGroup) >= 0
+        $scope.query = {
+            queryAvailableGroup: '',
+            queryChosenGroup: ''
+        }
 
-        $scope.$watch('queryAvailableGroup', function() {
+        $scope.filterFn = (obj) => !$scope.query.queryAvailableGroup? true : obj.business_name.toLowerCase().search($scope.query.queryAvailableGroup) >= 0
+        
+        $scope.filterCg = (obj) => !$scope.query.queryChosenGroup? true : obj.business_name.toLowerCase().search($scope.query.queryChosenGroup) >= 0
+
+        $scope.$watch('query.queryAvailableGroup', function() {
             $scope.selected_available_group = []
         })
 
-        $scope.$watch('queryChosenGroup', function() {
+        $scope.$watch('query.queryChosenGroup', function() {
             $scope.selected_chosen_group = []
         })
 
@@ -1096,7 +1101,7 @@ app.controller('homeCtrl', [
             return $scope.available_group.find((group) => group.account_id == account_id)
         }
 
-        $scope.filterFn = (obj) => return !$scope.query.queryAvailableGroup? true : `${obj.account_first_name} ${obj.account_last_name}`.toLowerCase().search($scope.query.queryAvailableGroup) >= 0
+        $scope.filterFn = (obj) => !$scope.query.queryAvailableGroup? true : `${obj.account_first_name} ${obj.account_last_name}`.toLowerCase().search($scope.query.queryAvailableGroup) >= 0
 
         
         $scope.filterCg = (obj) => !$scope.query.queryChosenGroup? true : `${obj.account_first_name} ${obj.account_last_name}`.toLowerCase().search($scope.query.queryChosenGroup) >= 0
