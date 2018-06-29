@@ -362,10 +362,15 @@ api_routes.put('/customers/:id', function(req, res) {
 })
 
 api_routes.post('/customers', function(req, res) {
-    const data = req.body
-    const groups = get_groups(data)
+    const groups = get_groups(req.body)
+    const data = req.body.users.map(function(user) {
+        return [user.account_id, req.body.business_id]
+    })
+    const query_lists = query_service.customer.insert() + query_service.user_group.insert()
     
-    connection.query(query_service.customer.insert(), [groups.main_business, groups.executive_profile, groups.goal, groups.business_detail, groups.financial_information], function (err, rows, fields) {
+    connection.query(query_lists, 
+    [groups.main_business, groups.executive_profile, groups.goal, groups.business_detail, groups.financial_information, data],
+    function (err, rows, fields) {
         if (err) throw err
         res.status(200).send({
             success: true

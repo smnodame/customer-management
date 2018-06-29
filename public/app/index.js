@@ -1352,7 +1352,13 @@ app.controller('homeCtrl', [
                 .then(response => console.log('Success:', response))
             }
 
-            $http.post('/api/customers', $scope.detail).then(() => {
+            const data = {
+                ...$scope.detail,
+                users: $scope.chosen_group.map((user) => ({
+                    account_id: user.account_id
+                }))
+            }
+            $http.post('/api/customers', data).then(() => {
                 $http.delete(`api/child/${$scope.detail.business_id}`).then(() => {
                     $http.post('api/child', {
                         child: $scope.detail.child_additional
