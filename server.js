@@ -368,10 +368,7 @@ api_routes.put('/customers/:id', function(req, res) {
     }
     if(req.body.user_ids.delete.length != 0) {
         query = query + query_service.user_group.delete_by_lists(req.body.business_id)
-        console.log('========')
-        console.log(query_service.user_group.delete_by_lists(req.body.business_id))
         args.push(req.body.user_ids.delete)
-        console.log(args)
     }
     connection.query(query, args, function (err, rows, fields) {
         if (err) throw err
