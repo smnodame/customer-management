@@ -968,7 +968,7 @@ app.controller('editCustomerInfoCtrl', [
         }
 
         $scope.can_save = () => {
-            return $scope.check_form_valid() && $scope.done == 5
+            return $scope.check_form_valid() && $scope.done == 6
         }
 
         $scope.click_previous = () => {
