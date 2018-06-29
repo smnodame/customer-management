@@ -225,7 +225,7 @@ api_routes.post('/signin', function(req, res) {
         account_email: req.body.username
     }
     connection.query('SELECT * FROM account WHERE ? ', data, function (err, rows, fields) {
-        if (err) throw err
+        if (err) { res.status(500).send({ success: false }); return }
         if (!rows.length) {
             res.json({ success: false, message: 'Authentication failed. User not found.' })
         } else {
@@ -324,83 +324,107 @@ api_routes.get('/customers', function(req, res) {
     }
 
     if(req.decoded.account_position == 'admin') {
-        connection.query(query_service.customer.select(query.join(' AND ')), function (err, rows, fields) {
-            if (err) throw err
-            res.json(rows)
-        })
+        try {
+            connection.query(query_service.customer.select(query.join(' AND ')), function (err, rows, fields) {
+                if (err) { res.status(500).send({ success: false }); return }
+                res.json(rows)
+            })
+        } catch (err) {
+            console.log(err)
+        }
     } else {
-        connection.query(query_service.customer.select_belonger(query.join(' AND ')), function (err, rows, fields) {
-            if (err) throw err
-            res.json(rows)
-        })
+        try {
+            connection.query(query_service.customer.select_belonger(query.join(' AND ')), function (err, rows, fields) {
+                if (err) { res.status(500).send({ success: false }); return }
+                res.json(rows)
+            })
+        } catch (err) {
+            console.log(err)
+        }
     }
 })
 
 api_routes.get('/customers/:id', function(req, res) {
-    connection.query(query_service.customer.select(` AND business_id = '${req.params.id}'`), function (err, rows, fields) {
-        if (err) throw err
-        res.json(rows)
-    })
+    try {
+        connection.query(query_service.customer.select(` AND business_id = '${req.params.id}'`), function (err, rows, fields) {
+            if (err) { res.status(500).send({ success: false }); return }
+            res.json(rows)
+        })
+    } catch (err) {
+        console.log(err)
+    }
 })
 
 api_routes.delete('/customers/:id', function(req, res) {
-    connection.query(query_service.customer.delete(req.params.id), function (err, rows, fields) {
-        if (err) throw err
-        res.status(200).send({
-            success: true
+    try {
+        connection.query(query_service.customer.delete(req.params.id), function (err, rows, fields) {
+            if (err) { res.status(500).send({ success: false }); return }
+            res.status(200).send({
+                success: true
+            })
         })
-    })
+    } catch (err) {
+        console.log(err)
+    }
 })
 
 api_routes.put('/customers/:id', function(req, res) {
-    const data = req.body
-    const groups = get_groups(data)
-    const insert = req.body.user_ids.insert.map(function(id) {
-        return [id, req.body.business_id]
-    })
-    // initail query
-    var query = query_service.customer.update(req.params.id)
-    var args = [groups.main_business, groups.executive_profile, groups.goal, groups.business_detail, groups.financial_information]
-    
-    if(insert.length != 0) {
-        query = query + query_service.user_group.insert()
-        args.push(insert)
-    }
-    if(req.body.user_ids.delete.length != 0) {
-        query = query + query_service.user_group.delete_by_lists(req.body.business_id)
-        args.push(req.body.user_ids.delete)
-    }
-    connection.query(query, args, function (err, rows, fields) {
-        if (err) throw err
-        res.status(200).send({
-            success: true
+    try {
+        const data = req.body
+        const groups = get_groups(data)
+        const insert = req.body.user_ids.insert.map(function(id) {
+            return [id, req.body.business_id]
         })
-    })
+        // initail query
+        var query = query_service.customer.update(req.params.id)
+        var args = [groups.main_business, groups.executive_profile, groups.goal, groups.business_detail, groups.financial_information]
+        
+        if(insert.length != 0) {
+            query = query + query_service.user_group.insert()
+            args.push(insert)
+        }
+        if(req.body.user_ids.delete.length != 0) {
+            query = query + query_service.user_group.delete_by_lists(req.body.business_id)
+            args.push(req.body.user_ids.delete)
+        }
+        connection.query(query, args, function (err, rows, fields) {
+            if (err) { res.status(500).send({ success: false }); return }
+            res.status(200).send({
+                success: true
+            })
+        })
+    } catch (err) {
+        console.log(err)
+    }
 })
 
 api_routes.post('/customers', function(req, res) {
-    const groups = get_groups(req.body)
-    const data = req.body.users.map(function(user) {
-        return [user.account_id, req.body.business_id]
-    })
-    if(data.length == 0) {
-        connection.query(query_service.customer.insert(), 
-        [groups.main_business, groups.executive_profile, groups.goal, groups.business_detail, groups.financial_information],
-        function (err, rows, fields) {
-            if (err) throw err
-            res.status(200).send({
-                success: true
-            })
+    try {
+        const groups = get_groups(req.body)
+        const data = req.body.users.map(function(user) {
+            return [user.account_id, req.body.business_id]
         })
-    } else {
-        connection.query(query_service.customer.insert() + query_service.user_group.insert(), 
-        [groups.main_business, groups.executive_profile, groups.goal, groups.business_detail, groups.financial_information, data],
-        function (err, rows, fields) {
-            if (err) throw err
-            res.status(200).send({
-                success: true
+        if(data.length == 0) {
+            connection.query(query_service.customer.insert(), 
+            [groups.main_business, groups.executive_profile, groups.goal, groups.business_detail, groups.financial_information],
+            function (err, rows, fields) {
+                if (err) { res.status(500).send({ success: false }); return }
+                res.status(200).send({
+                    success: true
+                })
             })
-        })
+        } else {
+            connection.query(query_service.customer.insert() + query_service.user_group.insert(), 
+            [groups.main_business, groups.executive_profile, groups.goal, groups.business_detail, groups.financial_information, data],
+            function (err, rows, fields) {
+                if (err) { res.status(500).send({ success: false }); return }
+                res.status(200).send({
+                    success: true
+                })
+            })
+        }
+    } catch (err) {
+        console.log(err)
     }
 })
 
@@ -411,194 +435,253 @@ api_routes.post('/file', function(req, res) {
 })
 
 api_routes.post('/account', function(req, res) {
-    const data = req.body
-    const account = get_account(data)
+    try {
+        const data = req.body
+        const account = get_account(data)
 
-    connection.query(query_service.account.insert(account), account, function (err, rows, fields) {
-        if (err) throw err
-        res.status(200).send({
-            success: true
-        })
-    })
-})
-
-api_routes.put('/account/:id', function(req, res) {
-    const data = req.body
-    const account = get_account(data)
-
-    connection.query(query_service.account.update(account), account, function (err, rows, fields) {
-        if (err) throw err
-        res.status(200).send({
-            success: true
-        })
-    })
-})
-
-api_routes.get('/check-customer-id', function(req, res) {
-    const data = {
-        business_id: req.query.business_id
-    }
-    connection.query('SELECT * FROM  main_business where ?', data, function (err, rows, fields) {
-        if (err) throw err
-        res.status(200).send({
-            success: true,
-            is_used: !!rows.length
-        })
-    })
-})
-
-api_routes.get('/check-account-id', function(req, res) {
-    const data = {
-        account_email: req.query.account_email
-    }
-    connection.query('SELECT * FROM  account where ?', data, function (err, rows, fields) {
-        if (err) throw err
-        res.status(200).send({
-            success: true,
-            is_used: !!rows.length
-        })
-    })
-})
-
-api_routes.get('/account', function(req, res) {
-    connection.query('SELECT `account_id`, `account_first_name`, `account_last_name`, `account_email`, `account_phone`, `account_photo_path`, `account_position`, `account_updated` FROM  account', function (err, rows, fields) {
-        if (err) throw err
-        res.status(200).send({
-            success: true,
-            account: rows
-        })
-    })
-})
-
-api_routes.get('/account/:id', function(req, res) {
-    const data = {
-        account_id: req.params.id
-    }
-    connection.query('SELECT `account_id`, `account_first_name`, `account_last_name`, `account_email`, `account_phone`, `account_photo_path`, `account_position`, `account_updated` FROM  account where ?', data, function (err, rows, fields) {
-        if (err) throw err
-        res.status(200).send({
-            success: true,
-            account: rows
-        })
-    })
-})
-
-api_routes.delete('/account/:id', function(req, res) {
-    const data = {
-        account_id: req.params.id
-    }
-    connection.query('DELETE FROM `account` where ?', data, function (err, rows, fields) {
-        if (err) throw err
-        res.status(200).send({
-            success: true,
-            account: rows
-        })
-    })
-})
-
-api_routes.get('/group/:id', function(req, res) {
-    connection.query(query_service.group.select(req.params.id), function (err, rows, fields) {
-        if (err) throw err
-        res.status(200).send({
-            success: true,
-            groups: rows
-        })
-    })
-})
-
-api_routes.post('/user_group/:id', function(req, res) {
-    if(req.body.groups.length == 0) {
-        res.status(200).send({
-            success: true
-        })
-    } else {
-        const data = req.body.groups.map(function(group) {
-            return [req.params.id, group.business_id]
-        })
-        connection.query(query_service.user_group.insert(), [data],  function (err, rows, fields) {
-            if (err) throw err
+        connection.query(query_service.account.insert(account), account, function (err, rows, fields) {
+            if (err) { res.status(500).send({ success: false }); return }
             res.status(200).send({
                 success: true
             })
         })
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+api_routes.put('/account/:id', function(req, res) {
+    try {
+        const data = req.body
+        const account = get_account(data)
+
+        connection.query(query_service.account.update(account), account, function (err, rows, fields) {
+            if (err) { res.status(500).send({ success: false }); return }
+            res.status(200).send({
+                success: true
+            })
+        })
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+api_routes.get('/check-customer-id', function(req, res) {
+    try {
+        const data = {
+            business_id: req.query.business_id
+        }
+        connection.query('SELECT * FROM  main_business where ?', data, function (err, rows, fields) {
+            if (err) { res.status(500).send({ success: false }); return }
+            res.status(200).send({
+                success: true,
+                is_used: !!rows.length
+            })
+        })
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+api_routes.get('/check-account-id', function(req, res) {
+    try {
+        const data = {
+            account_email: req.query.account_email
+        }
+        connection.query('SELECT * FROM  account where ?', data, function (err, rows, fields) {
+            if (err) { res.status(500).send({ success: false }); return }
+            res.status(200).send({
+                success: true,
+                is_used: !!rows.length
+            })
+        })
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+api_routes.get('/account', function(req, res) {
+    try {
+        connection.query('SELECT `account_id`, `account_first_name`, `account_last_name`, `account_email`, `account_phone`, `account_photo_path`, `account_position`, `account_updated` FROM  account', function (err, rows, fields) {
+            if (err) { res.status(500).send({ success: false }); return }
+            res.status(200).send({
+                success: true,
+                account: rows
+            })
+        })
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+api_routes.get('/account/:id', function(req, res) {
+    try {
+        const data = {
+            account_id: req.params.id
+        }
+        connection.query('SELECT `account_id`, `account_first_name`, `account_last_name`, `account_email`, `account_phone`, `account_photo_path`, `account_position`, `account_updated` FROM  account where ?', data, function (err, rows, fields) {
+            if (err) { res.status(500).send({ success: false }); return }
+            res.status(200).send({
+                success: true,
+                account: rows
+            })
+        })
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+api_routes.delete('/account/:id', function(req, res) {
+    try {
+        const data = {
+            account_id: req.params.id
+        }
+        connection.query('DELETE FROM `account` where ?', data, function (err, rows, fields) {
+            if (err) { res.status(500).send({ success: false }); return }
+            res.status(200).send({
+                success: true,
+                account: rows
+            })
+        })
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+api_routes.get('/group/:id', function(req, res) {
+    try {
+        connection.query(query_service.group.select(req.params.id), function (err, rows, fields) {
+            if (err) { res.status(500).send({ success: false }); return }
+            res.status(200).send({
+                success: true,
+                groups: rows
+            })
+        })
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+api_routes.post('/user_group/:id', function(req, res) {
+    try {
+        if(req.body.groups.length == 0) {
+            res.status(200).send({
+                success: true
+            })
+        } else {
+            const data = req.body.groups.map(function(group) {
+                return [req.params.id, group.business_id]
+            })
+            connection.query(query_service.user_group.insert(), [data],  function (err, rows, fields) {
+                if (err) { res.status(500).send({ success: false }); return }
+                res.status(200).send({
+                    success: true
+                })
+            })
+        }
+    } catch (err) {
+        console.log(err)
     }
 })
 
 api_routes.delete('/user_group/:id', function(req, res) {
-    connection.query(query_service.user_group.delete(req.params.id), function (err, rows, fields) {
-        if (err) throw err
-        res.status(200).send({
-            success: true
-        })
-    })
-})
-
-api_routes.get('/user_group/:id', function(req, res) {
-    connection.query(query_service.user_group.select(req.params.id), function (err, rows, fields) {
-        if (err) throw err
-        res.status(200).send({
-            success: true,
-            account: rows
-        })
-    })
-})
-
-api_routes.get('/child/:id', function(req, res) {
-    connection.query(query_service.child.select(req.params.id), function (err, rows, fields) {
-        if (err) throw err
-        res.status(200).send({
-            success: true,
-            childs: rows
-        })
-    })
-})
-
-api_routes.post('/child', function(req, res) {
-    if(req.body.child.length==0) {
-        res.status(200).send({
-            success: true
-        })
-    } else {
-        var query = []
-        req.body.child.forEach(function() {
-            query.push(query_service.child.insert())
-        })
-        connection.query(query.join(';'), req.body.child, function (err, rows, fields) {
-            if (err) throw err
+    try {
+        connection.query(query_service.user_group.delete(req.params.id), function (err, rows, fields) {
+            if (err) { res.status(500).send({ success: false }); return }
             res.status(200).send({
                 success: true
             })
         })
+    } catch (err) {
+        console.log(err)
     }
-    
+})
+
+api_routes.get('/user_group/:id', function(req, res) {
+    try {
+        connection.query(query_service.user_group.select(req.params.id), function (err, rows, fields) {
+            if (err) { res.status(500).send({ success: false }); return }
+            res.status(200).send({
+                success: true,
+                account: rows
+            })
+        })
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+api_routes.get('/child/:id', function(req, res) {
+    try {
+        connection.query(query_service.child.select(req.params.id), function (err, rows, fields) {
+            if (err) { res.status(500).send({ success: false }); return }
+            res.status(200).send({
+                success: true,
+                childs: rows
+            })
+        })
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+api_routes.post('/child', function(req, res) {
+    try {
+        if(req.body.child.length==0) {
+            res.status(200).send({
+                success: true
+            })
+        } else {
+            var query = []
+            req.body.child.forEach(function() {
+                query.push(query_service.child.insert())
+            })
+            connection.query(query.join(';'), req.body.child, function (err, rows, fields) {
+                if (err) { res.status(500).send({ success: false }); return }
+                res.status(200).send({
+                    success: true
+                })
+            })
+        }
+    } catch (err) {
+        console.log(err)
+    }
 })
 
 api_routes.delete('/child/:id', function(req, res) {
-    connection.query(query_service.child.delete(req.params.id), function (err, rows, fields) {
-        if (err) throw err
-        res.status(200).send({
-            success: true
+    try {
+        connection.query(query_service.child.delete(req.params.id), function (err, rows, fields) {
+            if (err) { res.status(500).send({ success: false }); return }
+            res.status(200).send({
+                success: true
+            })
         })
-    })
+    } catch (err) {
+        console.log(err)
+    }
 })
 
 app.get('/printpdf1', function (req, res) {
-    var today = new Date()
-    var obj = {
-        date: today,
-        data:{
-            ticketnum : 12121212,
-            dateissued: '2014-04-02',
-            officername: 'john doe',
-            notes:'lorem epsum'
+    try {
+        var today = new Date()
+        var obj = {
+            date: today,
+            data:{
+                ticketnum : 12121212,
+                dateissued: '2014-04-02',
+                officername: 'john doe',
+                notes:'lorem epsum'
+            }
         }
-    }
 
-    var renderedHtml =  nunjucks.render('nunjucks.tmpl.html',obj)
-    pdf.create(renderedHtml, {}).toStream(function(err, stream){
-        console.log(stream)
-        stream.pipe(res)
-    })
+        var renderedHtml =  nunjucks.render('nunjucks.tmpl.html',obj)
+        pdf.create(renderedHtml, {}).toStream(function(err, stream){
+            console.log(stream)
+            stream.pipe(res)
+        })
+    } catch (err) {
+        console.log(err)
+    }
 })
 
 api_routes.post('/upload', upload.single('fileupload'), (req, res) => {  
