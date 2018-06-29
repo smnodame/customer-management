@@ -16,19 +16,19 @@
                         </div>
                     </div>
                 </div>
-                {{ queryAvailableGroup }}
                 <div class="panel-body" style="height: 300px; overflow-y: scroll; padding: 0">
                     <ul class="list-group">
-                        <li class="list-group-item" style="cursor: pointer" 
+                        <li class="list-group-item" style="cursor: pointer;display: flex; flex-direction: row" 
                         ng-class="{ selected : is_in_selected_available_group(group.account_id)}" 
                         ng-click="on_click_group_in_available_group($event, group.account_id )" 
                         ng-repeat="group in available_group  | filter: filterFn track by $index"
                         ng-if="is_not_in_chosen_group(group.account_id)"
                         >
-                            <div style="width: 35%">
+                            <img style="height: 55px; width: 55px; margin-left: 0; margin-top: 0; margin: 5px" ng-src="{{ group.account_photo_path? 'static/files/' + group.account_photo_path : '/static/images/user.png' }}" alt="..." class="img-circle profile_img">
+                            <div style="width: 35%; display: flex; flex-direction: column; margin: 10px;">
                                 <strong>{{ group.account_id }}</strong>
+                                <span> {{  group.account_first_name + ' ' + group.account_last_name }}</span>
                             </div>
-                            <span> {{  group.account_first_name + ' ' + group.account_last_name }}</span>
                         </li>
                     </ul>
                 </div>
@@ -59,15 +59,16 @@
             </div>
             <div class="panel-body" style="height: 300px; overflow-y: scroll; padding: 0">
                 <ul class="list-group">
-                    <li class="list-group-item" style="cursor: pointer" 
+                    <li class="list-group-item" style="cursor: pointer;display: flex; flex-direction: row" 
                         ng-class="{ selected : is_in_selected_chosen_group(group.account_id)}"  
                         ng-repeat="group in chosen_group | filter: filterCg track by $index" 
                         ng-click="on_click_group_in_chosen_group($event, group.account_id )" 
                     >
-                        <div style="width: 35%">
+                        <img style="height: 55px; width: 55px; margin-left: 0; margin-top: 0; margin: 5px" ng-src="{{ group.account_photo_path? 'static/files/' + group.account_photo_path : '/static/images/user.png' }}" alt="..." class="img-circle profile_img">
+                        <div style="width: 35%; display: flex; flex-direction: column; margin: 10px;">
                             <strong>{{ group.account_id }}</strong>
+                            <span> {{  group.account_first_name + ' ' + group.account_last_name }}</span>
                         </div>
-                        <span> {{  group.account_first_name + ' ' + group.account_last_name }}</span>
                     </li>
                 </ul>
             </div>
