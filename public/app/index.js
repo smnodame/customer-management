@@ -25,7 +25,7 @@ app.config(function($routeProvider, $httpProvider) {
         templateUrl : "static/html/customers.html",
         controller: 'customersCtrl'
     })
-    .when("/customer/create", {
+    .when("/x", {
         templateUrl : "static/html/home.html",
         controller: 'homeCtrl'
     })
@@ -1087,19 +1087,24 @@ app.controller('homeCtrl', [
         $scope.available_group = []
         $scope.chosen_group = []
 
+        $scope.query = {
+            queryAvailableGroup: '',
+            queryChosenGroup: ''
+        }
+
         const get_group_from_id = (account_id) => {
             return $scope.available_group.find((group) => group.account_id == account_id)
         }
 
-        $scope.filterFn = (obj) => !$scope.queryAvailableGroup? true : `${obj.first_name} ${obj.last_name}`.toLowerCase().search($scope.queryAvailableGroup) >= 0
+        $scope.filterFn = (obj) => !$scope.query.queryAvailableGroup? true : `${obj.first_name} ${obj.last_name}`.toLowerCase().search($scope.query.queryAvailableGroup) >= 0
         
-        $scope.filterCg = (obj) => !$scope.queryChosenGroup? true : `${obj.first_name} ${obj.last_name}`.toLowerCase().search($scope.queryChosenGroup) >= 0
+        $scope.filterCg = (obj) => !$scope.query.queryChosenGroup? true : `${obj.first_name} ${obj.last_name}`.toLowerCase().search($scope.query.queryChosenGroup) >= 0
 
-        $scope.$watch('queryAvailableGroup', function() {
+        $scope.$watch('query.queryAvailableGroup', function() {
             $scope.selected_available_group = []
         })
 
-        $scope.$watch('queryChosenGroup', function() {
+        $scope.$watch('query.queryChosenGroup', function() {
             $scope.selected_chosen_group = []
         })
 
@@ -1207,8 +1212,8 @@ app.controller('homeCtrl', [
         }) 
 
         /** logic code from step 1 - 5 */
-        $scope.step = 1
-        $scope.done = 1
+        $scope.step = 6
+        $scope.done = 6
 
         const next_step = () => {
             $scope.step = $scope.step + 1

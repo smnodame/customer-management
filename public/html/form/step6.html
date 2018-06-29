@@ -1,4 +1,4 @@
-<div ng-if="step == 6" id="step-6">
+<div ng-show="step == 6" id="step-6">
     <div class="x_content" style="display: flex">
         <div style="flex: 1; padding: 15px">
             <div class="panel panel-default">
@@ -8,7 +8,7 @@
                     <div style="width: 50%">
                         <div class="col-xs-12 form-group pull-right top_search" style="margin-bottom: 0px">
                         <div class="input-group" style="margin-bottom: 0px">
-                            <input type="text" class="form-control" placeholder="Search for..." ng-model="queryAvailableGroup">
+                            <input type="text" class="form-control" placeholder="Search for..." ng-model="query.queryAvailableGroup">
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="button">Go!</button>
                             </span>
@@ -49,7 +49,7 @@
                 <form style="width: 50%">
                     <div class="col-xs-12 form-group pull-right top_search" style="margin-bottom: 0px">
                         <div class="input-group" style="margin-bottom: 0px">
-                        <input type="text" class="form-control" placeholder="Search for..." ng-model="queryChosenGroup">
+                        <input type="text" class="form-control" placeholder="Search for..." ng-model="query.queryChosenGroup">
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button">Go!</button>
                         </span>
