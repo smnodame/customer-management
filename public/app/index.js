@@ -868,6 +868,10 @@ app.controller('editCustomerInfoCtrl', [
             $scope.available_group = res.data.account
         }) 
 
+        $http.get(`/api/user_group/${$routeParams.id}`).then((res) => {
+            $scope.chosen_group = res.data.account
+        }) 
+
         /** logic code from step 1 - 5 */
         $scope.step = 1
         $scope.done = 6
