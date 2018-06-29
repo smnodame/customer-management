@@ -26,59 +26,69 @@
                 <!-- Smart Wizard -->
                 <p>* ระบบสามารถบันทึกได้ เมื่อการกรอกข้อมูลครบทุกขั้นตอน</p>
                 <div id="wizard" class="form_wizard wizard_horizontal">
-                    <ul class="wizard_steps" style="margin-top: 35px; margin-bottom: 35px;">
-                        <li>
-                            <a class="selected" style="cursor: pointer"  ng-click="go_to_step(1)">
-                                <span class="step_no">1</span>
+                        <ul class="wizard_steps" style="margin-top: 35px; margin-bottom: 35px; display: flex">
+                            <li style="flex: 1">
+                                <a class="selected" style="cursor: pointer"  ng-click="go_to_step(1)">
+                                    <span class="step_no">1</span>
+                                    <span class="step_descr">
+                                        Step 1<br />
+                                        <small>Main Business</small>
+                                    </span>
+                                </a>
+                            </li>
+                            <li style="flex: 1">
+                                <a ng-class="{selected: done >=2 }" style="cursor: pointer" ng-click="go_to_step(2)">
+                                    <span class="step_no" style="background: #ccc">2</span>
+                                    <span class="step_descr">
+                                        Step 2<br />
+                                        <small>ประวัติผู้บริหาร</small>
+                                    </span>
+                                </a>
+                            </li>
+                            <li style="flex: 1">
+                                <a ng-class="{selected: done >=3 }" style="cursor: pointer" ng-click="go_to_step(3)">
+                                <span class="step_no" style="background: #ccc">3</span>
                                 <span class="step_descr">
-                                    Step 1<br />
-                                    <small>Main Business</small>
+                                    Step 3<br />
+                                    <small>เป้าหมาย</small>
                                 </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a ng-class="{selected: done >=2 }" style="cursor: pointer" ng-click="go_to_step(2)">
-                                <span class="step_no" style="background: #ccc">2</span>
-                                <span class="step_descr">
-                                    Step 2<br />
-                                    <small>ประวัติผู้บริหาร</small>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a ng-class="{selected: done >=3 }" style="cursor: pointer" ng-click="go_to_step(3)">
-                            <span class="step_no" style="background: #ccc">3</span>
-                            <span class="step_descr">
-                                Step 3<br />
-                                <small>เป้าหมาย</small>
-                            </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a ng-class="{selected: done >=4 }" style="cursor: pointer"  ng-click="go_to_step(4)">
-                                <span class="step_no" style="background: #ccc">4</span>
-                                <span class="step_descr">
-                                    Step 4<br />
-                                    <small>ข้อมูลธุรกิจ</small>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a  ng-class="{selected: done >=5 }" style="cursor: pointer"  ng-click="go_to_step(5)">
-                                <span class="step_no" style="background: #ccc">5</span>
-                                <span class="step_descr">
-                                    Step 5<br />
-                                    <small>ข้อมูลทางการเงิน</small>
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-    
-                    <div ng-include="'/static/html/form/step1.html'"></div>
-                    <div ng-include="'/static/html/form/step2.html'"></div>
-                    <div ng-include="'/static/html/form/step3.html'"></div>
-                    <div ng-include="'/static/html/form/step4.html'"></div>
-                    <div ng-include="'/static/html/form/step5.html'"></div>
+                                </a>
+                            </li>
+                            <li style="flex: 1">
+                                <a ng-class="{selected: done >=4 }" style="cursor: pointer"  ng-click="go_to_step(4)">
+                                    <span class="step_no" style="background: #ccc">4</span>
+                                    <span class="step_descr">
+                                        Step 4<br />
+                                        <small>ข้อมูลธุรกิจ</small>
+                                    </span>
+                                </a>
+                            </li>
+                            <li style="flex: 1">
+                                <a  ng-class="{selected: done >=5 }" style="cursor: pointer"  ng-click="go_to_step(5)">
+                                    <span class="step_no" style="background: #ccc">5</span>
+                                    <span class="step_descr">
+                                        Step 5<br />
+                                        <small>ข้อมูลทางการเงิน</small>
+                                    </span>
+                                </a>
+                            </li>
+                            <li style="flex: 1">
+                                <a  ng-class="{selected: done >=6 }" style="cursor: pointer"  ng-click="go_to_step(6)">
+                                    <span class="step_no" style="background: #ccc">6</span>
+                                    <span class="step_descr">
+                                        Step 6<br />
+                                        <small>ผู้ดูแล</small>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+        
+                        <div ng-include="'/static/html/form/step1.html'"></div>
+                        <div ng-include="'/static/html/form/step2.html'"></div>
+                        <div ng-include="'/static/html/form/step3.html'"></div>
+                        <div ng-include="'/static/html/form/step4.html'"></div>
+                        <div ng-include="'/static/html/form/step5.html'"></div>
+                        <div ng-include="'/static/html/form/step6.html'"></div>
                 </div>
                 <div class="actionBar" style="display: flex">
                     <div style="flex: 1" ></div>
