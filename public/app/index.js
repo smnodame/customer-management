@@ -1096,9 +1096,10 @@ app.controller('homeCtrl', [
             return $scope.available_group.find((group) => group.account_id == account_id)
         }
 
-        $scope.filterFn = (obj) => !$scope.query.queryAvailableGroup? true : `${obj.first_name} ${obj.last_name}`.toLowerCase().search($scope.query.queryAvailableGroup) >= 0
+        $scope.filterFn = (obj) => return !$scope.query.queryAvailableGroup? true : `${obj.account_first_name} ${obj.account_last_name}`.toLowerCase().search($scope.query.queryAvailableGroup) >= 0
+
         
-        $scope.filterCg = (obj) => !$scope.query.queryChosenGroup? true : `${obj.first_name} ${obj.last_name}`.toLowerCase().search($scope.query.queryChosenGroup) >= 0
+        $scope.filterCg = (obj) => !$scope.query.queryChosenGroup? true : `${obj.account_first_name} ${obj.account_last_name}`.toLowerCase().search($scope.query.queryChosenGroup) >= 0
 
         $scope.$watch('query.queryAvailableGroup', function() {
             $scope.selected_available_group = []
