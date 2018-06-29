@@ -368,7 +368,11 @@ app.controller('userEditCtrl', [
                                         }))
                                     })
                                 }).then(() => {
-                                    window.location.href = '/#!/user/'
+                                    if($scope.is_superuser) {
+                                        window.location.href = '/#!/user/'
+                                    } else {
+                                        window.location.href = '/#!/'
+                                    }
                                 })
                                 $scope.error = ''
                             } else {
@@ -408,7 +412,11 @@ app.controller('userEditCtrl', [
                                     }))
                                 })
                             }).then(() => {
-                                window.location.href = '/#!/user/'
+                                if($scope.is_superuser) {
+                                    window.location.href = '/#!/user/'
+                                } else {
+                                    window.location.href = '/#!/'
+                                }
                             })
                             $scope.error = ''
                         } else {
