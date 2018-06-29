@@ -870,6 +870,7 @@ app.controller('editCustomerInfoCtrl', [
 
         $http.get(`/api/user_group/${$routeParams.id}`).then((res) => {
             $scope.chosen_group = res.data.account
+            $scope.old_group = res.data.account
         }) 
 
         /** logic code from step 1 - 5 */
@@ -990,7 +991,7 @@ app.controller('editCustomerInfoCtrl', [
             return arr[arr.length - 1]
         }
 
-        const on_call_api = () => {
+        const on_call_api = (user_ids) => {
 
             if(typeof($scope.detail.business_detail_file) != 'string') {
                 const file = $scope.detail.business_detail_file
@@ -1056,7 +1057,10 @@ app.controller('editCustomerInfoCtrl', [
             }
 
 
-            $http.put(`/api/customers/${$routeParams.id}`, $scope.detail).then(() => {
+            $http.put(`/api/customers/${$routeParams.id}`, { 
+                ...$scope.detail,
+                user_ids: user_ids
+            }).then(() => {
                 $http.delete(`api/child/${$routeParams.id}`).then(() => {
                     $http.post('api/child', {
                         child: $scope.detail.child_additional
@@ -1068,15 +1072,40 @@ app.controller('editCustomerInfoCtrl', [
         }
 
         $scope.on_create = () => {
+            const available_group = $scope.available_group.map((r) => r.account_id)
+            const chosen_group = $scope.chosen_group.map((r) => r.account_id)
+            const old_group = $scope.old_group.map((r) => r.account_id)
+
+            const user_ids = {
+                delete: [],
+                insert: []
+            }
+
+            available_group.forEach((id) => {
+                const is_in_chosen_group = chosen_group.indexOf(id) >= 0
+                const is_in_old_group = old_group.indexOf(id) >= 0
+                if(is_in_chosen_group && is_in_old_group) {
+
+                } else if(!is_in_chosen_group && is_in_old_group) {
+                    /** delete user from group */
+                    user_ids.delete.push(id)
+                } else if(is_in_chosen_group && !is_in_old_group) {
+                    /** add user to group */
+                    user_ids.insert.push(id)
+                } else {
+
+                }
+            })
+
             $scope.detail.goal_id = $scope.detail.business_detail_id = $scope.detail.executive_profile_id = $scope.detail.financial_information_id = $scope.detail.business_id
             
             if(default_business_id == $scope.detail.business_id) {
-                on_call_api()
+                on_call_api(user_ids)
             } else {
                 $http.get('/api/check-customer-id?business_id=' + $scope.detail.business_id, $scope.detail).then((res) => {
                     $scope.error = res.data.is_used? 'รหัสลูกค้าถูกใช้เเล้ว': ''
                     if(!$scope.error) {
-                        on_call_api()
+                        on_call_api(user_ids)
                     }
                 })
             }

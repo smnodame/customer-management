@@ -355,8 +355,14 @@ api_routes.put('/customers/:id', function(req, res) {
     
     connection.query(query_service.customer.update(req.params.id), [groups.main_business, groups.executive_profile, groups.goal, groups.business_detail, groups.financial_information], function (err, rows, fields) {
         if (err) throw err
-        res.status(200).send({
-            success: true
+        const data = req.body.user_ids.insert.map(function(id) {
+            return [id, req.body.business_id]
+        })
+        connection.query(query_service.user_group.insert(),  [data], function (err, rows, fields) {
+            if (err) throw err
+            res.status(200).send({
+                success: true
+            })
         })
     })
 })
