@@ -176,7 +176,7 @@
                                     ng-repeat="group in available_group  | filter: filterFn track by $index"
                                     ng-if="is_not_in_chosen_group(group.business_id)"
                                   >
-                                    <img style="height: 55px; width: 55px; margin-left: 0; margin-top: 0; margin: 5px" ng-src="{{ group.account_photo_path? 'static/files/' + group.account_photo_path : '/static/images/user.png' }}" alt="..." class="img-circle profile_img">
+                                    <img style="height: 55px; width: 55px; margin-left: 0; margin-top: 0; margin: 5px" ng-src="{{ group.business_logo_file? 'static/files/' + group.business_logo_file : '/static/images/user.png' }}" alt="..." class="img-circle profile_img">
                                     <div style="width: 35%; display: flex; flex-direction: column; margin: 10px;">
                                         <strong>{{ group.business_id }}</strong>
                                         <span> {{  group.business_name }}</span>
@@ -216,7 +216,7 @@
                                       ng-repeat="group in chosen_group | filter: filterCg track by $index" 
                                       ng-click="on_click_group_in_chosen_group($event, group.business_id )" 
                                     >
-                                      <img style="height: 55px; width: 55px; margin-left: 0; margin-top: 0; margin: 5px" ng-src="{{ group.account_photo_path? 'static/files/' + group.account_photo_path : '/static/images/user.png' }}" alt="..." class="img-circle profile_img">
+                                      <img style="height: 55px; width: 55px; margin-left: 0; margin-top: 0; margin: 5px" ng-src="{{ group.business_logo_file? 'static/files/' + group.business_logo_file : '/static/images/user.png' }}" alt="..." class="img-circle profile_img">
                                       <div style="width: 35%; display: flex; flex-direction: column; margin: 10px;">
                                           <strong>{{ group.business_id }}</strong>
                                           <span> {{  group.business_name }}</span>
