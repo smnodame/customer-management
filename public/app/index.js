@@ -691,10 +691,14 @@ app.controller('userCtrl', [
             iDisplayLength: 100
         })
 
-        $scope.on_delete = (account_id) => {
-            $http.delete(`/api/account/`+account_id).then(() => {
+        $scope.on_delete = () => {
+            $http.delete(`/api/account/${$scope.draft_delete_account_id}`).then(() => {
                 load_user()
             })
+        }
+
+        $scope.draft_delete = (account_id) => {
+            $scope.draft_delete_account_id = account_id
         }
 
         const load_user = () => {
@@ -719,7 +723,7 @@ app.controller('userCtrl', [
                         account.account_position,
                         account.account_updated,
                         '<a href="/#!/user/'+ account.account_id +'/edit" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>'+
-                        `<a ng-click="on_delete('${account.account_id}')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>`
+                        `<a ng-click="draft_delete('${account.account_id}')" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#remove-user"><i class="fa fa-trash-o"></i> Delete </a>`
                     ]).draw( true )
                 })
     

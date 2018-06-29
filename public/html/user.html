@@ -38,7 +38,29 @@
                     
                   </tbody>
                 </table>
-
+                
+                  <!-- Modal -->
+                  <div class="modal fade" id="remove-user" role="dialog">
+                    <div class="modal-dialog">
+                    
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">ยืนยันการลบ</h4>
+                        </div>
+                        <div class="modal-body">
+                          <p>ถ้าหากลบข้อมูลนี้แล้ว ท่านจะไม่สามารถกู้กลับคืนได้</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" ng-click="on_delete()" class="btn btn-danger" data-dismiss="modal">ยืนยัน</button>
+                          <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+                  <!-- End of remove modal -->
               </div>
             </div>
           </div>
