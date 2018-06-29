@@ -81,7 +81,7 @@ app.controller('mainCtrl', ['$scope', '$timeout', '$route', ($scope, $timeout, $
             $scope.page = "login"
         }
 
-    }, 200)
+    }, 1000)
 
     $scope.logout = (() => {
         localStorage.clear()
