@@ -360,9 +360,9 @@ app.controller('userEditCtrl', [
                                 }
 
                                 $http.put(`/api/account/${$routeParams.id}`, $scope.account).then(() => {
-                                    return $http.delete(`/api/group/${$scope.account.account_id}`)
+                                    return $http.delete(`/api/user_group/${$scope.account.account_id}`)
                                 }).then(() => {
-                                    return $http.post(`/api/group/${$scope.account.account_id}`, {
+                                    return $http.post(`/api/user_group/${$scope.account.account_id}`, {
                                         groups: $scope.chosen_group.map((group) => ({
                                             business_id: group.business_id
                                         }))
@@ -400,9 +400,9 @@ app.controller('userEditCtrl', [
                             $http.put(`/api/account/${$routeParams.id}`, {
                                 ...$scope.account
                             }).then(() => {
-                                return $http.delete(`/api/group/${$scope.account.account_id}`)
+                                return $http.delete(`/api/user_group/${$scope.account.account_id}`)
                             }).then(() => {
-                                return $http.post(`/api/group/${$scope.account.account_id}`, {
+                                return $http.post(`/api/user_group/${$scope.account.account_id}`, {
                                     groups: $scope.chosen_group.map((group) => ({
                                         business_id: group.business_id
                                     }))
@@ -537,7 +537,7 @@ app.controller('userCreateCtrl', [
                                 }
 
                                 $http.post(`/api/account`, $scope.account).then(() => {
-                                    return $http.post(`/api/group/${$scope.account.account_id}`, {
+                                    return $http.post(`/api/user_group/${$scope.account.account_id}`, {
                                         groups: $scope.chosen_group.map((group) => ({
                                             business_id: group.business_id
                                         }))

@@ -189,30 +189,20 @@ const query_service = {
         }
     },
     group: {
-        insert: function() {
-            return " INSERT INTO user_group (`account_id`, `business_id`) VALUES ?"
-        },
         select: function(account_id) {
             return "SELECT * FROM `user_group` u join `main_business` m on u.business_id = m.business_id WHERE u.account_id = '" + account_id + "'"
-        },
-        delete: function(account_id) {
-            return "DELETE FROM `user_group` WHERE account_id = '" + account_id + "';"
         }
     },
     user_group: {
         select: function(business_id) {
             return "SELECT u.user_group_id, a.`account_id`, a.`account_first_name`, a.`account_last_name`, a.`account_email`, a.`account_phone`, a.`account_photo_path`, a.`account_position`, a.`account_updated` FROM `user_group` u join `account` a on u.account_id = a.account_id WHERE u.business_id = '" + business_id + "'"
         },
-        // insert: function(business_id, users) {
-        //     var querys = []
-        //     users.forEach(function(user) {
-        //         querys.push(" INSERT INTO user_group (`account_id`, `business_id`) VALUES ('"+ user.account_id +"', '" + business_id + "')")
-        //     })
-        //     return querys.join(';')
-        // },
-        // delete: function(business_id) {
-        //     return "DELETE FROM `user_group` WHERE business_id = '" + business_id + "';"
-        // }
+        insert: function() {
+            return " INSERT INTO user_group (`account_id`, `business_id`) VALUES ?"
+        },
+        delete: function(account_id) {
+            return "DELETE FROM `user_group` WHERE account_id = '" + account_id + "';"
+        }
     },
     child: {
         select: function(business_id) {
@@ -485,7 +475,7 @@ api_routes.get('/group/:id', function(req, res) {
     })
 })
 
-api_routes.post('/group/:id', function(req, res) {
+api_routes.post('/user_group/:id', function(req, res) {
     if(req.body.groups.length == 0) {
         res.status(200).send({
             success: true
@@ -494,7 +484,7 @@ api_routes.post('/group/:id', function(req, res) {
         const data = req.body.groups.map(function(group) {
             return [req.params.id, group.business_id]
         })
-        connection.query(query_service.group.insert(), [data],  function (err, rows, fields) {
+        connection.query(query_service.user_group.insert(), [data],  function (err, rows, fields) {
             if (err) throw err
             res.status(200).send({
                 success: true
@@ -503,8 +493,8 @@ api_routes.post('/group/:id', function(req, res) {
     }
 })
 
-api_routes.delete('/group/:id', function(req, res) {
-    connection.query(query_service.group.delete(req.params.id), function (err, rows, fields) {
+api_routes.delete('/user_group/:id', function(req, res) {
+    connection.query(query_service.user_group.delete(req.params.id), function (err, rows, fields) {
         if (err) throw err
         res.status(200).send({
             success: true
