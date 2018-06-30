@@ -928,6 +928,10 @@ app.controller('editCustomerInfoCtrl', [
 
             $scope.detail.financial_information_private_capital_rate =  parseInt(res.data[0].financial_information_private_capital_rate)
             $scope.detail.financial_information_other_capital_rate =  parseInt(res.data[0].financial_information_other_capital_rate)
+            
+            $http.get(`api/child/${$routeParams.id}`).then((res) => {
+                $scope.detail.child_additional = res.data.childs || []
+            })
         }) 
         
         $scope.add_child = () => {
@@ -943,12 +947,9 @@ app.controller('editCustomerInfoCtrl', [
         }
 
         $scope.remove_child = () => {
+            console.log('-11')
             $scope.detail.child_additional.splice($scope.detail.child_additional.length - 1, 1)
         }
-
-        $http.get(`api/child/${$routeParams.id}`).then((res) => {
-            $scope.detail.child_additional = res.data.childs || []
-        })
 
         const next_step = () => {
             $scope.step = $scope.step + 1
