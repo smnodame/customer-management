@@ -39,12 +39,17 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 const connection = mysql.createConnection({
-    host     : '127.0.0.1',
+    host     : 'smnodame.com',
     port     : '3306',
-    user     : 'root',
-    password : '',
-    database : 'customer_management_db',
+    user     : 'smnodameco_cpf',
+    password : 'secret',
+    database : 'smnodameco_cpf',
     multipleStatements : true
+})
+
+connection.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!")
 })
 
 const get_account = (data) => {
