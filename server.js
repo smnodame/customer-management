@@ -38,7 +38,7 @@ app.use('/static', express.static(path.join(__dirname, 'public')))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-const connection = mysql.createConnection({
+const db_config = {
     host     : 'smnodame.com',
     port     : '3306',
     user     : 'smnodameco_cpf',
@@ -46,14 +46,37 @@ const connection = mysql.createConnection({
     database : 'smnodameco_cpf',
     multipleStatements : true,
     charset: "utf8_general_ci"
-})
+}
 
-connection.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!")
-})
+var connection = null
 
-connection.query("SET NAMES utf8")
+function handleDisconnect() {
+    connection = mysql.createConnection(db_config)
+    connection.connect(function(err) {
+        if (err) {
+            console.log('error when connecting to db:', err)
+            setTimeout(handleDisconnect, 2000)
+        }
+        console.log("Connected!")
+        connection.query("SET NAMES utf8")
+
+        setInterval(function () {
+            console.log('- connect -')
+            connection.query('SELECT 1')
+        }, 30000)
+    })
+
+    connection.on('error', function(err) {
+        console.log('db error', err)
+        if(err.code === 'PROTOCOL_CONNECTION_LOST') {   // Connection to the MySQL server is usually
+            handleDisconnect()                          // lost due to either server restart, or a
+        } else {                                        // connnection idle timeout (the wait_timeout
+            throw err                                   // server variable configures this)
+        }
+    })
+}
+
+handleDisconnect()
 
 const get_account = (data) => {
     res = {
