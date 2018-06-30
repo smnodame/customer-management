@@ -252,37 +252,42 @@ const query_service = {
 }
 
 api_routes.post('/signin', function(req, res) {
-    const data = {
-        account_email: req.body.username
-    }
-    connection.query('SELECT * FROM account WHERE ? ', data, function (err, rows, fields) {
-        if (err) { res.status(500).send({ success: false }); return }
-        if (!rows.length) {
-            res.json({ success: false, message: 'Authentication failed. User not found.' })
-        } else {
-            // check if password matches
-            const account = rows[0]
-            
-            if (account.account_password != req.body.password) {
-                res.json({ success: false, message: 'Authentication failed. Wrong password.' })
-            } else {
-                delete account.account_password
-
-                // create a token
-                var token = jwt.sign(account, app.get('superSecret'), {
-                    expiresIn: 60 * 60 * 24, // expires in 24 hours
-                })
-                
-                // return the information including token as JSON
-                res.json({
-                    success: true,
-                    message: 'Enjoy your token.',
-                    token: token,
-                    data: account
-                })
-            }
+    try {
+        const data = {
+            account_email: req.body.username
         }
-    })
+        connection.query('SELECT * FROM account WHERE ? ', data, function (err, rows, fields) {
+            if (err) { res.status(500).send({ success: false }); return }
+            if (!rows.length) {
+                res.json({ success: false, message: 'Authentication failed. User not found.' })
+            } else {
+                // check if password matches
+                const account = rows[0]
+                
+                if (account.account_password != req.body.password) {
+                    res.json({ success: false, message: 'Authentication failed. Wrong password.' })
+                } else {
+                    delete account.account_password
+
+                    // create a token
+                    var token = jwt.sign(account, app.get('superSecret'), {
+                        expiresIn: 60 * 60 * 24, // expires in 24 hours
+                    })
+                    
+                    // return the information including token as JSON
+                    res.json({
+                        success: true,
+                        message: 'Enjoy your token.',
+                        token: token,
+                        data: account
+                    })
+                }
+            }
+        })
+    } catch (err) {
+        console.log(err)
+        if(err) { res.status(500).send({ success: false }); return }
+    }
 })
 
 // route middleware to verify a token
@@ -362,6 +367,7 @@ api_routes.get('/customers', function(req, res) {
             })
         } catch (err) {
             console.log(err)
+            if(err) { res.status(500).send({ success: false }); return }
         }
     } else {
         try {
@@ -371,6 +377,7 @@ api_routes.get('/customers', function(req, res) {
             })
         } catch (err) {
             console.log(err)
+            if(err) { res.status(500).send({ success: false }); return }
         }
     }
 })
@@ -383,6 +390,7 @@ api_routes.get('/customers/:id', function(req, res) {
         })
     } catch (err) {
         console.log(err)
+        if(err) { res.status(500).send({ success: false }); return }
     }
 })
 
@@ -396,6 +404,7 @@ api_routes.delete('/customers/:id', function(req, res) {
         })
     } catch (err) {
         console.log(err)
+        if(err) { res.status(500).send({ success: false }); return }
     }
 })
 
@@ -426,6 +435,7 @@ api_routes.put('/customers/:id', function(req, res) {
         })
     } catch (err) {
         console.log(err)
+        if(err) { res.status(500).send({ success: false }); return }
     }
 })
 
@@ -456,6 +466,7 @@ api_routes.post('/customers', function(req, res) {
         }
     } catch (err) {
         console.log(err)
+        if(err) { res.status(500).send({ success: false }); return }
     }
 })
 
@@ -478,6 +489,7 @@ api_routes.post('/account', function(req, res) {
         })
     } catch (err) {
         console.log(err)
+        if(err) { res.status(500).send({ success: false }); return }
     }
 })
 
@@ -494,6 +506,7 @@ api_routes.put('/account/:id', function(req, res) {
         })
     } catch (err) {
         console.log(err)
+        if(err) { res.status(500).send({ success: false }); return }
     }
 })
 
@@ -511,6 +524,7 @@ api_routes.get('/check-customer-id', function(req, res) {
         })
     } catch (err) {
         console.log(err)
+        if(err) { res.status(500).send({ success: false }); return }
     }
 })
 
@@ -528,6 +542,7 @@ api_routes.get('/check-account-id', function(req, res) {
         })
     } catch (err) {
         console.log(err)
+        if(err) { res.status(500).send({ success: false }); return }
     }
 })
 
@@ -542,6 +557,7 @@ api_routes.get('/account', function(req, res) {
         })
     } catch (err) {
         console.log(err)
+        if(err) { res.status(500).send({ success: false }); return }
     }
 })
 
@@ -559,6 +575,7 @@ api_routes.get('/account/:id', function(req, res) {
         })
     } catch (err) {
         console.log(err)
+        if(err) { res.status(500).send({ success: false }); return }
     }
 })
 
@@ -576,6 +593,7 @@ api_routes.delete('/account/:id', function(req, res) {
         })
     } catch (err) {
         console.log(err)
+        if(err) { res.status(500).send({ success: false }); return }
     }
 })
 
@@ -590,6 +608,7 @@ api_routes.get('/group/:id', function(req, res) {
         })
     } catch (err) {
         console.log(err)
+        if(err) { res.status(500).send({ success: false }); return }
     }
 })
 
@@ -612,6 +631,7 @@ api_routes.post('/user_group/:id', function(req, res) {
         }
     } catch (err) {
         console.log(err)
+        if(err) { res.status(500).send({ success: false }); return }
     }
 })
 
@@ -625,6 +645,7 @@ api_routes.delete('/user_group/:id', function(req, res) {
         })
     } catch (err) {
         console.log(err)
+        if(err) { res.status(500).send({ success: false }); return }
     }
 })
 
@@ -639,6 +660,7 @@ api_routes.get('/user_group/:id', function(req, res) {
         })
     } catch (err) {
         console.log(err)
+        if(err) { res.status(500).send({ success: false }); return }
     }
 })
 
@@ -653,6 +675,7 @@ api_routes.get('/child/:id', function(req, res) {
         })
     } catch (err) {
         console.log(err)
+        if(err) { res.status(500).send({ success: false }); return }
     }
 })
 
@@ -676,6 +699,7 @@ api_routes.post('/child', function(req, res) {
         }
     } catch (err) {
         console.log(err)
+        if(err) { res.status(500).send({ success: false }); return }
     }
 })
 
@@ -689,6 +713,7 @@ api_routes.delete('/child/:id', function(req, res) {
         })
     } catch (err) {
         console.log(err)
+        if(err) { res.status(500).send({ success: false }); return }
     }
 })
 
@@ -712,6 +737,7 @@ app.get('/printpdf1', function (req, res) {
         })
     } catch (err) {
         console.log(err)
+        if(err) { res.status(500).send({ success: false }); return }
     }
 })
 
