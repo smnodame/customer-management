@@ -44,13 +44,16 @@ const connection = mysql.createConnection({
     user     : 'smnodameco_cpf',
     password : 'secret',
     database : 'smnodameco_cpf',
-    multipleStatements : true
+    multipleStatements : true,
+    charset: "utf8_general_ci"
 })
 
 connection.connect(function(err) {
     if (err) throw err;
     console.log("Connected!")
 })
+
+connection.query("SET NAMES utf8")
 
 const get_account = (data) => {
     res = {
