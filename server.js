@@ -717,7 +717,7 @@ api_routes.delete('/child/:id', function(req, res) {
     }
 })
 
-app.get('/pdf/:id/', function (req, res) {
+api_routes.get('/pdf/:id/', function (req, res) {
     try {
         connection.query(query_service.customer.select(` AND business_id = '${req.params.id}';` + query_service.child.select(req.params.id)), function (err, results, fields) {
             if (err) { res.status(500).send({ success: false }); return }
