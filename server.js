@@ -222,6 +222,9 @@ const query_service = {
     group: {
         select: function(account_id) {
             return "SELECT * FROM `user_group` u join `main_business` m on u.business_id = m.business_id WHERE u.account_id = '" + account_id + "'"
+        },
+        select_permission: function(account_id, business_id) {
+            return "SELECT * FROM `user_group`  WHERE account_id = '" + account_id + "' AND business_id = '"+ business_id +"'";
         }
     },
     user_group: {
@@ -320,6 +323,26 @@ api_routes.use(function(req, res, next) {
     }
 })
 
+// middleware for doing role-based permissions
+function permit_group() {
+    // return a middleware
+    return (req, res, next) => {
+        if(req.decoded.account_position == 'admin') {
+            next()
+        } else {
+            connection.query(query_service.group.select_permission(req.decoded.account_id, req.params.id), function (err, rows, fields) {
+                if (err) { res.status(500).send({ success: false }); return }
+                if(rows.length == 0) {
+                    res.status(403).json({message: "Forbidden"}); // user is forbidden
+                } else {
+                    next()
+                }
+            })
+        }
+    }
+    
+}
+
 api_routes.get('/customers', function(req, res) {
     var query = []
     if(req.query.query) {
@@ -382,7 +405,7 @@ api_routes.get('/customers', function(req, res) {
     }
 })
 
-api_routes.get('/customers/:id', function(req, res) {
+api_routes.get('/customers/:id', permit_group(), function(req, res) {
     try {
         connection.query(query_service.customer.select(` AND business_id = '${req.params.id}'`), function (err, rows, fields) {
             if (err) { res.status(500).send({ success: false }); return }
@@ -717,7 +740,7 @@ api_routes.delete('/child/:id', function(req, res) {
     }
 })
 
-api_routes.get('/pdf/:id/', function (req, res) {
+api_routes.get('/pdf/:id/', permit_group(),function (req, res) {
     try {
         connection.query(query_service.customer.select(` AND business_id = '${req.params.id}';` + query_service.child.select(req.params.id)), function (err, results, fields) {
             if (err) { res.status(500).send({ success: false }); return }
