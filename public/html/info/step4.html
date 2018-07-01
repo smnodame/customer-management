@@ -47,7 +47,7 @@
                 <th>สภาวะตลาดและการแก้ไข</th>
                 <td>{{ detail.business_detail_market_condition_and_solutions || '-' }}</td>
             </tr>
-            <tr>
+            <tr ng-if="detail.business_detail_file">
                 <th>ดาวน์โหลดไฟล์  (Lay out)</th>
                 <td><a href="{{ '/static/files/'+detail.business_detail_file }}" target="_blank">Link</a></td>
             </tr>

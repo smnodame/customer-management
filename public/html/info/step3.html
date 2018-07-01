@@ -7,7 +7,7 @@
                 <th style="width:20%">รายละเอียด</th>
                 <td>{{ detail.goal_detail || '-' }}</td>
             </tr>
-            <tr>
+            <tr ng-show="detail.goal_file_name">
                 <th>ดาวน์โหลดไฟล์  (Mission, Vision)</th>
                 <td><a href="{{ '/static/files/'+detail.goal_file_name }}" target="_blank">Link</a></td>
             </tr>
