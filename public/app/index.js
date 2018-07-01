@@ -1135,7 +1135,8 @@ app.controller('customerInfoCtrl', [
     '$scope', '$location', '$route', '$rootScope', '$routeParams', '$http', '$compile',
     function($scope, $location, $route, $rootScope, $routeParams, $http, $compile) {
         $scope.tab_index = 1
-        
+        $scope.token = localStorage.getItem("token")
+
         $scope.change_tab = (tab_index) => {
             $scope.tab_index = tab_index
             load_user()
@@ -1212,8 +1213,8 @@ app.controller('customersCtrl', [
         $scope.is_superuser = acccount.account_position == 'admin'
 
         function getActionHtml(customer) {
-            let action = '<a target="_blank" href="/api/pdf/'+customer.business_id+'?token='+token+'" class="btn btn-info btn-xs"><i class="fa fa-folder"></i> PDF </a>' +
-            '<a href="/#!/customer/'+customer.business_id+'" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>'
+            let action = '<a target="_blank" href="/api/pdf/'+customer.business_id+'?token='+token+'" class="btn btn-primary btn-xs"><i class="fa fa-file-pdf-o"></i> PDF </a>' +
+            '<a href="/#!/customer/'+customer.business_id+'" class="btn btn-info btn-xs"><i class="fa fa-folder"></i> View </a>'
 
             if($scope.is_superuser) {
                 action = action + '<a href="/#!/customer/'+customer.business_id+'/edit" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> Edit </a>'+

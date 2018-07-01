@@ -18,6 +18,7 @@
                 <div class="x_title">
                     <h2>{{ detail.business_name }}<small></small></h2>
                     <button ng-if="is_superuser" class="btn btn-warning pull-right" ng-click="redirect_to_edit()" style="margin-right: 5px;"><i class="fa fa-edit"></i> แก้ไข</button>
+                    <a class="btn btn-primary pull-right" target="_blank" href="/api/pdf/{{detail.business_id}}?token={{token}}" style="margin-right: 5px;"><i class="fa fa-file-pdf-o"></i> PDF</a>                    
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
