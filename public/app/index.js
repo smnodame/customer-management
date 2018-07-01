@@ -61,7 +61,7 @@ app.controller('mainCtrl', ['$scope', '$timeout', '$route', ($scope, $timeout, $
     $timeout(() => { 
         const token = localStorage.getItem("token")
         if(token) {
-            $scope.account = JSON.parse(localStorage.getItem("account"))
+            $scope.account = JSON.parse(XORCipher.decode(supersecret, localStorage.getItem("account")))
             $scope.is_superuser = $scope.account.account_position == 'admin'
             $scope.page = "content"
 
@@ -102,7 +102,7 @@ app.controller('loginCtrl', ['$scope', '$timeout', '$http', ($scope, $timeout, $
         $http.post(`/api/signin`, data).then((res) => {
             if(res.data.success) {
                 localStorage.setItem("token", res.data.token)
-                localStorage.setItem("account", JSON.stringify(res.data.data))
+                localStorage.setItem("account", XORCipher.encode(supersecret, JSON.stringify(res.data.data)))
                 location.reload()
             } else {
                 $scope.password = ""
@@ -113,9 +113,11 @@ app.controller('loginCtrl', ['$scope', '$timeout', '$http', ($scope, $timeout, $
     }
 }])
 
-app.run(function($rootScope, $route) { 
+app.run(function($rootScope, $route) {
+    console.log('========')
+    console.log(XORCipher.decode(supersecret, localStorage.getItem("account"))) 
     const blockUrl = ['/customer/create', '/customer/create/', '/customer/:id/edit', '/customer/:id/edit/', '/user', '/user/', '/user/create', '/user/create/']
-    const account = JSON.parse(localStorage.getItem("account")) || { account_position: null }
+    const account = localStorage.getItem("account") ? JSON.parse(XORCipher.decode(supersecret, localStorage.getItem("account"))) : { account_position: null }
     const hash = location.hash.replace('#!', '')
 
     if(!(account.account_position == 'admin')) {
@@ -159,8 +161,8 @@ app.controller('userEditCtrl', [
             iDisplayLength: 10
         })
 
-        $scope.is_owner = JSON.parse(localStorage.getItem("account")).account_id == $routeParams.id
-        $scope.is_superuser = JSON.parse(localStorage.getItem("account")).account_position == 'admin'
+        $scope.is_owner = JSON.parse(XORCipher.decode(supersecret, localStorage.getItem("account"))).account_id == $routeParams.id
+        $scope.is_superuser = JSON.parse(XORCipher.decode(supersecret, localStorage.getItem("account"))).account_position == 'admin'
 
         $scope.change_tab = (tab_index) => {
             $scope.tab_index = tab_index
@@ -895,7 +897,7 @@ app.controller('editCustomerInfoCtrl', [
         let default_business_id
         $scope.detail= {}
 
-        $scope.account = JSON.parse(localStorage.getItem("account"))
+        $scope.account = JSON.parse(XORCipher.decode(supersecret, localStorage.getItem("account")))
         $scope.is_superuser = $scope.account.account_position == 'admin'
 
         $scope.getPathFile = (filename) => {
@@ -1208,7 +1210,7 @@ app.controller('customersCtrl', [
                 get_customers()
             })
         }
-        const acccount = JSON.parse(localStorage.getItem("account")) || { account_position : null }
+        const acccount = JSON.parse(XORCipher.decode(supersecret, localStorage.getItem("account"))) || { account_position : null }
         const token = localStorage.getItem("token")
         $scope.is_superuser = acccount.account_position == 'admin'
 
