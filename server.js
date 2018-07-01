@@ -731,7 +731,7 @@ app.get('/printpdf1', function (req, res) {
         }
 
         var renderedHtml =  nunjucks.render('nunjucks.tmpl.html',obj)
-        pdf.create(renderedHtml, {}).toStream(function(err, stream){
+        pdf.create(renderedHtml, { "border": "5mm"}).toStream(function(err, stream){
             console.log(stream)
             stream.pipe(res)
         })
