@@ -717,24 +717,35 @@ api_routes.delete('/child/:id', function(req, res) {
     }
 })
 
-app.get('/printpdf1', function (req, res) {
+app.get('/pdf/:id/', function (req, res) {
     try {
-        var today = new Date()
-        var obj = {
-            date: today,
-            data:{
-                ticketnum : 12121212,
-                dateissued: '2014-04-02',
-                officername: 'john doe',
-                notes:'lorem epsum'
+        connection.query(query_service.customer.select(` AND business_id = '${req.params.id}'`), function (err, rows, fields) {
+            if (err) { res.status(500).send({ success: false }); return }
+            
+            if(rows.length != 0) {
+                var renderedHtml =  nunjucks.render('nunjucks.tmpl.html', {
+                    detail: rows[0],
+                    sex_matched: {
+                        male: 'ชาย',
+                        female: 'หญิง'
+                    },
+                    status_matched: {
+                        single: 'โสด',
+                        engaged: 'หมั่น',
+                        maried: 'แต่งงาน',
+                        divorce: 'อย่า'
+                    }
+                })
+                pdf.create(renderedHtml, { "border": "5mm"}).toStream(function(err, stream){
+                    console.log(stream)
+                    stream.pipe(res)
+                })
+            } else {
+                console.log(err)
+                if(err) { res.status(404).send({ success: false }); return }
             }
-        }
-
-        var renderedHtml =  nunjucks.render('nunjucks.tmpl.html',obj)
-        pdf.create(renderedHtml, { "border": "5mm"}).toStream(function(err, stream){
-            console.log(stream)
-            stream.pipe(res)
         })
+        
     } catch (err) {
         console.log(err)
         if(err) { res.status(500).send({ success: false }); return }

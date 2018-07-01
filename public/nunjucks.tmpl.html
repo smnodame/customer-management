@@ -30,36 +30,36 @@
 
 <div class="container">
     <div class="well">
-        <table>
+        <table style="width: 100%">
             <tbody>
-                <tr>
-                    <th style="width:20%">รหัสลูกค้า</th>
-                    <td>cpf0085</td>
-                </tr>
-                <tr>
-                    <th>ชื่อธุรกิจ</th>
-                    <td>WaQ Yakiniku</td>
-                </tr>
-                <tr>
-                    <th>ที่อยู่</th>
-                    <td>ซอย รามคำแหง 83/2 - ถนน รามคำแหง Hua Mak, Bang Kapi, กรุงเทพมหานคร 10240</td>
-                </tr>
-                <tr>
-                    <th>ภูมิภาค</th>
-                    <td>กลาง</td>
-                </tr>
-                <tr>
-                    <th>ประเภทธุรกิจ</th>
-                    <td>บุคคลธรรมดา</td>
-                </tr>
-                <tr>
-                    <th>grade</th>
-                    <td>bronze</td>
-                </tr>
-                <tr>
-                    <th>เบอร์โทรศัพท์</th>
-                    <td>0828469953</td>
-                </tr>
+                    <tr>
+                        <th style="width:15%">รหัสลูกค้า</th>
+                        <td>{{  detail.business_id if detail.business_id else "-" }}</td>
+                    </tr>
+                    <tr>
+                        <th>ชื่อธุรกิจ</th>
+                        <td>{{ detail.business_name if detail.business_name else "-" }}</td>
+                    </tr>
+                    <tr>
+                        <th>ที่อยู่</th>
+                        <td>{{ detail.business_address if detail.business_address else "-" }}</td>
+                    </tr>
+                    <tr>
+                        <th>ภูมิภาค</th>
+                        <td>{{ detail.business_region if detail.business_region else "-"  }}</td>
+                    </tr>
+                    <tr>
+                        <th>ประเภทธุรกิจ</th>
+                        <td>{{ detail.business_type if detail.business_type else "-" }}</td>
+                    </tr>
+                    <tr>
+                        <th>grade</th>
+                        <td>{{ detail.business_grade if detail.business_grade else "-"  }}</td>
+                    </tr>
+                    <tr>
+                        <th>เบอร์โทรศัพท์</th>
+                        <td>{{ detail.business_telephone if detail.business_telephone else "-"  }}</td>
+                    </tr>
             </tbody>
         </table>
     </div>
@@ -68,7 +68,7 @@
             <div style="margin-bottom: 15px">
                 <p style="font-weight:bold; font-weight: 900; font-size: 9px">เป้าหมายในการดำเนินธุรกิจ</p>
                 <div>
-                    หลักประกันที่ทำให้เราดำรงอยู่ได้ก็คือ ลูกค้าที่ซื้อผลิตภัณฑ์ของเรา ดังนั้น เราทุกคนในทุกตำแหน่งจะต้องทำให้ดีที่สุดที่จะทำให้เกิดความพึงพอใจ และแม้กระทั่งเกินความคาดหวังของลูกค้าทั่วโลก   
+                    {{ detail.goal_detail if detail.goal_detail else "-" }}
                 </div>
             </div>
             <div style="margin-bottom: 15px">
@@ -78,31 +78,31 @@
                         <tbody>
                             <tr>
                                 <th style="width:30%">ชื่อ</th>
-                                <td>สุพาดา ไจมา</td>
+                                <td>{{ detail.executive_profile_name if detail.executive_profile_name else "-" }}</td>
                             </tr>
                             <tr>
                                 <th>อายุ</th>
-                                <td>35</td>
+                                <td>{{ detail.executive_profile_age if detail.executive_profile_age else "-" }}</td>
                             </tr>
                             <tr>
                                 <th>เพศ</th>
-                                <td>หญิง</td>
+                                <td>{{ sex_matched[detail.executive_profile_sex] if detail.executive_profile_sex else "-" }}</td>
                             </tr>
                             <tr>
                                 <th>การศึกษา</th>
-                                <td>มหาวิทยาลัย เชียงใหม่</td>
+                                <td>{{ detail.executive_profile_education if detail.executive_profile_education else "-" }}</td>
                             </tr>
                             <tr>
                                 <th>สถานภาพ</th>
-                                <td>สมรส</td>
+                                <td>{{ status_matched[detail.executive_profile_status] if status_matched[detail.executive_profile_status] else "-" }}</td>
                             </tr>
                             <tr>
                                 <th>อาชีพ</th>
-                                <td>นักธุรกิจ</td>
+                                <td>{{ detail.executive_profile_career if detail.executive_profile_career else "-" }}</td>
                             </tr>
                             <tr>
                                 <th>ประสบการณ์</th>
-                                <td>เคยเป็นผู้บริหาร AIS</td>
+                                <td>{{ detail.executive_profile_experience if detail.executive_profile_experience else "-" }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -115,23 +115,23 @@
                         <tbody>
                             <tr>
                                 <th style="width:30%">ชื่อ</th>
-                                <td>พันทา ไจมา</td>
+                                <td>{{ detail.spouse_profile_name if detail.spouse_profile_name else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>อายุ</th>
-                                <td>36</td>
+                                <td>{{ detail.spouse_profile_age if detail.spouse_profile_age else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>การศึกษา</th>
-                                <td>มหาวิทยาลัย เชียงใหม่</td>
+                                <td>{{ detail.spouse_profile_education if detail.spouse_profile_education else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>อาชีพ</th>
-                                <td>นักธุรกิจ</td>
+                                <td>{{ detail.spouse_profile_career if detail.spouse_profile_career else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>ประสบการณ์</th>
-                                <td>เคยเป็นผู้บริหาร DTAC</td>
+                                <td>{{ detail.spouse_profile_experience if detail.spouse_profile_experience else '-' }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -144,31 +144,27 @@
                         <tbody>
                             <tr>
                                 <th style="width:30%">ชื่อ</th>
-                                <td>มานา ไจมา</td>
+                                <td>{{ detail.child_profile_name if detail.child_profile_name else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>อายุ</th>
-                                <td>15</td>
+                                <td>{{ detail.child_profile_age if detail.child_profile_age else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>เพศ</th>
-                                <td>หญิง</td>
+                                <td>{{ sex_matched[detail.child_profile_sex] if detail.child_profile_sex else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>การศึกษา</th>
-                                <td>โรงเรียน วรานีกุล</td>
-                            </tr>
-                            <tr>
-                                <th>สถานภาพ</th>
-                                <td>โสด</td>
+                                <td>{{ detail.child_profile_career if detail.child_profile_career else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>อาชีพ</th>
-                                <td>นักเรียน</td>
+                                <td>{{ detail.child_profile_experience if detail.child_profile_experience else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>ประสบการณ์</th>
-                                <td>-</td>
+                                <td>{{ detail.child_profile_education if detail.child_profile_education else '-' }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -220,47 +216,47 @@
                         <tbody>
                             <tr>
                                 <th style="width:60%">ปริมาณสัตว์เลี้ยง (ตัว)</th>
-                                <td>250</td>
+                                <td>{{ detail.business_detail_pet_quantity if detail.business_detail_pet_quantity else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>อัตราการแลกเนื้อ, ให้ไข่ (%)</th>
-                                <td>25 %</td>
+                                <td>{{ detail.business_detail_meat_exchange_rate + ' %' if detail.business_detail_meat_exchange_rate else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>อัตราการป่วย (%)</th>
-                                <td>45 %</td>
+                                <td>{{ detail.business_detail_sixness_rate + ' %' if detail.business_detail_sixness_rate else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>อัตราการตาย (%)</th>
-                                <td>30 %</td>
+                                <td>{{ detail.business_detail_mortality_rate + ' %' if detail.business_detail_mortality_rate else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>อัตราการใช้ผลิตภัณฑ์ CPF (%)</th>
-                                <td>25 %</td>
+                                <td>{{ detail.business_detail_cpf_product_usage_rate + ' %' if detail.business_detail_cpf_product_usage_rate else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>อัตราการใช้ผลิตภัณฑ์อื่นๆ (%)</th>
-                                <td>75 %</td>
+                                <td>{{ detail.business_detail_other_product_usage_rate + ' %' if detail.business_detail_other_product_usage_rate else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>ช่องทางจำหน่ายที่อื่น</th>
-                                <td>ร้านสะดวกซื้อทั่วไป</td>
+                                <td>{{ detail.business_detail_sales_chanels_for_other if detail.business_detail_sales_chanels_for_other else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>ช่องทางจำหน่ายให้กับ CPF</th>
-                                <td>เซเว่น</td>
+                                <td>{{ detail.business_detail_sales_chanels_for_cpf if detail.business_detail_sales_chanels_for_cpf else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>จำนวนคนงาน</th>
-                                <td>20</td>
+                                <td>{{ detail.business_detail_number_of_workers if detail.business_detail_number_of_workers else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>คู่แข่งขัน</th>
-                                <td>-</td>
+                                <td>{{ detail.business_detail_competitor if detail.business_detail_competitor else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>สภาวะตลาดและการแก้ไข</th>
-                                <td>-</td>
+                                <td>{{ detail.business_detail_market_condition_and_solutions if detail.business_detail_market_condition_and_solutions else '-' }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -269,71 +265,71 @@
             <div style="margin-bottom: 15px">
                 <p style="font-weight:bold; font-weight: 900; font-size: 9px">ข้อมูลทางการเงิน</p>
                 <div>
-                    <table>
+                    <table style="width: 100%">
                         <tbody>
                             <tr>
-                                <th style="width:60%">ประวัติการชำระหนี้ (ปกติ, ชำระล่าช้า)</th>
-                                <td>ไม่มีปนะวัติการติดหนี้</td>
+                                <th style="width:60%">ประวัติการชำระหนี้</th>
+                                <td>{{ detail.financial_information_payment_history if detail.financial_information_payment_history else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>เครดิตเทอมที่ได้รับจาก CPF</th>
-                                <td>-</td>
+                                <td>{{ detail.financial_information_credit_from_cpf if detail.financial_information_credit_from_cpf else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>เครดิตเทอมที่ได้รับจากคู่เเข่งขัน</th>
-                                <td>-</td>
+                                <td>{{ detail.financial_information_credit_from_competitor if detail.financial_information_credit_from_competitor else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>เงินทุนส่วนตัว (%)</th>
-                                <td>-</td>
+                                <td>{{ detail.financial_information_private_capital_rate + ' %' if detail.financial_information_private_capital_rate else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>เงินทุนเเหล่งอื่น (%)</th>
-                                <td>-</td>
+                                <td>{{ detail.financial_information_other_capital_rate + ' %' if detail.financial_information_other_capital_rate else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>สินทรัพย์ (ที่ดิน + สิ่งปลูกสร้าง)</th>
-                                <td>-</td>
+                                <td>{{ detail.financial_information_asset_land if detail.financial_information_asset_land else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>รถยนต์</th>
-                                <td>-</td>
+                                <td>{{ detail.financial_information_asset_car if detail.financial_information_asset_car else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>อื่นๆ</th>
-                                <td>-</td>
+                                <td>{{ detail.financial_information_asset_other if detail.financial_information_asset_other else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>หนี้สิน</th>
-                                <td>-</td>
+                                <td>{{ detail.financial_information_debt if detail.financial_information_debt else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>รายได้หลัก</th>
-                                <td>-</td>
+                                <td>{{ detail.financial_information_main_revenue if detail.financial_information_main_revenue else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>รายได้อื่นๆ</th>
-                                <td>-</td>
+                                <td>{{ detail.financial_information_other_income if detail.financial_information_other_income else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>ยอดการซื้ออาหารสัตว์ CPF</th>
-                                <td>-</td>
+                                <td>{{ detail.financial_information_cpf_feed_purchase if detail.financial_information_cpf_feed_purchase else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>ยอดการซื้ออาหารสัตว์คู่แข่งขัน</th>
-                                <td>-</td>
+                                <td>{{ detail.financial_information_other_feed_purchase if detail.financial_information_other_feed_purchase else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>แหล่งซื้อพันธุ์สัตว์</th>
-                                <td>-</td>
+                                <td>{{ detail.financial_information_breeding_grounds if detail.financial_information_breeding_grounds else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>ราคาพันธ์ุสัตว์ที่ซื้อ</th>
-                                <td>-</td>
+                                <td>{{ detail.financial_information_price_of_animals if detail.financial_information_price_of_animals else '-' }}</td>
                             </tr>
                             <tr>
                                 <th>ปริมาณพันธุ์สัตว์ที่ซื้อ</th>
-                                <td>-</td>
+                                <td>{{ detail.financial_information_quantity_of_animals_purchase if detail.financial_information_quantity_of_animals_purchase else '-' }}</td>
                             </tr>
                         </tbody>
                     </table>
