@@ -170,43 +170,41 @@
                     </table>
                 </div>
             </div>
-            <div style="margin-bottom: 15px">
-                    <p style="font-weight:bold; font-weight: 900; font-size: 9px">ข้อมูลบุตร คนที่ 2</p>
+            {% for child in childs %}
+                <div style="margin-bottom: 15px">
+                    <p style="font-weight:bold; font-weight: 900; font-size: 9px">ข้อมูลบุตร คนที่ {{ loop.index + 1 }}</p>
                     <div>
                         <table style="width: 100%">
                             <tbody>
                                 <tr>
                                     <th style="width:30%">ชื่อ</th>
-                                    <td>มานา ไจมา</td>
+                                    <td>{{ child.child_profile_name if child.child_profile_name else '-' }}</td>
                                 </tr>
                                 <tr>
                                     <th>อายุ</th>
-                                    <td>15</td>
+                                    <td>{{ child.child_profile_age if child.child_profile_age else '-' }}</td>
                                 </tr>
                                 <tr>
                                     <th>เพศ</th>
-                                    <td>หญิง</td>
+                                    <td>{{ sex_matched[child.child_profile_sex] if child.child_profile_sex else '-' }}</td>
                                 </tr>
                                 <tr>
                                     <th>การศึกษา</th>
-                                    <td>โรงเรียน วรานีกุล</td>
-                                </tr>
-                                <tr>
-                                    <th>สถานภาพ</th>
-                                    <td>โสด</td>
+                                    <td>{{ child.child_profile_career if child.child_profile_career else '-' }}</td>
                                 </tr>
                                 <tr>
                                     <th>อาชีพ</th>
-                                    <td>นักเรียน</td>
+                                    <td>{{ child.child_profile_experience if child.child_profile_experience else '-' }}</td>
                                 </tr>
                                 <tr>
                                     <th>ประสบการณ์</th>
-                                    <td>-</td>
+                                    <td>{{ child.child_profile_education if child.child_profile_education else '-' }}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
+            {% endfor %}
         </div>
         <div class="col-xs-6">
             <div style="margin-bottom: 15px">

@@ -719,12 +719,12 @@ api_routes.delete('/child/:id', function(req, res) {
 
 app.get('/pdf/:id/', function (req, res) {
     try {
-        connection.query(query_service.customer.select(` AND business_id = '${req.params.id}'`), function (err, rows, fields) {
+        connection.query(query_service.customer.select(` AND business_id = '${req.params.id}';` + query_service.child.select(req.params.id)), function (err, results, fields) {
             if (err) { res.status(500).send({ success: false }); return }
             
-            if(rows.length != 0) {
+            if(results[0].length != 0) {
                 var renderedHtml =  nunjucks.render('nunjucks.tmpl.html', {
-                    detail: rows[0],
+                    detail: results[0][0],
                     sex_matched: {
                         male: 'ชาย',
                         female: 'หญิง'
@@ -734,7 +734,8 @@ app.get('/pdf/:id/', function (req, res) {
                         engaged: 'หมั่น',
                         maried: 'แต่งงาน',
                         divorce: 'อย่า'
-                    }
+                    },
+                    childs: results[1]
                 })
                 pdf.create(renderedHtml, { "border": "5mm"}).toStream(function(err, stream){
                     console.log(stream)
