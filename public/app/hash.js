@@ -2,14 +2,26 @@ var supersecret = 'cpfsupersecret'
 
 var XORCipher = {
     encode: function(key, data) {
-        data = xor_encrypt(key, data);
+        data = xor_encrypt(key, b64EncodeUnicode(data));
         return b64_encode(data);
     },
     decode: function(key, data) {
         data = b64_decode(data);
-        return xor_decrypt(key, data);
+        return b64DecodeUnicode(xor_decrypt(key, data));
     }
 };
+
+function b64EncodeUnicode(str) {
+    return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function(match, p1) {
+        return String.fromCharCode(parseInt(p1, 16))
+    }))
+}
+
+function b64DecodeUnicode(str) {
+    return decodeURIComponent(Array.prototype.map.call(atob(str), function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+    }).join(''))
+}
 
 var b64_table = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
 
