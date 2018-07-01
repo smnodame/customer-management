@@ -1208,12 +1208,15 @@ app.controller('customersCtrl', [
             })
         }
         const acccount = JSON.parse(localStorage.getItem("account")) || { account_position : null }
+        const token = localStorage.getItem("token")
         $scope.is_superuser = acccount.account_position == 'admin'
 
         function getActionHtml(customer) {
-            let action = '<a href="/#!/customer/'+customer.business_id+'" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>'
+            let action = '<a target="_blank" href="/api/pdf/'+customer.business_id+'?token='+token+'" class="btn btn-info btn-xs"><i class="fa fa-folder"></i> PDF </a>' +
+            '<a href="/#!/customer/'+customer.business_id+'" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>'
+
             if($scope.is_superuser) {
-                action = action + '<a href="/#!/customer/'+customer.business_id+'/edit" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>'+
+                action = action + '<a href="/#!/customer/'+customer.business_id+'/edit" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> Edit </a>'+
                 `<a ng-click="draft_delete('${customer.business_id}')" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#remove-customer"><i class="fa fa-trash-o"></i> Delete </a>`
             }
             return action
