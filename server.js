@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken')
 const mysql = require('mysql')
 const pdf = require('html-pdf')
 const multer  = require('multer')
+const morgan = require('morgan')
 
 var storage = multer.diskStorage({
 	destination: function(req, file, callback) {
@@ -16,6 +17,8 @@ var storage = multer.diskStorage({
 		callback(null, req.body.filename)
 	}
 })
+
+app.use(morgan('combined'))
 
 const upload  = multer({ storage: storage })
 app.set('superSecret', 'supersecret') // secret variable
