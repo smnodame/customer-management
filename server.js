@@ -761,7 +761,6 @@ api_routes.get('/pdf/:id/', permit_group(),function (req, res) {
                     childs: results[1]
                 })
                 pdf.create(renderedHtml, { "border": "5mm"}).toStream(function(err, stream){
-                    console.log(stream)
                     stream.pipe(res)
                 })
             } else {
