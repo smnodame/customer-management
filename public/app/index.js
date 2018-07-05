@@ -1591,6 +1591,30 @@ app.controller('createCustomerInfoCtrl', [
             return filename? '/static/files/'+filename : ''
         }
 
+        function randomString() {
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXTZ";
+            var string_length = 2;
+            var randomstring = '';
+            for (var i=0; i<string_length; i++) {
+                var rnum = Math.floor(Math.random() * chars.length);
+                randomstring += chars.substring(rnum,rnum+1);
+            }
+            return randomstring
+        }
+
+        function randomNumber() {
+            var chars = "0123456789";
+            var string_length = 6;
+            var randomstring = '';
+            for (var i=0; i<string_length; i++) {
+                var rnum = Math.floor(Math.random() * chars.length);
+                randomstring += chars.substring(rnum,rnum+1);
+            }
+            return randomstring
+        }
+
+        const id = `${randomString()}-${randomNumber()}`
+
         $scope.detail = {
             goal_id: '',
             goal_detail: '',
@@ -1651,7 +1675,7 @@ app.controller('createCustomerInfoCtrl', [
             financial_information_price_of_animals: '',
             financial_information_quantity_of_animals_purchase: '',
 
-            business_id: '',
+            business_id: id,
             business_name: '',
             business_grade: 'bronze',
             business_address: '',
