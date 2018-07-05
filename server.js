@@ -778,6 +778,111 @@ api_routes.get('/pdf/:id/', permit_group(),function (req, res) {
     }
 })
 
+api_routes.get('/pdf', function (req, res) {
+
+    var query = []
+    if(req.query.query) {
+        var quety_text = ' ( '
+
+        quety_text = quety_text + ` business_id LIKE '%${req.query.query}%' OR `
+        quety_text = quety_text + ` business_name LIKE '%${req.query.query}%' OR `
+        quety_text = quety_text + ` business_address LIKE '%${req.query.query}%' OR `
+        quety_text = quety_text + ` business_telephone LIKE '%${req.query.query}%' OR `
+        quety_text = quety_text + ` executive_profile_name LIKE '%${req.query.query}%' OR `
+        quety_text = quety_text + ` goal_detail LIKE '%${req.query.query}%' `
+        quety_text = quety_text + ' ) '
+
+        query.push(quety_text)
+    }
+    if(req.query.business_type) {
+        query.push(` business_type = '${req.query.business_type}' `)
+    }
+    if(req.query.business_region) {
+        query.push(` business_region = '${req.query.business_region}'`)
+    }
+    if(req.query.business_grade) {
+        query.push(` business_grade = '${req.query.business_grade}' `)
+    }
+    if(req.query.amount_of_pets_min) {
+        query.push(` business_detail_pet_quantity >= ${req.query.amount_of_pets_min} `)
+    }
+    if(req.query.amount_of_pets_max) {
+        query.push(` business_detail_pet_quantity <= ${req.query.amount_of_pets_max} `)
+    }
+    /** is not superuser */
+    if(req.decoded.account_position != 'admin') {
+        query.push(` account_id = '${req.decoded.account_id}' `)
+    }
+
+    if(query.length) {
+        query[0] = ' AND ' + query[0]
+    }
+
+    if(req.decoded.account_position == 'admin') {
+        try {
+            connection.query(query_service.customer.select(query.join(' AND ')), function (err, results, fields) {
+                if (err) { res.status(500).send({ success: false }); return }
+                if(results.length != 0) {
+                    var renderedHtml =  nunjucks.render('nunjucks.tmpl.html', {
+                        results: results,
+                        sex_matched: {
+                            male: 'ชาย',
+                            female: 'หญิง'
+                        },
+                        status_matched: {
+                            single: 'โสด',
+                            engaged: 'หมั่น',
+                            maried: 'แต่งงาน',
+                            divorce: 'อย่า'
+                        },
+                        childs: []
+                    })
+                    pdf.create(renderedHtml, { "border": "5mm"}).toStream(function(err, stream){
+                        stream.pipe(res)
+                    })
+                } else {
+                    console.log(err)
+                    if(err) { res.status(404).send({ success: false }); return }
+                }
+            })
+        } catch (err) {
+            console.log(err)
+            if(err) { res.status(500).send({ success: false }); return }
+        }
+    } else {
+        try {
+            connection.query(query_service.customer.select_belonger(query.join(' AND ')), function (err, results, fields) {
+                if (err) { res.status(500).send({ success: false }); return }
+                if(results.length != 0) {
+                    var renderedHtml =  nunjucks.render('nunjucks.tmpl.html', {
+                        results: results,
+                        sex_matched: {
+                            male: 'ชาย',
+                            female: 'หญิง'
+                        },
+                        status_matched: {
+                            single: 'โสด',
+                            engaged: 'หมั่น',
+                            maried: 'แต่งงาน',
+                            divorce: 'อย่า'
+                        },
+                        childs: []
+                    })
+                    pdf.create(renderedHtml, { "border": "5mm"}).toStream(function(err, stream){
+                        stream.pipe(res)
+                    })
+                } else {
+                    console.log(err)
+                    if(err) { res.status(404).send({ success: false }); return }
+                }
+            })
+        } catch (err) {
+            console.log(err)
+            if(err) { res.status(500).send({ success: false }); return }
+        }
+    }
+})
+
 api_routes.post('/upload', upload.single('fileupload'), (req, res) => {  
     res.status(200).send({
         success: true
