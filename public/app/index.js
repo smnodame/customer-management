@@ -1227,6 +1227,11 @@ app.controller('customersCtrl', [
             $scope.draft_delete_business_id = business_id
         }
 
+        $scope.create_pdf_all = () => {
+            const url = `/api/pdf?query=${$scope.query}&business_type=${$scope.business_type}&business_grade=${$scope.business_grade}&amount_of_pets_min=${$scope.amount_of_pets_min}&amount_of_pets_max=${$scope.amount_of_pets_max}&business_region=${$scope.business_region}&token=${token}`
+            window.open(url, '_blank')
+        }
+
         const get_customers = () => {
             tables.clear()
             .draw()
