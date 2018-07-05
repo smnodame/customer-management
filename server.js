@@ -752,8 +752,10 @@ api_routes.get('/pdf/:id/', permit_group(),function (req, res) {
             if (err) { res.status(500).send({ success: false }); return }
             
             if(results[0].length != 0) {
+                var details = results[0]
+                details[0].childs = results[1]
                 var renderedHtml =  nunjucks.render('nunjucks.tmpl.html', {
-                    detail: results[0][0],
+                    results: details,
                     sex_matched: {
                         male: 'ชาย',
                         female: 'หญิง'
@@ -763,8 +765,7 @@ api_routes.get('/pdf/:id/', permit_group(),function (req, res) {
                         engaged: 'หมั่น',
                         maried: 'แต่งงาน',
                         divorce: 'อย่า'
-                    },
-                    childs: results[1]
+                    }
                 })
                 pdf.create(renderedHtml, { "border": "5mm"}).toStream(function(err, stream){
                     stream.pipe(res)
