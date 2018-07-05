@@ -783,47 +783,47 @@ api_routes.get('/pdf/:id/', permit_group(),function (req, res) {
 })
 
 api_routes.get('/pdf', function (req, res) {
+    try {
+        var query = []
+        if(req.query.query) {
+            var quety_text = ' ( '
 
-    var query = []
-    if(req.query.query) {
-        var quety_text = ' ( '
+            quety_text = quety_text + ` business_id LIKE '%${req.query.query}%' OR `
+            quety_text = quety_text + ` business_name LIKE '%${req.query.query}%' OR `
+            quety_text = quety_text + ` business_address LIKE '%${req.query.query}%' OR `
+            quety_text = quety_text + ` business_telephone LIKE '%${req.query.query}%' OR `
+            quety_text = quety_text + ` executive_profile_name LIKE '%${req.query.query}%' OR `
+            quety_text = quety_text + ` goal_detail LIKE '%${req.query.query}%' `
+            quety_text = quety_text + ' ) '
 
-        quety_text = quety_text + ` business_id LIKE '%${req.query.query}%' OR `
-        quety_text = quety_text + ` business_name LIKE '%${req.query.query}%' OR `
-        quety_text = quety_text + ` business_address LIKE '%${req.query.query}%' OR `
-        quety_text = quety_text + ` business_telephone LIKE '%${req.query.query}%' OR `
-        quety_text = quety_text + ` executive_profile_name LIKE '%${req.query.query}%' OR `
-        quety_text = quety_text + ` goal_detail LIKE '%${req.query.query}%' `
-        quety_text = quety_text + ' ) '
+            query.push(quety_text)
+        }
+        if(req.query.business_type) {
+            query.push(` business_type = '${req.query.business_type}' `)
+        }
+        if(req.query.business_region) {
+            query.push(` business_region = '${req.query.business_region}'`)
+        }
+        if(req.query.business_grade) {
+            query.push(` business_grade = '${req.query.business_grade}' `)
+        }
+        if(req.query.amount_of_pets_min) {
+            query.push(` business_detail_pet_quantity >= ${req.query.amount_of_pets_min} `)
+        }
+        if(req.query.amount_of_pets_max) {
+            query.push(` business_detail_pet_quantity <= ${req.query.amount_of_pets_max} `)
+        }
+        /** is not superuser */
+        if(req.decoded.account_position != 'admin') {
+            query.push(` account_id = '${req.decoded.account_id}' `)
+        }
 
-        query.push(quety_text)
-    }
-    if(req.query.business_type) {
-        query.push(` business_type = '${req.query.business_type}' `)
-    }
-    if(req.query.business_region) {
-        query.push(` business_region = '${req.query.business_region}'`)
-    }
-    if(req.query.business_grade) {
-        query.push(` business_grade = '${req.query.business_grade}' `)
-    }
-    if(req.query.amount_of_pets_min) {
-        query.push(` business_detail_pet_quantity >= ${req.query.amount_of_pets_min} `)
-    }
-    if(req.query.amount_of_pets_max) {
-        query.push(` business_detail_pet_quantity <= ${req.query.amount_of_pets_max} `)
-    }
-    /** is not superuser */
-    if(req.decoded.account_position != 'admin') {
-        query.push(` account_id = '${req.decoded.account_id}' `)
-    }
+        if(query.length) {
+            query[0] = ' AND ' + query[0]
+        }
 
-    if(query.length) {
-        query[0] = ' AND ' + query[0]
-    }
-
-    if(req.decoded.account_position == 'admin') {
-        try {
+        if(req.decoded.account_position == 'admin') {
+        
             connection.query(query_service.customer.select(query.join(' AND ')) + ';' + query_service.child.select_all(), function (err, results, fields) {
                 if (err) { res.status(500).send({ success: false }); return }
                 if(results[0].length != 0) {
@@ -854,12 +854,8 @@ api_routes.get('/pdf', function (req, res) {
                     if(err) { res.status(404).send({ success: false }); return }
                 }
             })
-        } catch (err) {
-            console.log(err)
-            if(err) { res.status(500).send({ success: false }); return }
-        }
-    } else {
-        try {
+       
+        } else {
             connection.query(query_service.customer.select_belonger(query.join(' AND ')) + ';' + query_service.child.select_all(), function (err, results, fields) {
                 if (err) { res.status(500).send({ success: false }); return }
                 if(results[0].length != 0) {
@@ -889,10 +885,10 @@ api_routes.get('/pdf', function (req, res) {
                     if(err) { res.status(404).send({ success: false }); return }
                 }
             })
-        } catch (err) {
-            console.log(err)
-            if(err) { res.status(500).send({ success: false }); return }
         }
+    } catch (err) {
+        console.log(err)
+        if(err) { res.status(500).send({ success: false }); return }
     }
 })
 
