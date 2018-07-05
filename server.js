@@ -248,6 +248,9 @@ const query_service = {
         select: function(business_id) {
             return "SELECT * FROM `child` where child_profile_id = '"+ business_id +"'";
         },
+        select_all: function() {
+            return "SELECT * FROM `child`";
+        },
         insert: function() {
             return "INSERT INTO `child` SET ?"
         },
@@ -820,11 +823,16 @@ api_routes.get('/pdf', function (req, res) {
 
     if(req.decoded.account_position == 'admin') {
         try {
-            connection.query(query_service.customer.select(query.join(' AND ')), function (err, results, fields) {
+            connection.query(query_service.customer.select(query.join(' AND ')) + ';' + query_service.child.select_all(), function (err, results, fields) {
                 if (err) { res.status(500).send({ success: false }); return }
-                if(results.length != 0) {
+                if(results[0].length != 0) {
                     var renderedHtml =  nunjucks.render('nunjucks.tmpl.html', {
-                        results: results,
+                        results: results[0].map(function (detail) {
+                            detail.childs = results[1].filter(function (child) {
+                                return child.child_profile_id == detail.business_id
+                            })
+                            return detail
+                        }),
                         sex_matched: {
                             male: 'ชาย',
                             female: 'หญิง'
@@ -851,11 +859,16 @@ api_routes.get('/pdf', function (req, res) {
         }
     } else {
         try {
-            connection.query(query_service.customer.select_belonger(query.join(' AND ')), function (err, results, fields) {
+            connection.query(query_service.customer.select_belonger(query.join(' AND ')) + ';' + query_service.child.select_all(), function (err, results, fields) {
                 if (err) { res.status(500).send({ success: false }); return }
-                if(results.length != 0) {
+                if(results[0].length != 0) {
                     var renderedHtml =  nunjucks.render('nunjucks.tmpl.html', {
-                        results: results,
+                        results: results[0].map(function (detail) {
+                            detail.childs = results[1].filter(function (child) {
+                                return child.child_profile_id == detail.business_id
+                            })
+                            return detail
+                        }),
                         sex_matched: {
                             male: 'ชาย',
                             female: 'หญิง'
@@ -865,8 +878,7 @@ api_routes.get('/pdf', function (req, res) {
                             engaged: 'หมั่น',
                             maried: 'แต่งงาน',
                             divorce: 'อย่า'
-                        },
-                        childs: []
+                        }
                     })
                     pdf.create(renderedHtml, { "border": "5mm"}).toStream(function(err, stream){
                         stream.pipe(res)
