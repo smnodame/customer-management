@@ -65,7 +65,7 @@ app.controller('mainCtrl', ['$scope', '$timeout', '$route', ($scope, $timeout, $
             $scope.is_superuser = $scope.account.account_position == 'admin'
             $scope.page = "content"
 
-            const blockCtrl = ['createCustomerInfoCtrl', 'editCustomerInfoCtrl', 'userCtrl', 'userCreateCtrl']
+            const blockCtrl = ['userCtrl', 'userCreateCtrl']
 
             $scope.$on('$routeChangeStart', function (event, next, prev) {
                 if(!$scope.is_superuser) {
@@ -113,8 +113,8 @@ app.controller('loginCtrl', ['$scope', '$timeout', '$http', ($scope, $timeout, $
     }
 }])
 
-app.run(function($rootScope, $route) {
-    const blockUrl = ['/customer/create', '/customer/create/', '/customer/:id/edit', '/customer/:id/edit/', '/user', '/user/', '/user/create', '/user/create/']
+app.run(function($rootScope, $route) { 
+    const blockUrl = ['/user', '/user/', '/user/create', '/user/create/']
     const account = localStorage.getItem("account") ? JSON.parse(XORCipher.decode(supersecret, localStorage.getItem("account"))) : { account_position: null }
     const hash = location.hash.replace('#!', '')
 
@@ -1214,11 +1214,11 @@ app.controller('customersCtrl', [
 
         function getActionHtml(customer) {
             let action = '<a target="_blank" href="/api/pdf/'+customer.business_id+'?token='+token+'" class="btn btn-primary btn-xs"><i class="fa fa-file-pdf-o"></i> PDF </a>' +
-            '<a href="/#!/customer/'+customer.business_id+'" class="btn btn-info btn-xs"><i class="fa fa-folder"></i> View </a>'
+            '<a href="/#!/customer/'+customer.business_id+'" class="btn btn-info btn-xs"><i class="fa fa-folder"></i> View </a>' +
+            '<a href="/#!/customer/'+customer.business_id+'/edit" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> Edit </a>'
 
             if($scope.is_superuser) {
-                action = action + '<a href="/#!/customer/'+customer.business_id+'/edit" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> Edit </a>'+
-                `<a ng-click="draft_delete('${customer.business_id}')" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#remove-customer"><i class="fa fa-trash-o"></i> Delete </a>`
+                action = action +  `<a ng-click="draft_delete('${customer.business_id}')" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#remove-customer"><i class="fa fa-trash-o"></i> Delete </a>`
             }
             return action
         }
