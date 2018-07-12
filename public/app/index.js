@@ -1446,7 +1446,7 @@ app.controller('createCustomerInfoCtrl', [
                     $scope.error = 'กรุณากรอกข้อมูลให้ครบทุกช่อง'
                     return
                 }
-            } else if ($scope.step < 6) {
+            } else if ($scope.step < ($scope.is_superuser? 6 : 5)) {
                 next_step()
             }
         }
@@ -1456,7 +1456,7 @@ app.controller('createCustomerInfoCtrl', [
         }
 
         $scope.can_save = () => {
-            return $scope.check_form_valid() && $scope.done == 6
+            return $scope.check_form_valid() && $scope.done == ($scope.is_superuser? 6 : 5)
         }
 
         $scope.click_previous = () => {
