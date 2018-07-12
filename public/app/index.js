@@ -1289,13 +1289,17 @@ app.controller('createCustomerInfoCtrl', [
     '$scope', '$location', '$route', '$rootScope', '$routeParams', '$http',
     function($scope, $location, $route, $rootScope, $routeParams, $http) {
 
+        const account = localStorage.getItem("account") ? JSON.parse(XORCipher.decode(supersecret, localStorage.getItem("account"))) : { account_position : null }
+        const token = localStorage.getItem("token")
+        $scope.is_superuser = account.account_position == 'admin'
+        
         /** logic code for step 6 */
 
         $scope.selected_available_group = []
         $scope.selected_chosen_group = []
 
         $scope.available_group = []
-        $scope.chosen_group = []
+        $scope.chosen_group = $scope.is_superuser? [] : [{ account_id: account.account_id }]
 
         $scope.query = {
             queryAvailableGroup: '',
