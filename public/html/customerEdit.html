@@ -72,7 +72,7 @@
                                     </span>
                                 </a>
                             </li>
-                            <li style="flex: 1">
+                            <li style="flex: 1" ng-if="is_superuser">
                                 <a  ng-class="{selected: done >=6 }" style="cursor: pointer"  ng-click="go_to_step(6)">
                                     <span class="step_no" style="background: #ccc">6</span>
                                     <span class="step_descr">

@@ -751,6 +751,9 @@ app.controller('userCtrl', [
 app.controller('editCustomerInfoCtrl', [
     '$scope', '$location', '$route', '$rootScope', '$routeParams', '$http',
     function($scope, $location, $route, $rootScope, $routeParams, $http) {
+        $scope.account = localStorage.getItem("account") ? JSON.parse(XORCipher.decode(supersecret, localStorage.getItem("account"))) : { account_position: null }
+        $scope.is_superuser = $scope.account.account_position == 'admin'
+
         /** logic code for step 6 */
 
         $scope.selected_available_group = []
@@ -976,7 +979,7 @@ app.controller('editCustomerInfoCtrl', [
                     $scope.error = 'กรุณากรอกข้อมูลให้ครบทุกช่อง'
                     return
                 }
-            } else if ($scope.step < 5) {
+            } else if ($scope.step < ($scope.is_superuser? 6 : 5)) {
                 next_step()
             }
         }
