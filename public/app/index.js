@@ -1622,6 +1622,49 @@ app.controller('createCustomerInfoCtrl', [
 
         const id = `${randomString()}-${randomNumber()}`
 
+        $scope.$watchGroup([
+            'detail.business_detail_pet_type1_selected',
+            'detail.business_detail_pet_type2_selected',
+            'detail.business_detail_pet_type3_selected',
+            'detail.business_detail_pet_type4_selected',
+            'detail.business_detail_pet_type5_selected',
+            'detail.business_detail_pet_type6_selected',
+            'detail.business_detail_pet_other_selected',
+
+            'detail.business_detail_pet_type1_amount',
+            'detail.business_detail_pet_type2_amount',
+            'detail.business_detail_pet_type3_amount',
+            'detail.business_detail_pet_type4_amount',
+            'detail.business_detail_pet_type5_amount',
+            'detail.business_detail_pet_type6_amount',
+            'detail.business_detail_pet_other_amount',
+        ], 
+            function(newValues, oldValues, scope) {
+            let sum = 0
+            if($scope.detail.business_detail_pet_type1_selected) {
+                sum = sum + $scope.detail.business_detail_pet_type1_amount
+            }
+            if($scope.detail.business_detail_pet_type2_selected) {
+                sum = sum + $scope.detail.business_detail_pet_type2_amount
+            }
+            if($scope.detail.business_detail_pet_type3_selected) {
+                sum = sum + $scope.detail.business_detail_pet_type3_amount
+            }
+            if($scope.detail.business_detail_pet_type4_selected) {
+                sum = sum + $scope.detail.business_detail_pet_type4_amount
+            }
+            if($scope.detail.business_detail_pet_type5_selected) {
+                sum = sum + $scope.detail.business_detail_pet_type5_amount
+            }
+            if($scope.detail.business_detail_pet_type6_selected) {
+                sum = sum + $scope.detail.business_detail_pet_type6_amount
+            }
+            if($scope.detail.business_detail_pet_other_selected) {
+                sum = sum + $scope.detail.business_detail_pet_other_amount
+            }
+            $scope.detail.business_detail_pet_quantity = sum
+        })
+
         $scope.detail = {
             goal_id: '',
             goal_detail: '',
