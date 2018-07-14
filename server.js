@@ -774,9 +774,9 @@ api_routes.get('/pdf/:id/', permit_group(),function (req, res) {
                     },
                     status_matched: {
                         single: 'โสด',
-                        engaged: 'หมั่น',
+                        engaged: 'หมั้น',
                         maried: 'แต่งงาน',
-                        divorce: 'อย่า'
+                        divorce: 'หย่า'
                     }
                 })
                 pdf.create(renderedHtml, { "border": "5mm"}).toStream(function(err, stream){
@@ -852,9 +852,9 @@ api_routes.get('/pdf', function (req, res) {
                         },
                         status_matched: {
                             single: 'โสด',
-                            engaged: 'หมั่น',
+                            engaged: 'หมั้น',
                             maried: 'แต่งงาน',
-                            divorce: 'อย่า'
+                            divorce: 'หย่า'
                         },
                         customer_matched: {
                             key_account: 'key account',
@@ -888,9 +888,9 @@ api_routes.get('/pdf', function (req, res) {
                         },
                         status_matched: {
                             single: 'โสด',
-                            engaged: 'หมั่น',
+                            engaged: 'หมั้น',
                             maried: 'แต่งงาน',
-                            divorce: 'อย่า'
+                            divorce: 'หย่า'
                         },
                         customer_matched: {
                             key_account: 'key account',

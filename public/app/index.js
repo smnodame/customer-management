@@ -1185,9 +1185,9 @@ app.controller('customerInfoCtrl', [
 
         $scope.status_matched = {
             single: 'โสด',
-            engaged: 'หมั่น',
+            engaged: 'หมั้น',
             maried: 'แต่งงาน',
-            divorce: 'อย่า'
+            divorce: 'หย่า'
         }
 
         $scope.message_with_percent = (message) => {
