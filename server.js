@@ -117,7 +117,7 @@ const get_groups = (data) => {
         goal_detail: data.goal_detail,
         goal_file_name: data.goal_file_name
     }
-
+    
     const business_detail = {
         business_detail_id: data.business_detail_id,
         business_detail_pet_quantity: data.business_detail_pet_quantity,
