@@ -1076,6 +1076,26 @@ app.controller('editCustomerInfoCtrl', [
                 .then(response => console.log('Success:', response))
             }
 
+            if(typeof($scope.detail.business_detail_pet_file) != 'string') {
+                const file = $scope.detail.business_detail_pet_file
+                const filename = `${generate_id()}.${get_type_file(file.name)}`
+                $scope.detail.business_detail_pet_file = filename
+
+                const formData = new FormData()
+                formData.append('filename', filename)
+                formData.append('fileupload', file)
+                
+                fetch('/api/upload', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'x-access-token': localStorage.getItem("token")
+                    }
+                })
+                .then(response => response.json())
+                .catch(error => console.error('Error:', error))
+                .then(response => console.log('Success:', response))
+            }
 
             $http.put(`/api/customers/${$routeParams.id}`, { 
                 ...$scope.detail,
@@ -1090,6 +1110,49 @@ app.controller('editCustomerInfoCtrl', [
                 })
             })
         }
+
+        $scope.$watchGroup([
+            'detail.business_detail_pet_type1_selected',
+            'detail.business_detail_pet_type2_selected',
+            'detail.business_detail_pet_type3_selected',
+            'detail.business_detail_pet_type4_selected',
+            'detail.business_detail_pet_type5_selected',
+            'detail.business_detail_pet_type6_selected',
+            'detail.business_detail_pet_other_selected',
+
+            'detail.business_detail_pet_type1_amount',
+            'detail.business_detail_pet_type2_amount',
+            'detail.business_detail_pet_type3_amount',
+            'detail.business_detail_pet_type4_amount',
+            'detail.business_detail_pet_type5_amount',
+            'detail.business_detail_pet_type6_amount',
+            'detail.business_detail_pet_other_amount',
+        ], 
+            function(newValues, oldValues, scope) {
+            let sum = 0
+            if($scope.detail.business_detail_pet_type1_selected) {
+                sum = sum + $scope.detail.business_detail_pet_type1_amount
+            }
+            if($scope.detail.business_detail_pet_type2_selected) {
+                sum = sum + $scope.detail.business_detail_pet_type2_amount
+            }
+            if($scope.detail.business_detail_pet_type3_selected) {
+                sum = sum + $scope.detail.business_detail_pet_type3_amount
+            }
+            if($scope.detail.business_detail_pet_type4_selected) {
+                sum = sum + $scope.detail.business_detail_pet_type4_amount
+            }
+            if($scope.detail.business_detail_pet_type5_selected) {
+                sum = sum + $scope.detail.business_detail_pet_type5_amount
+            }
+            if($scope.detail.business_detail_pet_type6_selected) {
+                sum = sum + $scope.detail.business_detail_pet_type6_amount
+            }
+            if($scope.detail.business_detail_pet_other_selected) {
+                sum = sum + $scope.detail.business_detail_pet_other_amount
+            }
+            $scope.detail.business_detail_pet_quantity = sum
+        })
 
         $scope.on_create = () => {
             const available_group = $scope.available_group.map((r) => r.account_id)
@@ -1427,7 +1490,7 @@ app.controller('createCustomerInfoCtrl', [
         }) 
 
         /** logic code from step 1 - 5 */
-        $scope.step = 4
+        $scope.step = 1
         $scope.done = 1
 
         const next_step = () => {
