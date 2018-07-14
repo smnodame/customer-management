@@ -5,7 +5,39 @@
         <tbody>
             <tr>
                 <th style="width:20%">ปริมาณสัตว์เลี้ยง (ตัว)</th>
-                <td>{{ detail.business_detail_pet_quantity || '-' }}</td>
+                <td>{{ detail.business_detail_pet_quantity || '-' }} </td>
+            </tr>
+            <tr ng-if="detail.business_detail_pet_file">
+                <th style="width:20%; padding-left: 40px">เอกสารแนบ</th>
+                <td><a  href="{{ '/static/files/'+detail.business_detail_pet_file }}" target="_blank">Link</a></td>
+            </tr>
+            <tr ng-if="detail.business_detail_pet_type1_selected">
+                <th style="width:20%; padding-left: 40px">สุกรขุน</th>
+                <td>{{ detail.business_detail_pet_type1_amount || '0' }} ตัว</td>
+            </tr>
+            <tr ng-if="detail.business_detail_pet_type2_selected">
+                <th style="width:20%; padding-left: 40px">สุกรพันธุ์</th>
+                <td>{{ detail.business_detail_pet_type2_amount || '0' }} ตัว</td>
+            </tr>
+            <tr ng-if="detail.business_detail_pet_type3_selected">
+                <th style="width:20%; padding-left: 40px">ไก่ไข่</th>
+                <td>{{ detail.business_detail_pet_type3_amount || '0' }} ตัว</td>
+            </tr>
+            <tr ng-if="detail.business_detail_pet_type4_selected">
+                <th style="width:20%; padding-left: 40px">ไก่รุ่น</th>
+                <td>{{ detail.business_detail_pet_type4_amount || '0' }} ตัว</td>
+            </tr>
+            <tr ng-if="detail.business_detail_pet_type5_selected">
+                <th style="width:20%; padding-left: 40px">ไก่เนื้อ</th>
+                <td>{{ detail.business_detail_pet_type5_amount || '0' }} ตัว</td>
+            </tr>
+            <tr ng-if="detail.business_detail_pet_type6_selected">
+                <th style="width:20%; padding-left: 40px">เป็ดไข่</th>
+                <td>{{ detail.business_detail_pet_type6_amount || '0' }} ตัว</td>
+            </tr>
+            <tr ng-if="detail.business_detail_pet_other_selected">
+                <th style="width:20%; padding-left: 40px">อื่นๆ</th>
+                <td>{{ detail.business_detail_pet_other_detail + ' ' + (detail.business_detail_pet_other_amount || '0') }} ตัว</td>
             </tr>
             <tr>
                 <th>อัตราการแลกเนื้อ, อัตราการให้ไข่ (%)</th>
