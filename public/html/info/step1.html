@@ -38,6 +38,10 @@
                 <td>{{ detail.business_type || '-' }}</td>
             </tr>
             <tr>
+                <th>ประเภทลูกค้า</th>
+                <td>{{ detail.business_customer_type.replace('_', ' ') || '-' }}</td>
+            </tr>
+            <tr>
                 <th>grade</th>
                 <td>{{ detail.business_grade || '-' }}</td>
             </tr>

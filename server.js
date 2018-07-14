@@ -856,6 +856,10 @@ api_routes.get('/pdf', function (req, res) {
                             maried: 'แต่งงาน',
                             divorce: 'อย่า'
                         },
+                        customer_matched: {
+                            key_account: 'key account',
+                            general_account: 'general account'
+                        },
                         childs: []
                     })
                     pdf.create(renderedHtml, { "border": "5mm"}).toStream(function(err, stream){
@@ -887,6 +891,10 @@ api_routes.get('/pdf', function (req, res) {
                             engaged: 'หมั่น',
                             maried: 'แต่งงาน',
                             divorce: 'อย่า'
+                        },
+                        customer_matched: {
+                            key_account: 'key account',
+                            general_account: 'general account'
                         }
                     })
                     pdf.create(renderedHtml, { "border": "5mm"}).toStream(function(err, stream){

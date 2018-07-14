@@ -53,6 +53,10 @@
                         <td>{{ detail.business_type if detail.business_type else "-" }}</td>
                     </tr>
                     <tr>
+                        <th>ประเภทลูกค้า</th>
+                        <td>{{ detail.business_customer_type.replace('_', ' ') if detail.business_customer_type else "-" }}</td>
+                    </tr>
+                    <tr>
                         <th>grade</th>
                         <td>{{ detail.business_grade if detail.business_grade else "-"  }}</td>
                     </tr>
