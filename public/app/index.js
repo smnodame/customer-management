@@ -1690,6 +1690,7 @@ app.controller('createCustomerInfoCtrl', [
             business_type: 'นิติบุคคล',
             business_logo_file: '',
             business_telephone: '',
+            business_customer_type: 'key_account',
 
             child_additional: []
         }

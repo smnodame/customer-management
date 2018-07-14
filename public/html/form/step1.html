@@ -79,6 +79,19 @@
                 </div>
             </div>
             <div class="form-group" style="margin-bottom: 15px;">
+                <label class="control-label col-md-2 col-sm-3 col-xs-12">ประเภทลูกค้า <span class="required">*</span> </label>
+                <div class="col-md-6 col-sm-7 col-xs-12">
+                    <div id="customer-type" class="btn-group">
+                        <label class="btn btn-default" data-toggle-class="btn-primary" style="padding-left: 0px" ng-class="{ 'btn-primary': detail.business_customer_type == 'key_account'}"data-toggle-passive-class="btn-default">
+                            <input type="radio" data-ng-model="detail.business_customer_type" style="visibility: hidden" name="customer-type" value="key_account"> &nbsp; Key account &nbsp;
+                        </label>
+                        <label class="btn btn-default" data-toggle-class="btn-primary" style="padding-left: 0px" ng-class="{ 'btn-primary': detail.business_customer_type == 'general_account'}" data-toggle-passive-class="btn-default">
+                            <input type="radio" data-ng-model="detail.business_customer_type" style="visibility: hidden" name="customer-type" value="general_account"> General account
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" style="margin-bottom: 15px;">
                 <label class="control-label col-md-2 col-sm-3 col-xs-12">ประเภทธุรกิจ <span class="required">*</span> </label>
                 <div class="col-md-6 col-sm-7 col-xs-12">
                     <div id="customer-type" class="btn-group">

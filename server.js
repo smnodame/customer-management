@@ -41,12 +41,22 @@ app.use('/static', express.static(path.join(__dirname, 'public')))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
+// const db_config = {
+//     host     : 'smnodame.com',
+//     port     : '3306',
+//     user     : 'smnodameco_cpf',
+//     password : 'secret',
+//     database : 'smnodameco_cpf',
+//     multipleStatements : true,
+//     charset: "utf8_general_ci"
+// }
+
 const db_config = {
-    host     : 'smnodame.com',
+    host     : 'localhost',
     port     : '3306',
-    user     : 'smnodameco_cpf',
-    password : 'secret',
-    database : 'smnodameco_cpf',
+    user     : 'root',
+    password : '',
+    database : 'customer_management_db',
     multipleStatements : true,
     charset: "utf8_general_ci"
 }
@@ -90,6 +100,7 @@ const get_account = (data) => {
         account_last_name: data.account_last_name,
         account_first_name: data.account_first_name,
         account_photo_path: data.account_photo_path,
+        business_customer_type: data.business_customer_type,
         account_updated: new Date()
     }
     if(data.account_password) {
@@ -176,6 +187,7 @@ const get_groups = (data) => {
         business_type: data.business_type,
         business_telephone: data.business_telephone,
         business_logo_file: data.business_logo_file,
+        business_customer_type: data.business_customer_type,
         updated_date: new Date()
     }
 
