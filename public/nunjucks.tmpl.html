@@ -220,6 +220,50 @@
                                 <th style="width:60%">ปริมาณสัตว์เลี้ยง (ตัว)</th>
                                 <td>{{ detail.business_detail_pet_quantity if detail.business_detail_pet_quantity else '-' }}</td>
                             </tr>
+
+                            {% if detail.business_detail_pet_type1_selected %}
+                                <tr>
+                                    <th style="width:60%; padding-left: 20px">สุกรขุน (ตัว)</th>
+                                    <td>{{ detail.business_detail_pet_type1_amount if detail.business_detail_pet_type1_amount else '0' }} </td>
+                                </tr>
+                            {% endif %}
+                            {% if detail.business_detail_pet_type2_selected %}
+                            <tr>
+                                <th style="width:60%; padding-left: 20px">สุกรพันธุ์ (ตัว)</th>
+                                <td>{{ detail.business_detail_pet_type2_amount if detail.business_detail_pet_type2_amount else '0' }} </td>
+                            </tr>
+                            {% endif %}
+                            {% if detail.business_detail_pet_type3_selected %}
+                            <tr>
+                                <th style="width:60%; padding-left: 20px">ไก่ไข่ (ตัว)</th>
+                                <td>{{ detail.business_detail_pet_type3_amount if detail.business_detail_pet_type3_amount else '0' }} </td>
+                            </tr>
+                            {% endif %}
+                            {% if detail.business_detail_pet_type4_selected %}
+                            <tr>
+                                <th style="width:60%; padding-left: 20px">ไก่รุ่น (ตัว)</th>
+                                <td>{{ detail.business_detail_pet_type4_amount if detail.business_detail_pet_type4_amount else '0' }} </td>
+                            </tr>
+                            {% endif %}
+                            {% if detail.business_detail_pet_type5_selected %}
+                            <tr>
+                                <th style="width:60%; padding-left: 20px">ไก่เนื้อ (ตัว)</th>
+                                <td>{{ detail.business_detail_pet_type5_amount if detail.business_detail_pet_type5_amount else '0' }} </td>
+                            </tr>
+                            {% endif %}
+                            {% if detail.business_detail_pet_type6_selected %}
+                            <tr>
+                                <th style="width:60%; padding-left: 20px">เป็ดไข่ (ตัว)</th>
+                                <td>{{ detail.business_detail_pet_type6_amount if detail.business_detail_pet_type6_amount else '0' }} </td>
+                            </tr>
+                            {% endif %}
+                            {% if detail.business_detail_pet_other_selected %}
+                            <tr>
+                                <th style="width:60%; padding-left: 20px">อื่นๆ (ตัว)</th>
+                                <td>{{ (detail.business_detail_pet_other_detail if detail.business_detail_pet_other_detail else '') + ' ' + detail.business_detail_pet_other_amount }} </td>
+                            </tr>
+                            {% endif %}
+
                             <tr>
                                 <th>อัตราการแลกเนื้อ, ให้ไข่ (%)</th>
                                 <td>{{ detail.business_detail_meat_exchange_rate + ' %' if detail.business_detail_meat_exchange_rate else '-' }}</td>
