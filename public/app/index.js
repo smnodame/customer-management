@@ -1561,6 +1561,27 @@ app.controller('createCustomerInfoCtrl', [
                 .then(response => console.log('Success:', response))
             }
 
+            if($scope.detail.business_detail_pet_file) {
+                const file = $scope.detail.business_detail_pet_file
+                const filename = `${generate_id()}.${get_type_file(file.name)}`
+                $scope.detail.business_detail_pet_file = filename
+
+                const formData = new FormData()
+                formData.append('filename', filename)
+                formData.append('fileupload', file)
+                
+                fetch('/api/upload', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'x-access-token': localStorage.getItem("token")
+                    }
+                })
+                .then(response => response.json())
+                .catch(error => console.error('Error:', error))
+                .then(response => console.log('Success:', response))
+            }
+
             const data = {
                 ...$scope.detail,
                 users: $scope.chosen_group.map((user) => ({
@@ -1672,7 +1693,7 @@ app.controller('createCustomerInfoCtrl', [
 
             business_detail_id: '',
             business_detail_pet_quantity: 0,
-            business_detail_pet_file_path: '',
+            business_detail_pet_file: '',
             business_detail_pet_type1_amount: 0,
             business_detail_pet_type1_selected: false,
             business_detail_pet_type2_amount: 0,
