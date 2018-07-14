@@ -1672,7 +1672,7 @@ app.controller('createCustomerInfoCtrl', [
 
             business_detail_id: '',
             business_detail_pet_quantity: 0,
-
+            business_detail_pet_file_path: '',
             business_detail_pet_type1_amount: 0,
             business_detail_pet_type1_selected: false,
             business_detail_pet_type2_amount: 0,
@@ -1688,7 +1688,6 @@ app.controller('createCustomerInfoCtrl', [
             business_detail_pet_other_amount: 0,
             business_detail_pet_other_detail: '',
             business_detail_pet_other_selected: false,
-
             business_detail_meat_exchange_rate: '',
             business_detail_sixness_rate: '',
             business_detail_cpf_product_usage_rate: '',
