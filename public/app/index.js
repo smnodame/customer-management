@@ -1490,7 +1490,7 @@ app.controller('createCustomerInfoCtrl', [
         }) 
 
         /** logic code from step 1 - 5 */
-        $scope.step = 1
+        $scope.step = 4
         $scope.done = 1
 
         const next_step = () => {
@@ -1772,6 +1772,24 @@ app.controller('createCustomerInfoCtrl', [
             business_detail_pet_other_amount: 0,
             business_detail_pet_other_detail: '',
             business_detail_pet_other_selected: false,
+
+            business_detail_type1_fcr: 0,
+            business_detail_type1_adg: 0,
+            business_detail_type1_die_rate: 0,
+            business_detail_type1_sick_rate: 0,
+
+            business_detail_type2_born_rate: 0,
+            business_detail_type2_die_rate: 0,
+            business_detail_type2_sick_rate: 0,
+
+            business_detail_type3_egg_rate: 0,
+            business_detail_type3_die_rate: 0,
+            business_detail_type3_sick_rate: 0,
+
+            business_detail_type4_fcr: 0,
+            business_detail_type4_die_rate: 0,
+            business_detail_type4_sick_rate: 0,
+
             business_detail_cpf_product_usage_rate: '',
             business_detail_other_product_usage_rate: '',
             business_detail_sales_chanels_for_cpf: '',
