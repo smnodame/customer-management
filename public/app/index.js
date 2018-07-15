@@ -1490,7 +1490,7 @@ app.controller('createCustomerInfoCtrl', [
         }) 
 
         /** logic code from step 1 - 5 */
-        $scope.step = 4
+        $scope.step = 1
         $scope.done = 1
 
         const next_step = () => {

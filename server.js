@@ -137,13 +137,31 @@ const get_groups = (data) => {
         business_detail_pet_other_amount: data.business_detail_pet_other_amount,
         business_detail_pet_other_detail: data.business_detail_pet_other_detail,
         business_detail_pet_other_selected: data.business_detail_pet_other_selected,
+
+        business_detail_type1_fcr: data.business_detail_type1_fcr,
+        business_detail_type1_adg: data.business_detail_type1_adg,
+        business_detail_type1_die_rate: data.business_detail_type1_die_rate,
+        business_detail_type1_sick_rate: data.business_detail_type1_sick_rate,
+
+        business_detail_type2_born_rate: data.business_detail_type2_born_rate,
+        business_detail_type2_die_rate: data.business_detail_type2_die_rate,
+        business_detail_type2_sick_rate: data.business_detail_type2_sick_rate,
+
+        business_detail_type3_egg_rate: data.business_detail_type3_egg_rate,
+        business_detail_type3_die_rate: data.business_detail_type3_die_rate,
+        business_detail_type3_sick_rate: data.business_detail_type3_sick_rate,
+
+        business_detail_type4_fcr: data.business_detail_type4_fcr,
+        business_detail_type4_die_rate: data.business_detail_type4_die_rate,
+        business_detail_type4_sick_rate: data.business_detail_type4_sick_rate,
+
         business_detail_cpf_product_usage_rate: data.business_detail_cpf_product_usage_rate,
         business_detail_other_product_usage_rate: data.business_detail_other_product_usage_rate,
         business_detail_sales_chanels_for_cpf: data.business_detail_sales_chanels_for_cpf,
         business_detail_sales_chanels_for_other: data.business_detail_sales_chanels_for_other,
         business_detail_number_of_workers: data.business_detail_number_of_workers,
+        business_detail_competitor: data.business_detail_competitor,
         business_detail_market_condition_and_solutions: data.business_detail_market_condition_and_solutions,
-        business_detail_mortality_rate: data.business_detail_mortality_rate,
         business_detail_file: data.business_detail_file
     }
     
