@@ -39,6 +39,90 @@
                 <th style="width:20%; padding-left: 40px">อื่นๆ</th>
                 <td>{{ detail.business_detail_pet_other_detail + ' ' + (detail.business_detail_pet_other_amount || '0') }} ตัว</td>
             </tr>
+           
+
+
+
+            <tr>
+                <th style="width:20%">ประสิทธิภาพการเลี้ยง</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th style="width:20%; padding-left: 40px">* สุกรขุน</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th style="width:20%; padding-left: 55px">- FCR (%)</th>
+                <td>{{ detail.business_detail_type1_fcr || '0' }} </td>
+            </tr>
+            <tr>
+                <th style="width:20%; padding-left: 55px">- ADG (%)</th>
+                <td>{{ detail.business_detail_type1_adg || '0' }} </td>
+            </tr>
+            <tr>
+                <th style="width:20%; padding-left: 55px">- อัตราการตาย (%)</th>
+                <td>{{ detail.business_detail_type1_die_rate || '0' }} </td>
+            </tr>
+            <tr>
+                <th style="width:20%; padding-left: 55px">- อัตราการป่วย (%)</th>
+                <td>{{ detail.business_detail_type1_sick_rate || '0' }} </td>
+            </tr>
+
+            <tr>
+                <th style="width:20%; padding-left: 40px">* สุกรพันธุ์</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th style="width:20%; padding-left: 55px">- อัตราการให้ลูก/แม่ ต่อป๊</th>
+                <td>{{ detail.business_detail_type2_born_rate || '0' }} </td>
+            </tr>
+            <tr>
+                <th style="width:20%; padding-left: 55px">- อัตราการตาย (%)</th>
+                <td>{{ detail.business_detail_type2_die_rate || '0' }} </td>
+            </tr>
+            <tr>
+                <th style="width:20%; padding-left: 55px">- อัตราการป่วย (%)</th>
+                <td>{{ detail.business_detail_type2_sick_rate || '0' }} </td>
+            </tr>
+           
+            <tr>
+                <th style="width:20%; padding-left: 40px">* ไก่ไข่/เป็ดไข่</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th style="width:20%; padding-left: 55px">- อัตราการให้ไข่ (%)</th>
+                <td>{{ detail.business_detail_type3_egg_rate || '0' }} </td>
+            </tr>
+            <tr>
+                <th style="width:20%; padding-left: 55px">- อัตราการตาย (%)</th>
+                <td>{{ detail.business_detail_type3_die_rate || '0' }} </td>
+            </tr>
+            <tr>
+                <th style="width:20%; padding-left: 55px">- อัตราการป่วย (%)</th>
+                <td>{{ detail.business_detail_type3_sick_rate || '0' }} </td>
+            </tr>
+
+            <tr>
+                <th style="width:20%; padding-left: 40px">* ไก่เนื้อ</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th style="width:20%; padding-left: 55px">- FCR (%)</th>
+                <td>{{ detail.business_detail_type4_fcr || '0' }} </td>
+            </tr>
+            <tr>
+                <th style="width:20%; padding-left: 55px">- อัตราการตาย (%)</th>
+                <td>{{ detail.business_detail_type4_die_rate || '0' }} </td>
+            </tr>
+            <tr>
+                <th style="width:20%; padding-left: 55px">- อัตราการป่วย (%)</th>
+                <td>{{ detail.business_detail_type4_sick_rate || '0' }} </td>
+            </tr>
+
+
+
+
+
             <tr>
                 <th>อัตราการใช้ผลิตภัณฑ์ CPF (%)</th>
                 <td>{{ message_with_percent(detail.business_detail_cpf_product_usage_rate) || '-' }}</td>
