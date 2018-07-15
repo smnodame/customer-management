@@ -263,19 +263,6 @@
                                 <td>{{ (detail.business_detail_pet_other_detail if detail.business_detail_pet_other_detail else '') + ' ' + detail.business_detail_pet_other_amount }} </td>
                             </tr>
                             {% endif %}
-
-                            <tr>
-                                <th>อัตราการแลกเนื้อ, ให้ไข่ (%)</th>
-                                <td>{{ detail.business_detail_meat_exchange_rate + ' %' if detail.business_detail_meat_exchange_rate else '-' }}</td>
-                            </tr>
-                            <tr>
-                                <th>อัตราการป่วย (%)</th>
-                                <td>{{ detail.business_detail_sixness_rate + ' %' if detail.business_detail_sixness_rate else '-' }}</td>
-                            </tr>
-                            <tr>
-                                <th>อัตราการตาย (%)</th>
-                                <td>{{ detail.business_detail_mortality_rate + ' %' if detail.business_detail_mortality_rate else '-' }}</td>
-                            </tr>
                             <tr>
                                 <th>อัตราการใช้ผลิตภัณฑ์ CPF (%)</th>
                                 <td>{{ detail.business_detail_cpf_product_usage_rate + ' %' if detail.business_detail_cpf_product_usage_rate else '-' }}</td>

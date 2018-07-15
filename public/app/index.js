@@ -1772,8 +1772,6 @@ app.controller('createCustomerInfoCtrl', [
             business_detail_pet_other_amount: 0,
             business_detail_pet_other_detail: '',
             business_detail_pet_other_selected: false,
-            business_detail_meat_exchange_rate: '',
-            business_detail_sixness_rate: '',
             business_detail_cpf_product_usage_rate: '',
             business_detail_other_product_usage_rate: '',
             business_detail_sales_chanels_for_cpf: '',
@@ -1781,7 +1779,6 @@ app.controller('createCustomerInfoCtrl', [
             business_detail_number_of_workers: '',
             business_detail_competitor: '',
             business_detail_market_condition_and_solutions: '',
-            business_detail_mortality_rate: '',
             business_detail_file: '',
             
             executive_profile_id: '',

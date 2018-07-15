@@ -40,18 +40,6 @@
                 <td>{{ detail.business_detail_pet_other_detail + ' ' + (detail.business_detail_pet_other_amount || '0') }} ตัว</td>
             </tr>
             <tr>
-                <th>อัตราการแลกเนื้อ, อัตราการให้ไข่ (%)</th>
-                <td>{{ message_with_percent(detail.business_detail_meat_exchange_rate) || '-' }}</td>
-            </tr>
-            <tr>
-                <th>อัตราการป่วย (%)</th>
-                <td>{{ message_with_percent(detail.business_detail_sixness_rate) || '-' }}</td>
-            </tr>
-            <tr>
-                <th>อัตราการตาย (%)</th>
-                <td>{{ message_with_percent(detail.business_detail_mortality_rate) || '-' }}</td>
-            </tr>
-            <tr>
                 <th>อัตราการใช้ผลิตภัณฑ์ CPF (%)</th>
                 <td>{{ message_with_percent(detail.business_detail_cpf_product_usage_rate) || '-' }}</td>
             </tr>
