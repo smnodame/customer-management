@@ -41,25 +41,25 @@ app.use('/static', express.static(path.join(__dirname, 'public')))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-// const db_config = {
-//     host     : 'smnodame.com',
-//     port     : '3306',
-//     user     : 'smnodameco_cpf',
-//     password : 'secret',
-//     database : 'smnodameco_cpf',
-//     multipleStatements : true,
-//     charset: "utf8_general_ci"
-// }
-
 const db_config = {
-    host     : 'localhost',
+    host     : 'smnodame.com',
     port     : '3306',
-    user     : 'root',
-    password : '',
-    database : 'customer_management_db',
+    user     : 'smnodameco_cpf',
+    password : 'secret',
+    database : 'smnodameco_cpf',
     multipleStatements : true,
     charset: "utf8_general_ci"
 }
+
+// const db_config = {
+//     host     : 'localhost',
+//     port     : '3306',
+//     user     : 'root',
+//     password : '',
+//     database : 'customer_management_db',
+//     multipleStatements : true,
+//     charset: "utf8_general_ci"
+// }
 
 var connection = null
 
