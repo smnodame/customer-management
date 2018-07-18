@@ -1076,6 +1076,27 @@ app.controller('editCustomerInfoCtrl', [
                 .then(response => console.log('Success:', response))
             }
 
+            if(typeof($scope.detail.financial_information_cpf_feed_purchase_file) != 'string') {
+                const file = $scope.detail.financial_information_cpf_feed_purchase_file
+                const filename = `${generate_id()}.${get_type_file(file.name)}`
+                $scope.detail.financial_information_cpf_feed_purchase_file = filename
+
+                const formData = new FormData()
+                formData.append('filename', filename)
+                formData.append('fileupload', file)
+                
+                fetch('/api/upload', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'x-access-token': localStorage.getItem("token")
+                    }
+                })
+                .then(response => response.json())
+                .catch(error => console.error('Error:', error))
+                .then(response => console.log('Success:', response))
+            }
+
             if(typeof($scope.detail.business_detail_pet_file) != 'string') {
                 const file = $scope.detail.business_detail_pet_file
                 const filename = `${generate_id()}.${get_type_file(file.name)}`
@@ -1645,6 +1666,27 @@ app.controller('createCustomerInfoCtrl', [
                 .then(response => console.log('Success:', response))
             }
 
+            if($scope.detail.financial_information_cpf_feed_purchase_file) {
+                const file = $scope.detail.financial_information_cpf_feed_purchase_file
+                const filename = `${generate_id()}.${get_type_file(file.name)}`
+                $scope.detail.financial_information_cpf_feed_purchase_file = filename
+
+                const formData = new FormData()
+                formData.append('filename', filename)
+                formData.append('fileupload', file)
+                
+                fetch('/api/upload', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'x-access-token': localStorage.getItem("token")
+                    }
+                })
+                .then(response => response.json())
+                .catch(error => console.error('Error:', error))
+                .then(response => console.log('Success:', response))
+            }
+
             const data = {
                 ...$scope.detail,
                 users: $scope.chosen_group.map((user) => ({
@@ -1835,6 +1877,7 @@ app.controller('createCustomerInfoCtrl', [
             financial_information_main_revenue: '',
             financial_information_other_income: '',
             financial_information_cpf_feed_purchase: '',
+            financial_information_cpf_feed_purchase_file: '',
             financial_information_other_feed_purchase: '',
             financial_information_breeding_grounds: '',
             financial_information_price_of_animals: '',
