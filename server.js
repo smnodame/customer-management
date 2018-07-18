@@ -203,6 +203,7 @@ const get_groups = (data) => {
         financial_information_main_revenue: data.financial_information_main_revenue,
         financial_information_other_income: data.financial_information_other_income,
         financial_information_cpf_feed_purchase: data.financial_information_cpf_feed_purchase,
+        financial_information_cpf_feed_purchase_file: data.financial_information_cpf_feed_purchase_file,
         financial_information_other_feed_purchase: data.financial_information_other_feed_purchase,
         financial_information_breeding_grounds: data.financial_information_breeding_grounds,
         financial_information_price_of_animals: data.financial_information_price_of_animals,

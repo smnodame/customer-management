@@ -51,6 +51,10 @@
                 <th>ยอดการซื้ออาหารสัตว์ CPF</th>
                 <td>{{ detail.financial_information_cpf_feed_purchase || '-' }}</td>
             </tr>
+            <tr ng-if="detail.financial_information_cpf_feed_purchase_file">
+                <th style="padding-left: 40px">เอกสารแนบ</th>
+                <td><a  href="{{ '/static/files/'+detail.financial_information_cpf_feed_purchase_file }}" target="_blank">Link</a></td>
+            </tr>
             <tr>
                 <th>ยอดการซื้ออาหารสัตว์คู่แข่งขัน</th>
                 <td>{{ detail.financial_information_other_feed_purchase || '-' }}</td>
