@@ -100,7 +100,6 @@ const get_account = (data) => {
         account_last_name: data.account_last_name,
         account_first_name: data.account_first_name,
         account_photo_path: data.account_photo_path,
-        business_customer_type: data.business_customer_type,
         account_updated: new Date()
     }
     if(data.account_password) {
@@ -553,9 +552,11 @@ api_routes.post('/account', function(req, res) {
     try {
         const data = req.body
         const account = get_account(data)
-
         connection.query(query_service.account.insert(account), account, function (err, rows, fields) {
-            if (err) { res.status(500).send({ success: false }); return }
+            if (err) { 
+                res.status(500).send({ success: false }); 
+                return 
+            }
             res.status(200).send({
                 success: true
             })
