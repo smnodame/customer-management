@@ -1338,7 +1338,7 @@ app.controller('customersCtrl', [
                         customer.business_name,
                         customer.business_grade,
                         customer.business_type,
-                        customer.business_telephone,
+                        $scope.get_label_customer_type(customer.business_customer_type),
                         customer.business_region,
                         customer.executive_profile_name,
                         customer.business_detail_pet_quantity,
@@ -1350,6 +1350,10 @@ app.controller('customersCtrl', [
                 compileFn($scope)
             })
         }  
+
+        $scope.get_label_customer_type = (business_customer_type) => {
+            return business_customer_type == 'key_account'? 'Key account' : 'General account'
+        }
 
         $scope.init_query = () => {
             $scope.query = ''
