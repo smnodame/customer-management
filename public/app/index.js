@@ -1315,7 +1315,7 @@ app.controller('customersCtrl', [
         }
 
         $scope.create_pdf_all = () => {
-            const url = `/api/pdf?query=${$scope.query}&business_type=${$scope.business_type}&business_grade=${$scope.business_grade}&amount_of_pets_min=${$scope.amount_of_pets_min}&amount_of_pets_max=${$scope.amount_of_pets_max}&business_region=${$scope.business_region}&token=${token}`
+            const url = `/api/pdf?query=${$scope.query}&business_customer_type=${$scope.business_customer_type}&business_type=${$scope.business_type}&business_grade=${$scope.business_grade}&amount_of_pets_min=${$scope.amount_of_pets_min}&amount_of_pets_max=${$scope.amount_of_pets_max}&business_region=${$scope.business_region}&token=${token}`
             window.open(url, '_blank')
         }
 
@@ -1323,7 +1323,7 @@ app.controller('customersCtrl', [
             tables.clear()
             .draw()
 
-            return $http.get(`/api/customers?query=${$scope.query}&business_type=${$scope.business_type}&business_grade=${$scope.business_grade}&amount_of_pets_min=${$scope.amount_of_pets_min}&amount_of_pets_max=${$scope.amount_of_pets_max}&business_region=${$scope.business_region}`).then((res) => {
+            return $http.get(`/api/customers?query=${$scope.query}&business_customer_type=${$scope.business_customer_type}&business_type=${$scope.business_type}&business_grade=${$scope.business_grade}&amount_of_pets_min=${$scope.amount_of_pets_min}&amount_of_pets_max=${$scope.amount_of_pets_max}&business_region=${$scope.business_region}`).then((res) => {
                 res.data.forEach((customer) => {
                     const image = customer.business_logo_file? `/static/files/${customer.business_logo_file}` : '/static/images/user.png'
                     tables.row.add( [
@@ -1358,6 +1358,7 @@ app.controller('customersCtrl', [
             $scope.amount_of_pets_min = ''
             $scope.amount_of_pets_max = ''
             $scope.business_region = ''
+            $scope.business_customer_type = ''
             get_customers()
         }
 

@@ -422,6 +422,9 @@ api_routes.get('/customers', function(req, res) {
     if(req.query.amount_of_pets_max) {
         query.push(` business_detail_pet_quantity <= ${req.query.amount_of_pets_max} `)
     }
+    if(req.query.business_customer_type) {
+        query.push(` business_customer_type = '${req.query.business_customer_type}' `)
+    }
     /** is not superuser */
     if(req.decoded.account_position != 'admin') {
         query.push(` account_id = '${req.decoded.account_id}' `)
