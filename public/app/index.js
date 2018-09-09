@@ -22,35 +22,35 @@ app.config(function($routeProvider, $httpProvider) {
 
     $routeProvider
     .when("/", {
-        templateUrl : "static/html/customers.html",
+        templateUrl : "api/static/html/customers.html",
         controller: 'customersCtrl'
     })
     .when("/customer/create", {
-        templateUrl : "static/html/home.html",
+        templateUrl : "api/static/html/home.html",
         controller: 'createCustomerInfoCtrl'
     })
     .when("/customer", {
-        templateUrl : "static/html/customers.html",
+        templateUrl : "api/static/html/customers.html",
         controller: 'customersCtrl'
     })
     .when("/customer/:id/edit", {
-        templateUrl: "static/html/customerEdit.html",
+        templateUrl: "api/static/html/customerEdit.html",
         controller: 'editCustomerInfoCtrl'
     })
     .when("/customer/:id", {
-        templateUrl : "static/html/customerInfo.html",
+        templateUrl : "api/static/html/customerInfo.html",
         controller: 'customerInfoCtrl'
     })
     .when("/user", {
-        templateUrl : 'static/html/user.html',
+        templateUrl : 'api/static/html/user.html',
         controller: 'userCtrl'
     })
     .when("/user/create", {
-        templateUrl : 'static/html/userCreate.html',
+        templateUrl : 'api/static/html/userCreate.html',
         controller: 'userCreateCtrl'
     })
     .when("/user/:id/edit", {
-        templateUrl : 'static/html/userCreate.html',
+        templateUrl : 'api/static/html/userCreate.html',
         controller: 'userEditCtrl'
     })
     .otherwise({redirectTo : '/'})

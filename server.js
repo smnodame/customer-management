@@ -961,6 +961,8 @@ api_routes.post('/upload', upload.single('fileupload'), (req, res) => {
     })
 })
 
+api_routes.use('/static', express.static(path.join(__dirname, 'authen-static')))
+
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html')
 })
