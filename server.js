@@ -7,6 +7,7 @@ const mysql = require('mysql')
 const pdf = require('html-pdf')
 const multer  = require('multer')
 const morgan = require('morgan')
+const rateLimit = require("express-rate-limit")
 
 var storage = multer.diskStorage({
 	destination: function(req, file, callback) {
@@ -303,7 +304,13 @@ const query_service = {
     }
 }
 
-api_routes.post('/signin', function(req, res) {
+var createAccountLimiter = rateLimit({
+    windowMs: 5 * 60 * 1000, // 1 hour window
+    max: 5, // start blocking after 5 requests
+    message: "You have tried to login with wrong account for 5 times, Please try again after 5 minutes"
+})
+
+api_routes.post('/signin', createAccountLimiter, function(req, res) {
     try {
         const data = {
             account_email: req.body.username

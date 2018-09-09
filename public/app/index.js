@@ -138,7 +138,9 @@ app.controller('loginCtrl', ['$scope', '$timeout', '$http', ($scope, $timeout, $
                 $scope.password = ""
                 $scope.error = res.data.message
             }
-            
+        }, (err) => {
+            $scope.password = ""
+            $scope.error = err.data
         })
     }
 }])
