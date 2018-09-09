@@ -307,7 +307,7 @@ const query_service = {
 var createAccountLimiter = rateLimit({
     windowMs: 5 * 60 * 1000, // 1 hour window
     max: 5, // start blocking after 5 requests
-    message: "You have tried to login with wrong account for 5 times, Please try again after 5 minutes"
+    message: "You have reached the maximum number of invalid logon attempts, Please try again after 5 minutes"
 })
 
 api_routes.post('/signin', createAccountLimiter, function(req, res) {
