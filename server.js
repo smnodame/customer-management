@@ -983,7 +983,10 @@ var certificate = fs.readFileSync('certificate.pem').toString()
 
 var sslOptions = {
     key: privateKey,
-    cert: certificate
+    cert: certificate,
+    rejectUnauthorized: false,
+    requestCert: true,
+    agent: false
 }
 
 https.createServer(sslOptions, app).listen(PORT)
