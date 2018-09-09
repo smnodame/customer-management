@@ -59,25 +59,25 @@ app.config(function($routeProvider, $httpProvider) {
 function validatePassword(p) {
     errors = [];
     if (p.length < 8) {
-        errors.push("Your password must be at least 8 characters"); 
+        errors.push("- Password ต้องประกอบไปด้วยอักษรอย่างน้อย 8 ตัว"); 
     }
     if (p.search(/[a-z]/) < 0) {
-        errors.push("Your password must contain at least one letter.");
+        errors.push("- Password ต้องประกอบไปด้วยตัวอักษรพิมพ์เล็กอย่างน้อย 1 ตัว");
     }
     if (p.search(/[A-Z]/) < 0) {
-        errors.push("Your password must contain at least one upper case letter.");
+        errors.push("- Password ต้องประกอบไปด้วยตัวอักษรพิมพ์ใหญ่อย่างน้อย 1 ตัว");
     }
     if (p.search(/[0-9]/) < 0) {
-        errors.push("Your password must contain at least one digit."); 
+        errors.push("- Password ต้องประกอบไปด้วยตัวเลขอย่างน้อย 1 ตัว"); 
     }
-    if (p.search(/[!@#$%^&*._]/) < 0) {
-        errors.push("Your password must contain at least one special charactor."); 
+    if (p.search(/[!@#$%^&*._]/) < 0) { 
+        errors.push("- Password ต้องประกอบไปด้วย Special charactor 1 ตัว เช่น !@#$%^&*._"); 
     }
     if (errors.length > 0) {
         
         return {
             correct: false,
-            message: errors.join("\n")
+            message: errors.join("<br/>")
         }
     }
     return {
@@ -174,8 +174,8 @@ function getBase64(file, callback) {
 }
 
 app.controller('userEditCtrl', [
-    '$scope', '$location', '$route', '$rootScope', '$routeParams', '$http', '$compile',
-    function($scope, $location, $route, $rootScope, $routeParams, $http, $compile) {
+    '$scope', '$location', '$route', '$rootScope', '$routeParams', '$http', '$compile', '$sce',
+    function($scope, $location, $route, $rootScope, $routeParams, $http, $compile, $sce) {
         $scope.selected_available_group = []
         $scope.selected_chosen_group = []
 
@@ -451,7 +451,7 @@ app.controller('userEditCtrl', [
                             })
                             $scope.error = ''
                         } else {
-                            $scope.error = message
+                            $scope.error = $sce.trustAsHtml(message)
                         }
                     } else {
                         $scope.error = 'อีเมล์ถูกใช้ไปแเล้ว กรุณาเลือกใช้อีเมล์อื่น'
@@ -496,8 +496,8 @@ app.controller('userEditCtrl', [
 ])
 
 app.controller('userCreateCtrl', [
-    '$scope', '$location', '$route', '$rootScope', '$routeParams', '$http',
-    function($scope, $location, $route, $rootScope, $routeParams, $http) {
+    '$scope', '$location', '$route', '$rootScope', '$routeParams', '$http', '$sce',
+    function($scope, $location, $route, $rootScope, $routeParams, $http, $sce) {
         $scope.selected_available_group = []
         $scope.selected_chosen_group = []
 
@@ -590,7 +590,7 @@ app.controller('userCreateCtrl', [
                                 $scope.error = 'password เเละ confirm password ไม่ถูกต้อง'
                             }
                         } else {
-                            $scope.error = message
+                            $scope.error = $sce.trustAsHtml(message)
                         }
                     } else {
                         $scope.error = 'อีเมล์ถูกใช้ไปแเล้ว กรุณาเลือกใช้อีเมล์อื่น'

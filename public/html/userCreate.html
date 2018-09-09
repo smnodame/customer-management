@@ -126,7 +126,7 @@
                                   
                                   <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 23px">
                                       <hr />
-                                    <p style="color: red">{{ error }}</p>
+                                    <p style="color: red" ng-bind-html="error"></p>
                                     <a href="/#!/user" class="btn btn-primary" ng-hide="!is_superuser && !is_owner">ยกเลิก</a>
                                     <button ng-if="!is_edited" type="submit" class="btn btn-success" ng-click="on_create()" ng-hide="!is_superuser && !is_owner">สร้าง</button>
                                     <button ng-if="is_edited" type="submit" class="btn btn-success" ng-click="on_edit()" ng-hide="!is_superuser && !is_owner">เเก้ไข</button>
