@@ -8,6 +8,9 @@ const pdf = require('html-pdf')
 const multer  = require('multer')
 const morgan = require('morgan')
 const rateLimit = require("express-rate-limit")
+const http = require('http')
+const https = require('https')
+const fs = require('fs')
 
 var storage = multer.diskStorage({
 	destination: function(req, file, callback) {
@@ -971,6 +974,17 @@ const PORT = process.env.PORT || 5000
 
 app.use('/api', api_routes)
 
-app.listen(PORT, () => {
-    console.log('Start server at port ' + PORT)
-})
+// app.listen(PORT, () => {
+//     console.log('Start server at port ' + PORT)
+// })
+
+var privateKey = fs.readFileSync('privatekey.pem').toString()
+var certificate = fs.readFileSync('certificate.pem').toString()
+
+var sslOptions = {
+    key: privateKey,
+    cert: certificate
+}
+
+https.createServer(sslOptions, app).listen(PORT)
+
