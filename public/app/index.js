@@ -56,6 +56,36 @@ app.config(function($routeProvider, $httpProvider) {
     .otherwise({redirectTo : '/'})
 })
 
+function validatePassword(p) {
+    errors = [];
+    if (p.length < 8) {
+        errors.push("Your password must be at least 8 characters"); 
+    }
+    if (p.search(/[a-z]/) < 0) {
+        errors.push("Your password must contain at least one letter.");
+    }
+    if (p.search(/[A-Z]/) < 0) {
+        errors.push("Your password must contain at least one upper case letter.");
+    }
+    if (p.search(/[0-9]/) < 0) {
+        errors.push("Your password must contain at least one digit."); 
+    }
+    if (p.search(/[!@#$%^&*._]/) < 0) {
+        errors.push("Your password must contain at least one special charactor."); 
+    }
+    if (errors.length > 0) {
+        
+        return {
+            correct: false,
+            message: errors.join("\n")
+        }
+    }
+    return {
+        correct: true,
+        message: ''
+    }
+}
+
 app.controller('mainCtrl', ['$scope', '$timeout', '$route', ($scope, $timeout, $route) => {
     
     $timeout(() => { 
@@ -335,7 +365,8 @@ app.controller('userEditCtrl', [
             if(check_is_valid()) {
                 $http.get('/api/check-account-id?account_email='+ $scope.account.account_email).then((res) => {
                     if(!res.data.is_used || $scope.account.account_email == $scope.default_email) {
-                        if($scope.account.account_password.length >= 6) {
+                        const { correct, message } = validatePassword($scope.account.account_password)
+                        if(correct) {
                             if($scope.account.account_password == $scope.account.account_confirm_password) {
 
                                 if(typeof($scope.account.account_photo_path) != 'string') {
@@ -420,7 +451,7 @@ app.controller('userEditCtrl', [
                             })
                             $scope.error = ''
                         } else {
-                            $scope.error = 'ขนาดของ password ต้องมีขนาดมากว่า 6 ตัวอักษร'
+                            $scope.error = message
                         }
                     } else {
                         $scope.error = 'อีเมล์ถูกใช้ไปแเล้ว กรุณาเลือกใช้อีเมล์อื่น'
@@ -520,7 +551,8 @@ app.controller('userCreateCtrl', [
             if(check_is_valid()) {
                 $http.get('/api/check-account-id?account_email='+ $scope.account.account_email).then((res) => {
                     if(!res.data.is_used) {
-                        if($scope.account.account_password.length >= 6) {
+                        const { correct, message } = validatePassword($scope.account.account_password)
+                        if(correct) {
                             if($scope.account.account_password == $scope.account.account_confirm_password) {
 
                                 if(typeof($scope.account.account_photo_path) != 'string') {
@@ -558,7 +590,7 @@ app.controller('userCreateCtrl', [
                                 $scope.error = 'password เเละ confirm password ไม่ถูกต้อง'
                             }
                         } else {
-                            $scope.error = 'ขนาดของ password ต้องมีขนาดมากว่า 6 ตัวอักษร'
+                            $scope.error = message
                         }
                     } else {
                         $scope.error = 'อีเมล์ถูกใช้ไปแเล้ว กรุณาเลือกใช้อีเมล์อื่น'
