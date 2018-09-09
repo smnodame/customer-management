@@ -41,12 +41,22 @@ app.use('/static', express.static(path.join(__dirname, 'public')))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
+// const db_config = {
+//     host     : 'smnodame.com',
+//     port     : '3306',
+//     user     : 'smnodameco_cpf',
+//     password : 'secret',
+//     database : 'smnodameco_cpf',
+//     multipleStatements : true,
+//     charset: "utf8_general_ci"
+// }
+
 const db_config = {
-    host     : 'smnodame.com',
+    host     : 'localhost',
     port     : '3306',
-    user     : 'smnodameco_cpf',
+    user     : 'root',
     password : '',
-    database : 'smnodameco_cpf',
+    database : 'customer_management_db',
     multipleStatements : true,
     charset: "utf8_general_ci"
 }
@@ -301,13 +311,13 @@ api_routes.post('/signin', function(req, res) {
         connection.query('SELECT * FROM account WHERE ? ', data, function (err, rows, fields) {
             if (err) { res.status(500).send({ success: false }); return }
             if (!rows.length) {
-                res.json({ success: false, message: 'Authentication failed. User not found.' })
+                res.json({ success: false, message: 'Authentication failed. Please try again.' })
             } else {
                 // check if password matches
                 const account = rows[0]
                 
                 if (account.account_password != req.body.password) {
-                    res.json({ success: false, message: 'Authentication failed. Wrong password.' })
+                    res.json({ success: false, message: 'Authentication failed. Please try again.' })
                 } else {
                     delete account.account_password
 
