@@ -71,7 +71,7 @@ function validatePassword(p) {
         errors.push("- Password ต้องประกอบไปด้วยตัวเลขอย่างน้อย 1 ตัว"); 
     }
     if (p.search(/[!@#$%^&*._]/) < 0) { 
-        errors.push("- Password ต้องประกอบไปด้วย Special charactor 1 ตัว เช่น !@#$%^&*._"); 
+        errors.push("- Password ต้องประกอบไปด้วย Special charactor (!@#$%^&*._) 1 ตัว"); 
     }
     if (errors.length > 0) {
         
