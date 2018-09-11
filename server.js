@@ -27,7 +27,7 @@ app.use(morgan('combined'))
 const upload  = multer({ storage: storage })
 app.set('superSecret', 'supersecret') // secret variable
 
-//nunjucks templating 
+//nunjucks templating
 const nunjucks = require('nunjucks')
 
 // Nunjucks is a product from Mozilla and we are using it as a template engine.
@@ -120,7 +120,7 @@ const get_groups = (data) => {
         goal_detail: data.goal_detail,
         goal_file_name: data.goal_file_name
     }
-    
+
     const business_detail = {
         business_detail_id: data.business_detail_id,
         business_detail_pet_quantity: data.business_detail_pet_quantity,
@@ -167,7 +167,7 @@ const get_groups = (data) => {
         business_detail_market_condition_and_solutions: data.business_detail_market_condition_and_solutions,
         business_detail_file: data.business_detail_file
     }
-    
+
     const executive_profile = {
         executive_profile_id: data.executive_profile_id,
         executive_profile_name: data.executive_profile_name,
@@ -191,7 +191,7 @@ const get_groups = (data) => {
         spouse_profile_career: data.spouse_profile_career,
         spouse_profile_experience: data.spouse_profile_experience
     }
-    
+
     const financial_information = {
         financial_information_id: data.financial_information_id,
         financial_information_payment_history: data.financial_information_payment_history,
@@ -325,7 +325,7 @@ api_routes.post('/signin', createAccountLimiter, function(req, res) {
             } else {
                 // check if password matches
                 const account = rows[0]
-                
+
                 if (account.account_password != req.body.password) {
                     res.json({ success: false, message: 'Authentication failed. Please try again.' })
                 } else {
@@ -335,7 +335,7 @@ api_routes.post('/signin', createAccountLimiter, function(req, res) {
                     var token = jwt.sign(account, app.get('superSecret'), {
                         expiresIn: 60 * 60 * 24, // expires in 24 hours
                     })
-                    
+
                     // return the information including token as JSON
                     res.json({
                         success: true,
@@ -399,7 +399,7 @@ function permit_group() {
             })
         }
     }
-    
+
 }
 
 api_routes.get('/customers', function(req, res) {
@@ -503,7 +503,7 @@ api_routes.put('/customers/:id', function(req, res) {
         // initail query
         var query = query_service.customer.update(req.params.id)
         var args = [groups.main_business, groups.executive_profile, groups.goal, groups.business_detail, groups.financial_information]
-        
+
         if(insert.length != 0) {
             query = query + query_service.user_group.insert()
             args.push(insert)
@@ -531,7 +531,7 @@ api_routes.post('/customers', function(req, res) {
             return [user.account_id, req.body.business_id]
         })
         if(data.length == 0) {
-            connection.query(query_service.customer.insert(), 
+            connection.query(query_service.customer.insert(),
             [groups.main_business, groups.executive_profile, groups.goal, groups.business_detail, groups.financial_information],
             function (err, rows, fields) {
                 if (err) { res.status(500).send({ success: false }); return }
@@ -540,7 +540,7 @@ api_routes.post('/customers', function(req, res) {
                 })
             })
         } else {
-            connection.query(query_service.customer.insert() + query_service.user_group.insert(), 
+            connection.query(query_service.customer.insert() + query_service.user_group.insert(),
             [groups.main_business, groups.executive_profile, groups.goal, groups.business_detail, groups.financial_information, data],
             function (err, rows, fields) {
                 if (err) { res.status(500).send({ success: false }); return }
@@ -566,9 +566,9 @@ api_routes.post('/account', function(req, res) {
         const data = req.body
         const account = get_account(data)
         connection.query(query_service.account.insert(account), account, function (err, rows, fields) {
-            if (err) { 
-                res.status(500).send({ success: false }); 
-                return 
+            if (err) {
+                res.status(500).send({ success: false });
+                return
             }
             res.status(200).send({
                 success: true
@@ -808,7 +808,7 @@ api_routes.get('/pdf/:id/', permit_group(),function (req, res) {
     try {
         connection.query(query_service.customer.select(` AND business_id = '${req.params.id}';` + query_service.child.select(req.params.id)), function (err, results, fields) {
             if (err) { res.status(500).send({ success: false }); return }
-            
+
             if(results[0].length != 0) {
                 var details = results[0]
                 details[0].childs = results[1]
@@ -833,7 +833,7 @@ api_routes.get('/pdf/:id/', permit_group(),function (req, res) {
                 if(err) { res.status(404).send({ success: false }); return }
             }
         })
-        
+
     } catch (err) {
         console.log(err)
         if(err) { res.status(500).send({ success: false }); return }
@@ -881,7 +881,7 @@ api_routes.get('/pdf', function (req, res) {
         }
 
         if(req.decoded.account_position == 'admin') {
-        
+
             connection.query(query_service.customer.select(query.join(' AND ')) + ';' + query_service.child.select_all(), function (err, results, fields) {
                 if (err) { res.status(500).send({ success: false }); return }
                 if(results[0].length != 0) {
@@ -916,7 +916,7 @@ api_routes.get('/pdf', function (req, res) {
                     if(err) { res.status(404).send({ success: false }); return }
                 }
             })
-       
+
         } else {
             connection.query(query_service.customer.select_belonger(query.join(' AND ')) + ';' + query_service.child.select_all(), function (err, results, fields) {
                 if (err) { res.status(500).send({ success: false }); return }
@@ -958,7 +958,7 @@ api_routes.get('/pdf', function (req, res) {
     }
 })
 
-api_routes.post('/upload', upload.single('fileupload'), (req, res) => {  
+api_routes.post('/upload', upload.single('fileupload'), (req, res) => {
     res.status(200).send({
         success: true
     })
@@ -970,7 +970,7 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html')
 })
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 80
 
 app.use('/api', api_routes)
 
@@ -990,4 +990,3 @@ var sslOptions = {
 }
 
 https.createServer(sslOptions, app).listen(PORT)
-
