@@ -225,7 +225,7 @@
               <!-- menu profile quick info -->
               <div class="profile clearfix">
                 <div class="profile_pic">
-                  <img style="height: 55px;" ng-src="{{ account.account_photo_path? 'static/files/' + account.account_photo_path : '/static/images/user.png' }}" alt="..." class="img-circle profile_img">
+                  <img style="height: 55px;" ng-if="token" ng-src="{{ account.account_photo_path? 'static/files/' + account.account_photo_path : '/static/images/user.png' }}" alt="..." class="img-circle profile_img">
                 </div>
                 <div class="profile_info">
                   <span>ยินดีต้อนรับ</span>

@@ -91,6 +91,7 @@ app.controller('mainCtrl', ['$scope', '$timeout', '$route', ($scope, $timeout, $
     $timeout(() => { 
         const token = localStorage.getItem("token")
         if(token) {
+            $scope.token = token
             $scope.account = localStorage.getItem("account") ? JSON.parse(XORCipher.decode(supersecret, localStorage.getItem("account"))) : {}
             $scope.is_superuser = $scope.account.account_position == 'admin'
             $scope.page = "content"
