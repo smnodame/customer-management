@@ -45,25 +45,25 @@ app.use('/static', express.static(path.join(__dirname, 'public')))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-const db_config = {
-    host     : 'smnodame.com',
-    port     : '3306',
-    user     : 'smnodameco_cpf',
-    password : 'secret',
-    database : 'smnodameco_cpf',
-    multipleStatements : true,
-    charset: "utf8_general_ci"
-}
-
 // const db_config = {
-//     host     : 'localhost',
+//     host     : 'smnodame.com',
 //     port     : '3306',
-//     user     : 'root',
-//     password : '',
-//     database : 'customer_management_db',
+//     user     : 'smnodameco_cpf',
+//     password : 'secret',
+//     database : 'smnodameco_cpf',
 //     multipleStatements : true,
 //     charset: "utf8_general_ci"
 // }
+
+const db_config = {
+    host     : 'localhost',
+    port     : '3306',
+    user     : 'root',
+    password : '',
+    database : 'customer_management_db',
+    multipleStatements : true,
+    charset: "utf8_general_ci"
+}
 
 var connection = null
 
@@ -310,7 +310,8 @@ const query_service = {
 var createAccountLimiter = rateLimit({
     windowMs: 5 * 60 * 1000, // 1 hour window
     max: 5, // start blocking after 5 requests
-    message: "You have reached the maximum number of invalid logon attempts, Please try again after 5 minutes"
+    message: "You have reached the maximum number of invalid logon attempts, Please try again after 5 minutes",
+    skipSuccessfulRequests: true
 })
 
 api_routes.post('/signin', createAccountLimiter, function(req, res) {
@@ -321,13 +322,13 @@ api_routes.post('/signin', createAccountLimiter, function(req, res) {
         connection.query('SELECT * FROM account WHERE ? ', data, function (err, rows, fields) {
             if (err) { res.status(500).send({ success: false }); return }
             if (!rows.length) {
-                res.json({ success: false, message: 'Authentication failed. Please try again.' })
+                res.status(403).send({ success: false, message: 'Authentication failed. Please try again.' })
             } else {
                 // check if password matches
                 const account = rows[0]
 
                 if (account.account_password != req.body.password) {
-                    res.json({ success: false, message: 'Authentication failed. Please try again.' })
+                    res.status(403).send({ success: false, message: 'Authentication failed. Please try again.' })
                 } else {
                     delete account.account_password
 

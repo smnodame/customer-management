@@ -136,11 +136,11 @@ app.controller('loginCtrl', ['$scope', '$timeout', '$http', ($scope, $timeout, $
                 location.reload()
             } else {
                 $scope.password = ""
-                $scope.error = res.data.message
+                $scope.error = res.data.message || res.data
             }
         }, (err) => {
             $scope.password = ""
-            $scope.error = err.data
+            $scope.error = err.data.message || err.data
         })
     }
 }])
