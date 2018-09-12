@@ -974,19 +974,6 @@ const PORT = process.env.PORT || 5000
 
 app.use('/api', api_routes)
 
-// app.listen(PORT, () => {
-//     console.log('Start server at port ' + PORT)
-// })
-
-var privateKey = fs.readFileSync('privatekey.pem').toString()
-var certificate = fs.readFileSync('certificate.pem').toString()
-
-var sslOptions = {
-    key: privateKey,
-    cert: certificate,
-    rejectUnauthorized: false,
-    requestCert: true,
-    agent: false
-}
-
-https.createServer(sslOptions, app).listen(PORT, '127.0.0.1')
+app.listen(PORT, () => {
+    console.log('Start server at port ' + PORT)
+})
